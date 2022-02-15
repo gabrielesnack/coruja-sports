@@ -1,5 +1,7 @@
 # Coruja Sports
 
+Projeto de conclusão de curso Ecommerce baseado em camisetas e acessórios de esporte. 
+
 ## Instalando dependências
 
 Caso você ja tenha o node instalado primeiramente rode o comando:
