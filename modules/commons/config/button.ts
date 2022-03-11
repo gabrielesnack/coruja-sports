@@ -44,9 +44,11 @@ const variantSolid: SystemStyleFunction = (props: StyleFunctionProps) => {
   }
 }
 
-export default {
+const Buttons = {
   variants: {
     solid: variantSolid,
     outline: variantOutline,
   },
 }
+
+export default Buttons
