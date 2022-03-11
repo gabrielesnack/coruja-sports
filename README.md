@@ -1,6 +1,6 @@
 # Coruja Sports
 
-Projeto de conclusão de curso Ecommerce baseado em camisetas e acessórios de esporte. 
+Projeto de conclusão de curso Ecommerce baseado em camisetas e acessórios de esporte.
 
 ## Instalando dependências
 
