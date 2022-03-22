@@ -6,7 +6,7 @@ import { Layout } from '../modules/commons/components/layout'
 const Login: NextPage = () => {
   return (
     <Layout>
-      <Flex justifyContent="center" alignItems="center">
+      <Flex w="100%" justifyContent="center" alignItems="center">
         <Box
           d="flex"
           flexDirection="column"
