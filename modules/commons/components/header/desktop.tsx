@@ -12,23 +12,26 @@ import {
   Avatar,
 } from '@chakra-ui/react'
 import { BagIcon, UserIcon } from '../../icons/'
+import { LOGO_SIZE } from './constants'
 
 function HeaderDesktop() {
   return (
     <Grid
       w="100%"
       h="100%"
-      templateColumns={['.1fr .1fr .6fr .7fr']}
+      templateColumns={['auto .1fr .6fr .7fr']}
+      justifyContent="center"
+      alignItems="center"
       py="3"
       px="4"
       gap="4"
     >
       <GridItem>
-        <Image src="corujasports.png" h="35px" />
+        <Image src="corujasports.png" h={LOGO_SIZE} />
       </GridItem>
 
       <GridItem>
-        <List d="flex" h="100%" alignItems={'center'} pr="6">
+        <List d="flex" alignItems={'center'} pr="6">
           <ListItem px="2">
             <Link>Camisetas</Link>
           </ListItem>
@@ -39,16 +42,16 @@ function HeaderDesktop() {
       </GridItem>
 
       <GridItem>
-        <InputGroup size="sm">
+        <InputGroup>
           <Input type="text" placeholder="O que você está buscando?" />
           <InputRightAddon pointerEvents="none" children={<SearchIcon />} />
         </InputGroup>
       </GridItem>
 
-      <GridItem d="flex" justifyContent="flex-end" alignItems="center" gap="4">
-        <BagIcon boxSize="5" />
+      <GridItem d="flex" justifyContent="flex-end" gap="4">
+        <BagIcon boxSize="7" />
 
-        <Avatar size="xs" src="https://bit.ly/broken-link" />
+        <Avatar size="sm" src="https://bit.ly/broken-link" />
       </GridItem>
     </Grid>
   )

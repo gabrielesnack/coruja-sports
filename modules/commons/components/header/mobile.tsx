@@ -13,17 +13,25 @@ import {
   Portal,
 } from '@chakra-ui/react'
 import { useState } from 'react'
+import { HEADER_SIZE, LOGO_SIZE } from './constants'
 
 function HeaderMobile() {
   const [isOpen, setOpen] = useState(false)
   const handleToggleMenu = () => setOpen(!isOpen)
 
   return (
-    <Flex w="100%" h="100%" py="3" px="4" justifyContent="space-between">
-      <Image src="corujasports.png" h="35px" />
+    <Flex
+      w="100%"
+      h="100%"
+      py="3"
+      px="4"
+      justifyContent="space-between"
+      alignItems="center"
+    >
+      <Image src="corujasports.png" h={LOGO_SIZE} />
 
       <IconButton
-        size="sm"
+        size="md"
         borderRadius="none"
         variant="outline"
         colorScheme="primary"
@@ -43,7 +51,7 @@ function HeaderMobile() {
             h="100vh"
             zIndex="10"
             px="4"
-            py="55px"
+            py={HEADER_SIZE}
             bgColor="white"
           >
             <InputGroup mt="6" mb="6">
@@ -72,8 +80,8 @@ function HeaderMobile() {
               justifyContent="flex-end"
               gap="4"
             >
-              <Button color="primary">Entrar</Button>
-              <Button color="secondary" variant="outline">
+              <Button colorScheme="primary">Entrar</Button>
+              <Button colorScheme="secondary" variant="outline">
                 Criar Conta
               </Button>
             </Flex>

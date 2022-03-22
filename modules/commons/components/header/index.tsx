@@ -3,6 +3,7 @@ import HeaderDesktop from './desktop'
 import HeaderMobile from './mobile'
 import { useMediaQuery } from '@chakra-ui/react'
 import ClientOnly from '../clientOnly'
+import { HEADER_SIZE } from './constants'
 
 function Header() {
   const [isLargerThan768] = useMediaQuery('(min-width:768px)')
@@ -14,7 +15,7 @@ function Header() {
       zIndex="11"
       d="flex"
       w="100%"
-      h="55px"
+      h={HEADER_SIZE}
       bgColor="white"
       boxShadow="base"
     >
