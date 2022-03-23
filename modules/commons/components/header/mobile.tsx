@@ -1,6 +1,7 @@
 import { HamburgerIcon, SearchIcon } from '@chakra-ui/icons'
 import {
   Button,
+  Collapse,
   Flex,
   IconButton,
   Image,
@@ -41,7 +42,7 @@ function HeaderMobile() {
       />
 
       <Portal>
-        {isOpen && (
+        <Collapse in={isOpen} animateOpacity>
           <Flex
             flexDirection="column"
             position="fixed"
@@ -86,7 +87,7 @@ function HeaderMobile() {
               </Button>
             </Flex>
           </Flex>
-        )}
+        </Collapse>
       </Portal>
     </Flex>
   )
