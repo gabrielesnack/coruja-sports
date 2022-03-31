@@ -11,8 +11,8 @@ import {
   Image,
   Avatar,
 } from '@chakra-ui/react'
-import { BagIcon, UserIcon } from '../../icons/'
-import { LOGO_SIZE } from './constants'
+import { LOGO_SIZE } from '../../config/constants'
+import { BagIcon } from '../../icons/'
 
 function HeaderDesktop() {
   return (
@@ -44,7 +44,9 @@ function HeaderDesktop() {
       <GridItem>
         <InputGroup>
           <Input type="text" placeholder="O que você está buscando?" />
-          <InputRightAddon pointerEvents="none" children={<SearchIcon />} />
+          <InputRightAddon pointerEvents="none">
+            <SearchIcon />
+          </InputRightAddon>
         </InputGroup>
       </GridItem>
 

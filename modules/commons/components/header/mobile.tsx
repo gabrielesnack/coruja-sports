@@ -14,7 +14,7 @@ import {
   Portal,
 } from '@chakra-ui/react'
 import { useState } from 'react'
-import { HEADER_SIZE, LOGO_SIZE } from './constants'
+import { HEADER_SIZE, LOGO_SIZE } from '../../config/constants'
 
 function HeaderMobile() {
   const [isOpen, setOpen] = useState(false)
@@ -57,7 +57,9 @@ function HeaderMobile() {
           >
             <InputGroup mt="6" mb="6">
               <Input type="text" placeholder="O que você está buscando?" />
-              <InputRightAddon pointerEvents="none" children={<SearchIcon />} />
+              <InputRightAddon pointerEvents="none">
+                <SearchIcon />
+              </InputRightAddon>
             </InputGroup>
 
             <List d="flex" flexDirection="column" gap="6">
