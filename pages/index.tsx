@@ -14,6 +14,7 @@ const Home: NextPage = () => {
 
         <Box w="100%" mb="12">
           <Image
+            alt="Banner"
             src="banner.png"
             w="100%"
             h={['50vh', null, null, 'auto']}
