@@ -13,11 +13,21 @@ const Home: NextPage = () => {
         {/* <Heading size="xl">Coruja Sports</Heading> */}
 
         <Box w="100%" mb="12">
-          <Image src="banner.png" w="100%" />
+          <Image
+            src="banner.png"
+            w="100%"
+            h={['50vh', null, null, 'auto']}
+            objectFit={['cover', null, null, 'fill']}
+          />
         </Box>
 
         <Container {...CONTAINER_PROPS} mb="12">
-          <Heading size="xl" mb="8" mt="6">
+          <Heading
+            size="xl"
+            mb="8"
+            mt="6"
+            textAlign={['center', null, null, 'left']}
+          >
             Conheça os destaques da nossa loja
           </Heading>
 
@@ -34,7 +44,13 @@ const Home: NextPage = () => {
 
         <Flex bgColor="blackAlpha.900" pb="12">
           <Container {...CONTAINER_PROPS}>
-            <Heading size="xl" mt="6" mb="8" color="whiteAlpha.900">
+            <Heading
+              size="xl"
+              mt="6"
+              mb="8"
+              color="whiteAlpha.900"
+              textAlign={['center', null, null, 'left']}
+            >
               Conheça nossos lançamentos
             </Heading>
 
@@ -51,7 +67,12 @@ const Home: NextPage = () => {
         </Flex>
 
         <Container {...CONTAINER_PROPS} mb="12">
-          <Heading size="xl" mb="8" mt="6">
+          <Heading
+            size="xl"
+            mb="8"
+            mt="6"
+            textAlign={['center', null, null, 'left']}
+          >
             Produtos Relacionados
           </Heading>
 

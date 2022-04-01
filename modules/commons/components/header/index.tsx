@@ -1,12 +1,12 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Container } from '@chakra-ui/react'
 import HeaderDesktop from './desktop'
 import HeaderMobile from './mobile'
 import { useMediaQuery } from '@chakra-ui/react'
 import ClientOnly from '../clientOnly'
-import { HEADER_SIZE } from '../../config/constants'
+import { CONTAINER_PROPS, HEADER_SIZE } from '../../config/constants'
 
 function Header() {
-  const [isLargerThan768] = useMediaQuery('(min-width:768px)')
+  const [isLargerThan992] = useMediaQuery('(min-width:992px)')
 
   return (
     <Box
@@ -20,8 +20,10 @@ function Header() {
       boxShadow="base"
     >
       <ClientOnly>
-        {isLargerThan768 && <HeaderDesktop />}
-        {!isLargerThan768 && <HeaderMobile />}
+        <Container {...CONTAINER_PROPS}>
+          {isLargerThan992 && <HeaderDesktop />}
+          {!isLargerThan992 && <HeaderMobile />}
+        </Container>
       </ClientOnly>
     </Box>
   )

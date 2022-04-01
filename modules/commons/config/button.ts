@@ -44,10 +44,19 @@ const variantSolid: SystemStyleFunction = (props: StyleFunctionProps) => {
   }
 }
 
+const variantLink: SystemStyleFunction = () => {
+  return {
+    _focus: {
+      boxShadow: 'none',
+    },
+  }
+}
+
 const Buttons = {
   variants: {
     solid: variantSolid,
     outline: variantOutline,
+    link: variantLink,
   },
 }
 
