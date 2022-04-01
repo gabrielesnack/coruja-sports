@@ -2,11 +2,12 @@
 
 import { StarIcon } from '@chakra-ui/icons'
 import { Box, Image, Badge } from '@chakra-ui/react'
+import { BoxWrapperProps } from './props'
 
 function ProductCard() {
   const property = {
     imageUrl: 'camiseta.jpeg',
-    imageAlt: 'Rear view of modern home with pool',
+    imageAlt: 'Imagem da camisa do santos',
     title: 'Camiseta do Santos',
     formattedPrice: 'R$1,900.00',
     reviewCount: 34,
@@ -14,7 +15,7 @@ function ProductCard() {
   }
 
   return (
-    <Box borderWidth="1px" borderRadius="lg" overflow="hidden" bgColor="white">
+    <Box {...BoxWrapperProps}>
       <Image src={property.imageUrl} alt={property.imageAlt} w="100%" />
 
       <Box p="6">
