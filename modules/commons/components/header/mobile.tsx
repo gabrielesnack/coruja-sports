@@ -6,7 +6,6 @@ import {
   Portal,
   useDisclosure,
 } from '@chakra-ui/react'
-import { useState } from 'react'
 import { Logo } from './logo'
 import { MobileContent } from './mobileContent'
 
