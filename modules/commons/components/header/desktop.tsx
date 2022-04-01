@@ -1,3 +1,4 @@
+import NextLink from 'next/link'
 import { ChevronDownIcon, SearchIcon } from '@chakra-ui/icons'
 import {
   Grid,
@@ -12,6 +13,7 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  Link,
 } from '@chakra-ui/react'
 import { CartIcon } from '../../icons/'
 import { Logo } from './logo'
@@ -81,12 +83,17 @@ function HeaderDesktop() {
         {/* <BagIcon boxSize="7" />
         <Avatar size="sm" src="https://bit.ly/broken-link" /> */}
 
-        <Button variant="link" colorScheme="secondary">
-          Cadastrar
-        </Button>
-        <Button variant="link" colorScheme="secondary">
-          Entrar
-        </Button>
+        <NextLink href="/sign-up" passHref>
+          <Link fontWeight="semibold" variant="link" colorScheme="secondary">
+            Cadastrar
+          </Link>
+        </NextLink>
+
+        <NextLink href="/login" passHref>
+          <Link fontWeight="semibold" variant="link" colorScheme="secondary">
+            Entrar
+          </Link>
+        </NextLink>
 
         <CartIcon boxSize="6" />
       </GridItem>
