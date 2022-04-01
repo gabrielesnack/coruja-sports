@@ -5,7 +5,7 @@ import theme from '../modules/commons/config/theme'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme} resetCSS={true}>
-      <Flex overflowX="hidden" maxW="calc(100vw - 1em)">
+      <Flex overflowX="hidden" maxW="100%">
         <Component {...pageProps} />
       </Flex>
     </ChakraProvider>
