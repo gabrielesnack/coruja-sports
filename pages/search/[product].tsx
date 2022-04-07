@@ -22,7 +22,12 @@ const SearchProduct: NextPage = () => {
   return (
     <Layout header={<Header />}>
       <Container {...CONTAINER_PROPS}>
-        <Flex justifyContent="space-between" alignItems="center" my="12">
+        <Flex
+          flexDirection={['column', null, null, 'row']}
+          justifyContent="space-between"
+          alignItems={[null, null, null, 'center']}
+          my="12"
+        >
           <Heading fontSize="2xl" fontWeight="light">
             Você buscou por{' '}
             <Text d="inline-block" fontWeight="bold">
@@ -45,7 +50,7 @@ const SearchProduct: NextPage = () => {
         </Flex>
 
         <Flex w="100%" gap="12">
-          <Box mr="12">
+          <Box d={['none', null, null, 'initial']} mr="12">
             <Heading fontSize="lg" mb="6">
               Categoria
             </Heading>
@@ -79,7 +84,10 @@ const SearchProduct: NextPage = () => {
             ))}
           </Box>
 
-          <Grid gridTemplateColumns="1fr 1fr 1fr" gap="8">
+          <Grid
+            gridTemplateColumns={['1fr', null, '1fr 1fr', '1fr 1fr 1fr']}
+            gap="8"
+          >
             {Array(12)
               .fill(1)
               .map((_, idx) => (
