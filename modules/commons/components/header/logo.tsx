@@ -7,7 +7,7 @@ export const Logo = () => {
       <Image
         pos="relative"
         left="-1.75rem"
-        src="corujasports.png"
+        src="/corujasports.png"
         alt="Coruja Sports Logo Marca"
         h={LOGO_SIZE}
       />

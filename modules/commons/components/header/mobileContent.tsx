@@ -1,11 +1,8 @@
-import { ChevronDownIcon, SearchIcon } from '@chakra-ui/icons'
+import { ChevronDownIcon } from '@chakra-ui/icons'
 import {
   Button,
   Collapse,
   Flex,
-  Input,
-  InputGroup,
-  InputRightAddon,
   Link,
   List,
   ListItem,
@@ -13,6 +10,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { HEADER_SIZE } from '../../config/constants'
+import InputSearch from '../InputSearch'
 import { championships, tShirtModels } from './props'
 
 export function MobileContent() {
@@ -34,12 +32,9 @@ export function MobileContent() {
       py={HEADER_SIZE}
       bgColor="white"
     >
-      <InputGroup mt="6" mb="6">
-        <Input type="text" placeholder="O que você está buscando?" />
-        <InputRightAddon pointerEvents="none">
-          <SearchIcon />
-        </InputRightAddon>
-      </InputGroup>
+      <Flex mt="6" mb="6">
+        <InputSearch />
+      </Flex>
 
       <Text fontWeight="semibold" mb="6" onClick={onToggleChampions}>
         Campeonatos <ChevronDownIcon />

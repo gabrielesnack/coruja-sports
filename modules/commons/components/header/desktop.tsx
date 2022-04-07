@@ -18,6 +18,7 @@ import {
 import { CartIcon } from '../../icons/'
 import { Logo } from './logo'
 import { championships, tShirtModels } from './props'
+import InputSearch from '../InputSearch'
 
 function HeaderDesktop() {
   return (
@@ -32,12 +33,7 @@ function HeaderDesktop() {
       <Logo />
 
       <GridItem>
-        <InputGroup>
-          <Input type="text" placeholder="O que você está buscando?" />
-          <InputRightAddon pointerEvents="none">
-            <SearchIcon />
-          </InputRightAddon>
-        </InputGroup>
+        <InputSearch />
       </GridItem>
 
       <GridItem>

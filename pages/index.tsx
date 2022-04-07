@@ -1,6 +1,5 @@
 import { Box, Flex, Image } from '@chakra-ui/react'
 import type { NextPage } from 'next'
-import Footer from '../modules/commons/components/footer'
 import Header from '../modules/commons/components/header'
 import { Layout } from '../modules/commons/components/layout'
 import ListProducts from '../modules/dashboard/components/listProducts'
@@ -26,8 +25,6 @@ const Home: NextPage = () => {
         </Flex>
 
         <ListProducts title="Produtos Relacionados" />
-
-        <Footer />
       </Flex>
     </Layout>
   )

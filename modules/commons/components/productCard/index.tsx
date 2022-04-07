@@ -1,12 +1,10 @@
-// Sample card from Airbnb
-
 import { StarIcon } from '@chakra-ui/icons'
 import { Box, Image, Badge } from '@chakra-ui/react'
 import { BoxWrapperProps } from './props'
 
 function ProductCard() {
   const property = {
-    imageUrl: 'camiseta.jpeg',
+    imageUrl: '/camiseta.jpeg',
     imageAlt: 'Imagem da camisa do santos',
     title: 'Camiseta do Santos',
     formattedPrice: 'R$1,900.00',
