@@ -15,6 +15,7 @@ import Footer from '../../modules/commons/components/footer'
 import Header from '../../modules/commons/components/header'
 import { Layout } from '../../modules/commons/components/layout'
 import { CONTAINER_PROPS } from '../../modules/commons/config/constants'
+import { ProductPreview } from '../../modules/shopping/components/productPreview/component'
 
 const ProductDetail: NextPage = () => {
   // const router = useRouter()
@@ -26,62 +27,20 @@ const ProductDetail: NextPage = () => {
       footer={<Footer />}
       boxProps={{ bgColor: 'gray.50' }}
     >
-      <Container {...CONTAINER_PROPS} h="100%" mb="0" pt="4rem">
-        <Flex w="100%" justifyContent="space-between">
-          <Box
-            p="2"
-            bgColor="whiteAlpha.900"
-            borderWidth="1px"
-            borderRadius="lg"
-          >
-            <Box borderWidth="1px" maxW="560px" mb="2">
-              <Image src="/camiseta.jpeg" />
-            </Box>
-            <Flex gap="1">
-              <Box
-                borderWidth="1px"
-                borderRadius="md"
-                w="64px"
-                h="64px"
-                cursor="pointer"
-              >
-                <Image src="/camiseta.jpeg" borderRadius="md" />
-              </Box>
-              <Box
-                borderWidth="1px"
-                borderRadius="md"
-                w="64px"
-                h="64px"
-                cursor="pointer"
-              >
-                <Image src="/camiseta.jpeg" borderRadius="md" />
-              </Box>
-              <Box
-                borderWidth="1px"
-                borderRadius="md"
-                w="64px"
-                h="64px"
-                cursor="pointer"
-              >
-                <Image src="/camiseta.jpeg" borderRadius="md" />
-              </Box>
-              <Box
-                borderWidth="1px"
-                borderRadius="md"
-                w="64px"
-                h="64px"
-                cursor="pointer"
-              >
-                <Image src="/camiseta.jpeg" borderRadius="md" />
-              </Box>
-            </Flex>
-          </Box>
+      <Container {...CONTAINER_PROPS} h="100%" mb="12" pt="4rem">
+        <Flex
+          w="100%"
+          flexDir={['column', null, null, 'row']}
+          justifyContent="space-between"
+          gap="4"
+        >
+          <ProductPreview></ProductPreview>
 
           <Box
             d="flex"
             flexDir="column"
             justifyContent="start"
-            minW="450px"
+            minW={['100%', null, '450px']}
             px="10"
             pt="4"
             pb="10"
@@ -103,13 +62,30 @@ const ProductDetail: NextPage = () => {
                 ))}
             </Box>
 
-            <Flex h="100%" flexDir="column" justifyContent="space-between">
+            <Flex
+              h="100%"
+              flexDir="column"
+              justifyContent="space-between"
+              gap="10"
+            >
               <Flex flexDir="column" gap="4">
                 <Heading fontSize="2xl">Camiseta do Santos</Heading>
 
                 <Text fontSize="3xl" fontWeight="light">
                   R$ 149,99
                 </Text>
+
+                <Box
+                  borderWidth="1px"
+                  borderRadius="md"
+                  boxShadow="0 .15rem 2rem 0 rgb(136 152 170 / 15%)"
+                >
+                  <Image
+                    borderRadius="md"
+                    src="/camiseta.jpeg"
+                    d={[null, null, 'none']}
+                  />
+                </Box>
 
                 <Box
                   d="flex"
