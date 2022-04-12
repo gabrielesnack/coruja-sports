@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
+import Footer from '../../modules/commons/components/footer'
 import Header from '../../modules/commons/components/header'
 import { Layout } from '../../modules/commons/components/layout'
 import ProductCard from '../../modules/commons/components/productCard'
@@ -20,8 +21,8 @@ const SearchProduct: NextPage = () => {
   const { product } = router.query
 
   return (
-    <Layout header={<Header />}>
-      <Container {...CONTAINER_PROPS}>
+    <Layout header={<Header />} footer={<Footer />}>
+      <Container {...CONTAINER_PROPS} pb="12">
         <Flex
           flexDirection={['column', null, null, 'row']}
           justifyContent="space-between"

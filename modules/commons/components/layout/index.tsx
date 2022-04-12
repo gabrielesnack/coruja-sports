@@ -1,16 +1,15 @@
 import { Flex } from '@chakra-ui/react'
 import { HEADER_SIZE } from '../../config/constants'
-import Footer from '../footer'
 import { LayoutProps } from './interface'
 
-export function Layout({ children, header }: LayoutProps) {
+export function Layout({ children, header, footer, boxProps }: LayoutProps) {
   return (
-    <Flex w="100vw" minH="100vh" flexDirection="column">
+    <Flex w="100vw" minH="100vh" flexDirection="column" {...boxProps}>
       {header}
-      <Flex w="100%" h="100%" py={HEADER_SIZE}>
+      <Flex w="100%" h="100%" pt={HEADER_SIZE}>
         {children}
       </Flex>
-      <Footer />
+      {footer}
     </Flex>
   )
 }
