@@ -18,6 +18,7 @@ const Login: NextPage = () => {
             justifyContent="center"
             alignItems="center"
             p="8"
+            bgColor="whiteAlpha.900"
             borderWidth="1px"
             borderRadius="lg"
           >
