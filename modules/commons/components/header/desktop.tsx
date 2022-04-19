@@ -1,11 +1,8 @@
 import NextLink from 'next/link'
-import { ChevronDownIcon, SearchIcon } from '@chakra-ui/icons'
+import { ChevronDownIcon } from '@chakra-ui/icons'
 import {
   Grid,
   GridItem,
-  Input,
-  InputGroup,
-  InputRightAddon,
   List,
   ListItem,
   Button,

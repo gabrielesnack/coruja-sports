@@ -1,9 +1,7 @@
 import {
   Box,
   Container,
-  Flex,
   Heading,
-  Image,
   Tab,
   TabList,
   TabPanel,

@@ -1,8 +1,6 @@
-import { PlusSquareIcon } from '@chakra-ui/icons'
 import {
   Box,
   Button,
-  Link,
   List,
   ListItem,
   Modal,
