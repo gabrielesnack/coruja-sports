@@ -8,7 +8,7 @@ export function Layout({ children, header, footer, boxProps }: LayoutProps) {
       w="100vw"
       minH="100vh"
       flexDirection="column"
-      bgColor={'gray.50'}
+      bgColor={'#eee'}
       {...boxProps}
     >
       {header}

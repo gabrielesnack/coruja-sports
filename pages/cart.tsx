@@ -16,10 +16,12 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { NextPage } from 'next//types'
+import ClientOnly from '../modules/commons/components/clientOnly'
 import Footer from '../modules/commons/components/footer'
 import Header from '../modules/commons/components/header'
 import { Layout } from '../modules/commons/components/layout'
 import { CONTAINER_PROPS } from '../modules/commons/config/constants'
+import { ModalAddress } from '../modules/shopping/components/modalAddress/component'
 
 const Cart: NextPage = () => {
   return (
@@ -33,7 +35,7 @@ const Cart: NextPage = () => {
           <Flex flexDir={['column-reverse', null, null, 'row']} gap="6">
             <TableContainer
               w={['100%', null, null, '70%']}
-              bgColor="whiteAlpha.900"
+              bgColor="white"
               borderWidth="1px"
             >
               <Heading
@@ -45,7 +47,7 @@ const Cart: NextPage = () => {
                 Meu Carrinho
               </Heading>
 
-              <Table variant="striped" colorScheme="blackAlpha">
+              <Table variant="simple">
                 <Thead>
                   <Tr>
                     <Th></Th>
@@ -132,16 +134,31 @@ const Cart: NextPage = () => {
                 Resumo
               </Text>
 
-              <Text fontSize="large" fontWeight="semibold" color="gray.500">
+              <Text fontSize="medium" fontWeight="semibold" color="gray.500">
                 8 produtos
               </Text>
 
-              <Text fontSize="xl" fontWeight="semibold" color="gray.500">
-                R$ 1039,50
+              <Text fontSize="2xl" fontWeight="semibold" color="gray.600">
+                Total R$ 1039,50
               </Text>
 
+              <Box d="flex" flexDir="column" gap="2" mb="6">
+                <Text
+                  fontSize="medium"
+                  fontWeight="semibold"
+                  color="gray.500"
+                  whiteSpace="nowrap"
+                >
+                  Endereço de Entrega:
+                </Text>
+
+                <ClientOnly>
+                  <ModalAddress />
+                </ClientOnly>
+              </Box>
+
               <Button px="10" colorScheme="primary">
-                Continuar
+                Finalizar Compra
               </Button>
             </Box>
           </Flex>

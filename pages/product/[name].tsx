@@ -22,11 +22,7 @@ const ProductDetail: NextPage = () => {
   // const { name } = router.query
 
   return (
-    <Layout
-      header={<Header />}
-      footer={<Footer />}
-      boxProps={{ bgColor: 'gray.50' }}
-    >
+    <Layout header={<Header />} footer={<Footer />}>
       <Container {...CONTAINER_PROPS} h="100%" mb="12" pt="4rem">
         <Flex
           w="100%"
