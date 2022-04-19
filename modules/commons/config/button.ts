@@ -44,8 +44,9 @@ const variantSolid: SystemStyleFunction = (props: StyleFunctionProps) => {
   }
 }
 
-const variantLink: SystemStyleFunction = () => {
+const variantLink: SystemStyleFunction = (props: StyleFunctionProps) => {
   return {
+    color: props.colorScheme,
     _focus: {
       boxShadow: 'none',
     },
