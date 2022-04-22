@@ -6,6 +6,7 @@ import { Layout } from '../modules/commons/components/layout'
 import ListProducts from '../modules/dashboard/components/listProducts'
 
 const Home: NextPage = () => {
+  // console.log(process.env.NEXT_PUBLIC_API_URL)
   return (
     <Layout header={<Header />} footer={<Footer />}>
       <Flex w="100%" flexDirection="column">
