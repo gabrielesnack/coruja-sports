@@ -1,4 +1,5 @@
-import { Box, Container, Flex, Heading, Text } from '@chakra-ui/react'
+import NextLink from 'next/link'
+import { Box, Container, Flex, Heading, Link, Text } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import { LoginForm } from '../modules/authentication/components/loginForm'
 import { Layout } from '../modules/commons/components/layout'
@@ -22,9 +23,14 @@ const Login: NextPage = () => {
             borderWidth="1px"
             borderRadius="lg"
           >
-            <Heading size="xl" mb="2">
-              Coruja Sports
-            </Heading>
+            <NextLink href="/" passHref>
+              <Link _hover={{ textDecoration: 'none' }}>
+                <Heading size="xl" mb="2">
+                  Coruja Sports
+                </Heading>
+              </Link>
+            </NextLink>
+
             <Text mb="6" textAlign="center">
               Entrar na sua conta para continuar navegando
             </Text>

@@ -1,4 +1,5 @@
-import { Box, Container, Flex, Heading, Text } from '@chakra-ui/react'
+import NextLink from 'next/link'
+import { Box, Container, Flex, Heading, Text, Link } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import { SignUpForm } from '../modules/authentication/components/signupForm'
 import ClientOnly from '../modules/commons/components/clientOnly'
@@ -24,9 +25,13 @@ const Login: NextPage = () => {
               borderWidth="1px"
               borderRadius="lg"
             >
-              <Heading size="xl" mb="2">
-                Coruja Sports
-              </Heading>
+              <NextLink href="/" passHref>
+                <Link _hover={{ textDecoration: 'none' }}>
+                  <Heading size="xl" mb="2">
+                    Coruja Sports
+                  </Heading>
+                </Link>
+              </NextLink>
               <Text mb="4" textAlign="center">
                 Informe seus dados para criar sua conta
               </Text>
