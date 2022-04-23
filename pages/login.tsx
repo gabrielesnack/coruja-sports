@@ -25,7 +25,7 @@ const Login: NextPage = () => {
             <Heading size="xl" mb="2">
               Coruja Sports
             </Heading>
-            <Text mb="4" textAlign="center">
+            <Text mb="6" textAlign="center">
               Entrar na sua conta para continuar navegando
             </Text>
             <LoginForm />

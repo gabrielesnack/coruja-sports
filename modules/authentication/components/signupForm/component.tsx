@@ -1,16 +1,11 @@
 import {
-  Box,
   Button,
   Checkbox,
   Flex,
   FormControl,
-  FormControlProps,
-  FormErrorMessage,
   Input,
-  Spinner,
   useDisclosure,
 } from '@chakra-ui/react'
-import React from 'react'
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -21,6 +16,7 @@ import { sub } from 'date-fns'
 import { DatePicker } from '../../../commons/components/datePicker'
 import InputMask from 'react-input-mask'
 import { useRegister } from '../../hooks/useRegister'
+import { Field } from '../../../commons/components/field'
 
 export const SignUpForm = () => {
   const { isOpen: isAcceptTerm, onToggle: acceptTerm } = useDisclosure()
@@ -43,10 +39,6 @@ export const SignUpForm = () => {
     registerUser(rest)
   }
 
-  const Field = (props: FormControlProps) => (
-    <FormControl {...props} isDisabled={isLoading} />
-  )
-
   return (
     <Flex w="100%">
       <FormControl
@@ -56,17 +48,17 @@ export const SignUpForm = () => {
         gap="4"
         as="form"
         onSubmit={handleSubmit(onSubmit)}
+        isDisabled={isLoading}
       >
-        <Field isInvalid={!!errors.name}>
+        <Field isInvalid={!!errors.name} errMsg={errors.name?.message}>
           <Input
             placeholder="Digite seu nome"
             size="md"
             {...register('name')}
           />
-          <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
         </Field>
 
-        <Field isInvalid={!!errors.cpf}>
+        <Field isInvalid={!!errors.cpf} errMsg={errors.cpf?.message}>
           <Input
             // @ts-ignore
             as={InputMask}
@@ -75,10 +67,12 @@ export const SignUpForm = () => {
             size="md"
             {...register('cpf')}
           />
-          <FormErrorMessage>{errors.cpf?.message}</FormErrorMessage>
         </Field>
 
-        <Field isInvalid={!!errors.birthDate}>
+        <Field
+          isInvalid={!!errors.birthDate}
+          errMsg={errors.birthDate?.message}
+        >
           <Controller
             control={control}
             name="birthDate"
@@ -104,32 +98,28 @@ export const SignUpForm = () => {
               />
             )}
           />
-
-          <FormErrorMessage>{errors.birthDate?.message}</FormErrorMessage>
         </Field>
 
-        <Field isInvalid={!!errors.email}>
+        <Field isInvalid={!!errors.email} errMsg={errors.email?.message}>
           <Input
             placeholder="Digite seu email"
             size="md"
             {...register('email')}
           />
-          <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
         </Field>
 
-        <Field isInvalid={!!errors.password}>
+        <Field isInvalid={!!errors.password} errMsg={errors.password?.message}>
           <InputPassword register={() => register('password')} />
-          <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
         </Field>
 
-        <Field isInvalid={!!errors.passwordConfirmation}>
+        <Field
+          isInvalid={!!errors.passwordConfirmation}
+          errMsg={errors.passwordConfirmation?.message}
+        >
           <InputPassword
             placeholder="Confirme sua senha"
             register={() => register('passwordConfirmation')}
           />
-          <FormErrorMessage>
-            {errors.passwordConfirmation?.message}
-          </FormErrorMessage>
         </Field>
 
         <Flex mt="6" gap="4" flexDir="column">
