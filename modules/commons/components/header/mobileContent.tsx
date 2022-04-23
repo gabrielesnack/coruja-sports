@@ -1,3 +1,4 @@
+import NextLink from 'next/link'
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import {
   Button,
@@ -8,8 +9,11 @@ import {
   ListItem,
   useDisclosure,
   Text,
+  Box,
 } from '@chakra-ui/react'
+import { Router, useRouter } from 'next/router'
 import { HEADER_SIZE } from '../../config/constants'
+import { useUserContext } from '../../contexts/userContext'
 import InputSearch from '../InputSearch'
 import { championships, tShirtModels } from './props'
 
@@ -18,6 +22,10 @@ export function MobileContent() {
     useDisclosure()
   const { isOpen: isOpenSectionChampions, onToggle: onToggleChampions } =
     useDisclosure()
+
+  const { isLogged, logout } = useUserContext()
+
+  const router = useRouter()
 
   return (
     <Flex
@@ -29,45 +37,72 @@ export function MobileContent() {
       h="100vh"
       zIndex="10"
       px="4"
-      py={HEADER_SIZE}
+      pt={HEADER_SIZE}
+      pb="4"
       bgColor="white"
     >
       <Flex mt="6" mb="6">
         <InputSearch />
       </Flex>
 
-      <Text fontWeight="semibold" mb="6" onClick={onToggleChampions}>
-        Campeonatos <ChevronDownIcon />
-      </Text>
-      <Collapse in={isOpenSectionChampions} animateOpacity>
-        <List d="flex" flexDirection="column" gap="6">
-          {championships.map((e, idx) => (
-            <ListItem key={`championships-${idx}`}>
-              <Link>{e}</Link>
-            </ListItem>
-          ))}
-        </List>
-      </Collapse>
+      <Box mb="8">
+        <NextLink href="/profile/me" passHref>
+          <Link fontWeight="semibold" variant="link" colorScheme="secondary">
+            Visualizar meu perfil
+          </Link>
+        </NextLink>
+      </Box>
 
-      <Text fontWeight="semibold" mt="4" mb="6" onClick={onToggleModels}>
-        Modelos <ChevronDownIcon />
-      </Text>
+      <Box mb="4">
+        <Text fontWeight="semibold" mb="4" onClick={onToggleChampions}>
+          Campeonatos <ChevronDownIcon />
+        </Text>
+        <Collapse in={isOpenSectionChampions} animateOpacity>
+          <List d="flex" flexDirection="column" gap="6">
+            {championships.map((e, idx) => (
+              <ListItem key={`championships-${idx}`}>
+                <Link>{e}</Link>
+              </ListItem>
+            ))}
+          </List>
+        </Collapse>
+      </Box>
 
-      <Collapse in={isOpenSectionModels} animateOpacity>
-        <List d="flex" flexDirection="column" gap="6">
-          {tShirtModels.map((e, idx) => (
-            <ListItem key={`tshirtmodels-${idx}`}>
-              <Link>{e}</Link>
-            </ListItem>
-          ))}
-        </List>
-      </Collapse>
+      <Box mb="4">
+        <Text fontWeight="semibold" mb="4" onClick={onToggleModels}>
+          Modelos <ChevronDownIcon />
+        </Text>
+        <Collapse in={isOpenSectionModels} animateOpacity>
+          <List d="flex" flexDirection="column" gap="6">
+            {tShirtModels.map((e, idx) => (
+              <ListItem key={`tshirtmodels-${idx}`}>
+                <Link>{e}</Link>
+              </ListItem>
+            ))}
+          </List>
+        </Collapse>
+      </Box>
 
       <Flex h="100%" flexDirection="column" justifyContent="flex-end" gap="4">
-        <Button colorScheme="primary">Entrar</Button>
-        <Button colorScheme="secondary" variant="outline">
-          Criar Conta
-        </Button>
+        {!isLogged && (
+          <>
+            <Button colorScheme="primary" onClick={() => router.push('/login')}>
+              Entrar
+            </Button>
+            <Button
+              colorScheme="secondary"
+              variant="outline"
+              onClick={() => router.push('/sign-up')}
+            >
+              Criar Conta
+            </Button>
+          </>
+        )}
+        {isLogged && (
+          <Button colorScheme="danger" variant="outline" onClick={logout}>
+            Sair
+          </Button>
+        )}
       </Flex>
     </Flex>
   )

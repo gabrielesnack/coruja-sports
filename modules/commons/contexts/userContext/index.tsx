@@ -5,6 +5,7 @@ import { UserContextType, UserProviderProps, UserType } from './interface'
 
 const UserContext = React.createContext<UserContextType>({
   setUser: () => null,
+  logout: () => null,
   isLogged: false,
 })
 
@@ -13,6 +14,11 @@ const UserProvider = ({ children }: UserProviderProps) => {
 
   function handleUser(props: UserType) {
     setUser((state) => ({ ...state, ...props }))
+  }
+
+  function logout() {
+    setUser(undefined)
+    StorageHandler().clear()
   }
 
   async function getUser() {
@@ -33,7 +39,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
 
   return (
     <UserContext.Provider
-      value={{ user, setUser: handleUser, isLogged: !!user }}
+      value={{ user, setUser: handleUser, isLogged: !!user, logout }}
     >
       {children}
     </UserContext.Provider>

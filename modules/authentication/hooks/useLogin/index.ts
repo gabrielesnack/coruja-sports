@@ -23,17 +23,15 @@ export const useLogin = () => {
 
       toast({
         title: 'Login realizado com sucesso.',
-        description:
-          'Seja bem-vindo ao Coruja Sports, você será redirecionado a página inicial.',
+        description: 'Seja bem-vindo ao Coruja Sports.',
         status: 'success',
         duration: 2000,
         isClosable: true,
         position: 'top-right',
         variant: 'left-accent',
-        onCloseComplete: () => {
-          router.push('/')
-        },
       })
+
+      router.push('/')
     } catch (error) {
       toast({
         title: 'Não foi possível conectar na conta.',

@@ -9,6 +9,7 @@ export type UserType = {
 export type UserContextType = {
   user?: UserType
   setUser: (props: UserType) => void
+  logout: () => void
   isLogged: boolean
 }
 
