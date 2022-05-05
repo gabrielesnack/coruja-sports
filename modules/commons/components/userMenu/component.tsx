@@ -37,6 +37,9 @@ export const UserMenu = () => {
             <MenuItem onClick={() => router.push('/profile/me')}>
               Meu Perfil
             </MenuItem>
+            <MenuItem onClick={() => router.push('/admin')}>
+              Painel Admin
+            </MenuItem>
             <MenuDivider />
             <MenuItem color="danger" onClick={logout}>
               Sair

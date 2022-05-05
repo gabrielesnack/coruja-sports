@@ -6,6 +6,7 @@ import {
   GridItem,
   Heading,
   Select,
+  Show,
   Text,
 } from '@chakra-ui/react'
 import { NextPage } from 'next'
@@ -15,6 +16,7 @@ import Header from '../../modules/commons/components/header'
 import { Layout } from '../../modules/commons/components/layout'
 import ProductCard from '../../modules/commons/components/productCard'
 import { CONTAINER_PROPS } from '../../modules/commons/config/constants'
+import { SearchFilter } from '../../modules/shopping/components/searchFilter/component'
 
 const SearchProduct: NextPage = () => {
   const router = useRouter()
@@ -22,7 +24,14 @@ const SearchProduct: NextPage = () => {
 
   return (
     <Layout header={<Header />} footer={<Footer />}>
-      <Container {...CONTAINER_PROPS} pb="12">
+      <Show below="md">
+        <SearchFilter />
+      </Show>
+      <Container
+        {...CONTAINER_PROPS}
+        pb="12"
+        py={['5rem', null, null, 'initial']}
+      >
         <Flex
           flexDirection={['column', null, null, 'row']}
           justifyContent="space-between"
@@ -36,18 +45,20 @@ const SearchProduct: NextPage = () => {
             </Text>
           </Heading>
 
-          <Box d="flex" alignItems="center">
-            <Text fontSize="lg" fontWeight="bold" whiteSpace="nowrap" mr="4">
-              Ordernar por:
-            </Text>
-            <Select fontSize="xl" variant="unstyled">
-              <Box as="option" defaultChecked>
-                mais populares
-              </Box>
-              <Box as="option">menor preço</Box>
-              <Box as="option">maior preço</Box>
-            </Select>
-          </Box>
+          <Show above="md">
+            <Box d="flex" alignItems="center">
+              <Text fontSize="lg" fontWeight="bold" whiteSpace="nowrap" mr="4">
+                Ordernar por:
+              </Text>
+              <Select fontSize="xl" variant="unstyled">
+                <Box as="option" defaultChecked>
+                  mais populares
+                </Box>
+                <Box as="option">menor preço</Box>
+                <Box as="option">maior preço</Box>
+              </Select>
+            </Box>
+          </Show>
         </Flex>
 
         <Flex w="100%" gap="12">

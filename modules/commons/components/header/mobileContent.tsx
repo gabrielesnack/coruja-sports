@@ -11,7 +11,7 @@ import {
   Text,
   Box,
 } from '@chakra-ui/react'
-import { Router, useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { HEADER_SIZE } from '../../config/constants'
 import { useUserContext } from '../../contexts/userContext'
 import InputSearch from '../InputSearch'
@@ -36,7 +36,8 @@ export function MobileContent() {
       w="100vw"
       h="100vh"
       zIndex="10"
-      px="4"
+      pl="4"
+      pr="10"
       pt={HEADER_SIZE}
       pb="4"
       bgColor="white"

@@ -15,18 +15,18 @@ const InputSearch = () => {
     if (!value) return
 
     if (e && e?.code === 'Enter') {
-      router.push(`search/${value}`)
+      router.push(`/search/${value}`)
       return
     }
   }
 
   const handleOnClick = () => {
     if (!value) return
-    router.push(`search/${value}`)
+    router.push(`/search/${value}`)
   }
 
   return (
-    <InputGroup>
+    <InputGroup size="lg">
       <Input
         type="text"
         placeholder="O que você está buscando?"

@@ -27,7 +27,8 @@ const ProductDetail: NextPage = () => {
         <Flex
           w="100%"
           flexDir={['column', null, null, 'row']}
-          justifyContent="space-between"
+          justifyContent={'space-between'}
+          alignItems={['center', null, null, 'initial']}
           gap="4"
         >
           <ProductPreview></ProductPreview>
@@ -37,6 +38,7 @@ const ProductDetail: NextPage = () => {
             flexDir="column"
             justifyContent="start"
             minW={['100%', null, '450px']}
+            maxW={[null, null, '560px', 'auto']}
             px="10"
             pt="4"
             pb="10"
@@ -79,7 +81,7 @@ const ProductDetail: NextPage = () => {
                   <Image
                     borderRadius="md"
                     src="/camiseta.jpeg"
-                    d={[null, null, 'none']}
+                    d={[null, null, null, 'none']}
                   />
                 </Box>
 

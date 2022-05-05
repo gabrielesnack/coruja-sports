@@ -32,7 +32,12 @@ const Me: NextPage = () => {
 
         <Box borderWidth="1px" p="8" gap="4" bgColor={'whiteAlpha.900'}>
           <Tabs>
-            <TabList>
+            <TabList
+              // d="flex"
+              flexFlow={['wrap', null, 'nowrap']}
+              // gap="6"
+              justifyContent={['space-around', null, 'flex-start']}
+            >
               <Tab fontWeight="bold" color="gray.400">
                 Geral
               </Tab>
