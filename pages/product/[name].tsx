@@ -81,6 +81,7 @@ const ProductDetail: NextPage = () => {
                   <Image
                     borderRadius="md"
                     src="/camiseta.jpeg"
+                    alt="camiseta"
                     d={[null, null, null, 'none']}
                   />
                 </Box>

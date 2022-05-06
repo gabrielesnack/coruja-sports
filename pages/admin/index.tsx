@@ -7,7 +7,6 @@ import {
   Stat,
   StatLabel,
   StatNumber,
-  Icon,
   Flex,
   StatHelpText,
   StatArrow,

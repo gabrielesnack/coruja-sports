@@ -1,13 +1,14 @@
 import { StarIcon } from '@chakra-ui/icons'
 import { Box, Image, Badge } from '@chakra-ui/react'
+import { ProductProps } from './interface'
 import { BoxWrapperProps } from './props'
 
-function ProductCard() {
+function ProductCard({ name }: ProductProps) {
   const property = {
     imageUrl: '/camiseta.jpeg',
     imageAlt: 'Imagem da camisa do santos',
-    title: 'Camiseta do Santos',
-    formattedPrice: 'R$1,900.00',
+    title: name,
+    formattedPrice: 'R$ 1,900.00',
     reviewCount: 34,
     rating: 4,
   }

@@ -60,7 +60,7 @@ const Cart: NextPage = () => {
                   <Tr>
                     <Td>
                       <Box w="64px" h="64px">
-                        <Image src="/camiseta.jpeg" />
+                        <Image src="/camiseta.jpeg" alt="camiseta" />
                       </Box>
                     </Td>
                     <Td>Camiseta do santos</Td>
@@ -78,7 +78,7 @@ const Cart: NextPage = () => {
                   <Tr>
                     <Td>
                       <Box w="64px" h="64px">
-                        <Image src="/camiseta.jpeg" />
+                        <Image src="/camiseta.jpeg" alt="camiseta" />
                       </Box>
                     </Td>
                     <Td>Camiseta do santos</Td>
@@ -96,7 +96,7 @@ const Cart: NextPage = () => {
                   <Tr>
                     <Td>
                       <Box w="64px" h="64px">
-                        <Image src="/camiseta.jpeg" />
+                        <Image src="/camiseta.jpeg" alt="camiseta" />
                       </Box>
                     </Td>
                     <Td>Camiseta do santos</Td>

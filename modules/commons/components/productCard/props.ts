@@ -5,6 +5,7 @@ export const BoxWrapperProps: BoxProps = {
   borderRadius: 'lg',
   overflow: 'hidden',
   bgColor: 'white',
+  boxShadow: 'sm',
   _hover: {
     cursor: 'pointer',
     boxShadow: '0 0 2rem 0 rgb(136 152 170 / 15%)',

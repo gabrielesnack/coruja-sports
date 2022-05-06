@@ -21,9 +21,9 @@ function ListProducts({ title, inverseColor }: ListProductsProps) {
         gap="4"
         templateColumns={['1fr', null, '1fr 1fr', '1fr 1fr 1fr']}
       >
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        <ProductCard name="camisa do santos" description="" />
+        <ProductCard name="camisa do santos" description="" />
+        <ProductCard name="camisa do santos" description="" />
       </Grid>
     </Container>
   )
