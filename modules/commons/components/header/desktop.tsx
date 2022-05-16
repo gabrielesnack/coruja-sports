@@ -9,14 +9,21 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  Box,
+  Icon,
 } from '@chakra-ui/react'
 import { CartIcon } from '../../icons/'
 import { Logo } from './logo'
 import { championships, tShirtModels } from './props'
 import InputSearch from '../InputSearch'
 import { UserMenu } from '../userMenu'
+import { useRouter } from 'next/router'
+import { useCart } from '../../../shopping/hooks/useCart'
 
 function HeaderDesktop() {
+  const router = useRouter()
+  const { notify, items } = useCart()
+
   return (
     <Grid
       w="100%"
@@ -73,7 +80,30 @@ function HeaderDesktop() {
 
       <GridItem d="flex" justifyContent="flex-end" gap="4" alignItems="center">
         <UserMenu />
-        <CartIcon boxSize="6" />
+        <Box
+          pos="relative"
+          d="flex"
+          cursor="pointer"
+          onClick={() => router.push('/cart')}
+        >
+          <CartIcon boxSize="6" mr="1" />
+          {/* <Text size="sm">14</Text> */}
+          {notify && (
+            <Icon
+              pos="absolute"
+              top="-3px"
+              right="0"
+              viewBox="0 0 200 200"
+              color="warning"
+              boxSize="3"
+            >
+              <path
+                fill="currentColor"
+                d="M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0"
+              />
+            </Icon>
+          )}
+        </Box>
       </GridItem>
     </Grid>
   )

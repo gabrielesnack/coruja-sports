@@ -15,9 +15,22 @@ import Footer from '../../modules/commons/components/footer'
 import Header from '../../modules/commons/components/header'
 import { Layout } from '../../modules/commons/components/layout'
 import { CONTAINER_PROPS } from '../../modules/commons/config/constants'
+import { toCurrencyBRL } from '../../modules/commons/helpers/currency'
+import { ProductType } from '../../modules/commons/types'
 import { ProductPreview } from '../../modules/shopping/components/productPreview/component'
+import { useCart } from '../../modules/shopping/hooks/useCart'
 
 const ProductDetail: NextPage = () => {
+  const { update, items } = useCart()
+
+  const product: ProductType = {
+    id: 1,
+    name: 'camiseta do santos',
+    description: '',
+    images: ['/camiseta.jpeg'],
+    price: 127.54,
+    variations: [{ Cor: ['Branco', 'Preto'], Tamanho: ['P', 'M', 'G'] }],
+  }
   // const router = useRouter()
   // const { name } = router.query
 
@@ -67,10 +80,10 @@ const ProductDetail: NextPage = () => {
               gap="10"
             >
               <Flex flexDir="column" gap="4">
-                <Heading fontSize="2xl">Camiseta do Santos</Heading>
+                <Heading fontSize="2xl">{product.name}</Heading>
 
                 <Text fontSize="3xl" fontWeight="light">
-                  R$ 149,99
+                  {toCurrencyBRL(product.price)}
                 </Text>
 
                 <Box
@@ -80,7 +93,7 @@ const ProductDetail: NextPage = () => {
                 >
                   <Image
                     borderRadius="md"
-                    src="/camiseta.jpeg"
+                    src={product.images[0]}
                     alt="camiseta"
                     d={[null, null, null, 'none']}
                   />
@@ -95,13 +108,11 @@ const ProductDetail: NextPage = () => {
                   <Text fontSize="lg">Tamanho: </Text>
 
                   <Select size="md">
-                    <Box as="option">PP</Box>
-                    <Box as="option" defaultChecked>
-                      P
-                    </Box>
-                    <Box as="option">M</Box>
-                    <Box as="option">G</Box>
-                    <Box as="option">GG</Box>
+                    {product.variations[0].Tamanho.map((size) => (
+                      <Box as="option" key={`tamanho-${size}`}>
+                        {size}
+                      </Box>
+                    ))}
                   </Select>
                 </Box>
 
@@ -114,13 +125,11 @@ const ProductDetail: NextPage = () => {
                   <Text fontSize="lg">Cor: </Text>
 
                   <Select size="md">
-                    <Box as="option">Branca</Box>
-                    <Box as="option" defaultChecked>
-                      P
-                    </Box>
-                    <Box as="option">Preta</Box>
-                    <Box as="option">Azul</Box>
-                    <Box as="option">Rosa</Box>
+                    {product.variations[0].Cor.map((cor) => (
+                      <Box as="option" key={`cor-${cor}`}>
+                        {cor}
+                      </Box>
+                    ))}
                   </Select>
                 </Box>
 
@@ -152,7 +161,11 @@ const ProductDetail: NextPage = () => {
                 gap="4"
               >
                 <Button colorScheme="primary">Comprar</Button>
-                <Button colorScheme="secondary" variant="outline">
+                <Button
+                  colorScheme="secondary"
+                  variant="outline"
+                  onClick={() => update(product)}
+                >
                   Adicionar ao carrinho
                 </Button>
               </Box>

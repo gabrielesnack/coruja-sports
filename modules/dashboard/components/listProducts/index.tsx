@@ -1,9 +1,21 @@
 import { Container, Grid, Heading } from '@chakra-ui/react'
 import ProductCard from '../../../commons/components/productCard'
 import { CONTAINER_PROPS } from '../../../commons/config/constants'
+import { ProductType } from '../../../commons/types'
 import { ListProductsProps } from './interface'
 
 function ListProducts({ title, inverseColor }: ListProductsProps) {
+  const productProps = {
+    id: 1,
+    name: 'camisa do santos',
+    description: '',
+    variations: [
+      { Tamanho: ['P', 'M', 'G'], Cor: ['Branco', 'Preto', 'Azul', 'Rosa'] },
+    ],
+    images: [],
+    price: 10.14,
+  } as ProductType
+
   return (
     <Container {...CONTAINER_PROPS} pb="12" mb="12">
       <Heading
@@ -21,9 +33,9 @@ function ListProducts({ title, inverseColor }: ListProductsProps) {
         gap="4"
         templateColumns={['1fr', null, '1fr 1fr', '1fr 1fr 1fr']}
       >
-        <ProductCard name="camisa do santos" description="" />
-        <ProductCard name="camisa do santos" description="" />
-        <ProductCard name="camisa do santos" description="" />
+        <ProductCard {...productProps} />
+        <ProductCard {...productProps} />
+        <ProductCard {...productProps} />
       </Grid>
     </Container>
   )

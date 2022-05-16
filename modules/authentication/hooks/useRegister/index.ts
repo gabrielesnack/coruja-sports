@@ -1,6 +1,5 @@
 import { useToast } from '@chakra-ui/react'
 import { cpf } from 'cpf-cnpj-validator'
-import { resolvePtr } from 'dns/promises'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { fetchAPI } from '../../../commons/helpers/fetchApi'

@@ -21,11 +21,23 @@ import Footer from '../modules/commons/components/footer'
 import Header from '../modules/commons/components/header'
 import { Layout } from '../modules/commons/components/layout'
 import { CONTAINER_PROPS } from '../modules/commons/config/constants'
+import {
+  CheckoutFactory,
+  MercadoPagoSDK,
+} from '../modules/commons/thirdparty/MercadoPago'
 import { ModalAddress } from '../modules/shopping/components/modalAddress/component'
 
 const Cart: NextPage = () => {
+  const openCheckout = () => {
+    const checkout = new CheckoutFactory()
+    checkout.create()
+    checkout.open()
+  }
+
   return (
     <Layout header={<Header />} footer={<Footer />}>
+      <MercadoPagoSDK />
+
       <Container {...CONTAINER_PROPS}>
         <Flex flexDir="column" gap="8" py="10" mb="10">
           <Heading d={['none', null, null, 'block']} fontWeight="semibold">
@@ -157,7 +169,11 @@ const Cart: NextPage = () => {
                 </ClientOnly>
               </Box>
 
-              <Button px="10" colorScheme="primary">
+              <Button
+                px="10"
+                colorScheme="primary"
+                onClick={() => openCheckout()}
+              >
                 Finalizar Compra
               </Button>
             </Box>

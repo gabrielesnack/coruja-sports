@@ -1,4 +1,3 @@
-export type ProductProps = {
-  name: string
-  description: string
-}
+import { ProductType } from '../../types'
+
+export type ProductProps = ProductType
