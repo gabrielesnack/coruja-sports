@@ -21,10 +21,11 @@ import { CONTAINER_PROPS } from '../../modules/commons/config/constants'
 import { toCurrencyBRL } from '../../modules/commons/helpers/currency'
 import { ProductType } from '../../modules/commons/types'
 import { ProductPreview } from '../../modules/shopping/components/productPreview/component'
-import { useCart } from '../../modules/shopping/hooks/useCart'
+import { useCartContext } from '../../modules/shopping/context/CartContext'
 
 const ProductDetail: NextPage = () => {
-  const { add } = useCart()
+  const { add } = useCartContext()
+
   const [quantity, setQuantity] = useState<number>(1)
 
   const product: ProductType = {

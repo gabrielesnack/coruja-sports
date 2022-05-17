@@ -18,11 +18,11 @@ import { championships, tShirtModels } from './props'
 import InputSearch from '../InputSearch'
 import { UserMenu } from '../userMenu'
 import { useRouter } from 'next/router'
-import { useCart } from '../../../shopping/hooks/useCart'
+import { useCartContext } from '../../../shopping/context/CartContext'
 
 function HeaderDesktop() {
   const router = useRouter()
-  const { notify, items } = useCart()
+  const { notify } = useCartContext()
 
   return (
     <Grid
