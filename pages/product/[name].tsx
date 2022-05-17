@@ -8,8 +8,11 @@ import {
   Image,
   Select,
   Button,
+  InputElementProps,
+  SelectFieldProps,
 } from '@chakra-ui/react'
 import { NextPage } from 'next'
+import React, { useState } from 'react'
 // import { useRouter } from 'next/router'
 import Footer from '../../modules/commons/components/footer'
 import Header from '../../modules/commons/components/header'
@@ -21,7 +24,8 @@ import { ProductPreview } from '../../modules/shopping/components/productPreview
 import { useCart } from '../../modules/shopping/hooks/useCart'
 
 const ProductDetail: NextPage = () => {
-  const { update, items } = useCart()
+  const { add } = useCart()
+  const [quantity, setQuantity] = useState<number>(1)
 
   const product: ProductType = {
     id: 1,
@@ -141,14 +145,25 @@ const ProductDetail: NextPage = () => {
                 >
                   <Text fontSize="lg">Quantidade: </Text>
 
-                  <Select size="md">
-                    <Box as="option" defaultChecked>
+                  <Select
+                    size="md"
+                    onChange={(e) => setQuantity(Number(e.target?.value))}
+                  >
+                    <Box as="option" defaultChecked value={1}>
                       1
                     </Box>
-                    <Box as="option">2</Box>
-                    <Box as="option">3</Box>
-                    <Box as="option">4</Box>
-                    <Box as="option">5</Box>
+                    <Box as="option" value={2}>
+                      2
+                    </Box>
+                    <Box as="option" value={3}>
+                      3
+                    </Box>
+                    <Box as="option" value={4}>
+                      4
+                    </Box>
+                    <Box as="option" value={5}>
+                      5
+                    </Box>
                   </Select>
                 </Box>
               </Flex>
@@ -164,7 +179,7 @@ const ProductDetail: NextPage = () => {
                 <Button
                   colorScheme="secondary"
                   variant="outline"
-                  onClick={() => update(product)}
+                  onClick={() => add(product, quantity)}
                 >
                   Adicionar ao carrinho
                 </Button>

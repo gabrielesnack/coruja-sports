@@ -21,11 +21,13 @@ import Footer from '../modules/commons/components/footer'
 import Header from '../modules/commons/components/header'
 import { Layout } from '../modules/commons/components/layout'
 import { CONTAINER_PROPS } from '../modules/commons/config/constants'
+import { toCurrencyBRL } from '../modules/commons/helpers/currency'
 import {
   CheckoutFactory,
   MercadoPagoSDK,
 } from '../modules/commons/thirdparty/MercadoPago'
 import { ModalAddress } from '../modules/shopping/components/modalAddress/component'
+import { useCart } from '../modules/shopping/hooks/useCart'
 
 const Cart: NextPage = () => {
   const openCheckout = () => {
@@ -33,6 +35,10 @@ const Cart: NextPage = () => {
     checkout.create()
     checkout.open()
   }
+
+  const { items, update } = useCart()
+
+  const maxOptions = new Array(100).fill(1)
 
   return (
     <Layout header={<Header />} footer={<Footer />}>
@@ -69,60 +75,38 @@ const Cart: NextPage = () => {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  <Tr>
-                    <Td>
-                      <Box w="64px" h="64px">
-                        <Image src="/camiseta.jpeg" alt="camiseta" />
-                      </Box>
-                    </Td>
-                    <Td>Camiseta do santos</Td>
-                    <Td>
-                      <Select variant="flushed">
-                        <option value="1" defaultChecked>
-                          1 Unidade
-                        </option>
-                        <option value="2">2 Unidades</option>
-                        <option value="3">3 Unidades</option>
-                      </Select>
-                    </Td>
-                    <Td>R$ 317,99</Td>
-                  </Tr>
-                  <Tr>
-                    <Td>
-                      <Box w="64px" h="64px">
-                        <Image src="/camiseta.jpeg" alt="camiseta" />
-                      </Box>
-                    </Td>
-                    <Td>Camiseta do santos</Td>
-                    <Td>
-                      <Select variant="flushed">
-                        <option value="1" defaultChecked>
-                          1 Unidade
-                        </option>
-                        <option value="2">2 Unidades</option>
-                        <option value="3">3 Unidades</option>
-                      </Select>
-                    </Td>
-                    <Td>R$ 317,99</Td>
-                  </Tr>
-                  <Tr>
-                    <Td>
-                      <Box w="64px" h="64px">
-                        <Image src="/camiseta.jpeg" alt="camiseta" />
-                      </Box>
-                    </Td>
-                    <Td>Camiseta do santos</Td>
-                    <Td>
-                      <Select variant="flushed">
-                        <option value="1" defaultChecked>
-                          1 Unidade
-                        </option>
-                        <option value="2">2 Unidades</option>
-                        <option value="3">3 Unidades</option>
-                      </Select>
-                    </Td>
-                    <Td>R$ 317,99</Td>
-                  </Tr>
+                  {items.map(({ item, total }) => (
+                    <Tr key={`item-${item.name}`}>
+                      <Td>
+                        <Box w="64px" h="64px">
+                          <Image src="/camiseta.jpeg" alt="camiseta" />
+                        </Box>
+                      </Td>
+                      <Td>{item.name}</Td>
+                      <Td>
+                        <Select
+                          variant="flushed"
+                          defaultValue={total}
+                          onChange={(e) =>
+                            update(item.id, Number(e.target.value))
+                          }
+                        >
+                          {maxOptions.map((e, idx) => {
+                            return (
+                              <option
+                                key={`quantidade-${idx + 1}`}
+                                value={idx + 1}
+                                defaultChecked
+                              >
+                                {idx + 1} Unidade{idx > 1 ? 's' : ''}
+                              </option>
+                            )
+                          })}
+                        </Select>
+                      </Td>
+                      <Td>{toCurrencyBRL(item.price)}</Td>
+                    </Tr>
+                  ))}
                 </Tbody>
               </Table>
             </TableContainer>
@@ -147,7 +131,7 @@ const Cart: NextPage = () => {
               </Text>
 
               <Text fontSize="medium" fontWeight="semibold" color="gray.500">
-                8 produtos
+                {items.length} produto{items.length > 1 ? 's' : ''}
               </Text>
 
               <Text fontSize="2xl" fontWeight="semibold" color="gray.600">

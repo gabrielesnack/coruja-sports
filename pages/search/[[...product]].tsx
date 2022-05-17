@@ -39,7 +39,7 @@ export async function getStaticProps(ctx: GetStaticPropsContext<PageParams>) {
 
     if (hasItemArray(resProd)) products = resProd
     if (hasItemArray(resCat)) categories = resCat
-  } catch (err) {
+  } catch (err: ReturnType<Error>) {
     throw err
   }
 
