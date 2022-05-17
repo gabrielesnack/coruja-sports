@@ -1,4 +1,6 @@
-import React, { useContext, useMemo, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
+import { useIsClient } from '../../commons/hooks/useIsClient'
+import { useLocalStorage } from '../../commons/hooks/useLocalStorage'
 import { ProductType } from '../../commons/types'
 
 type StorageItems = {
@@ -6,14 +8,27 @@ type StorageItems = {
   item: ProductType
 }
 
+type CartContextType = {
+  items: StorageItems[]
+  add?: (product: ProductType, quantity: number) => void
+  update?: (id: number, quantity: number) => void
+  remove?: (id: number) => void
+}
+
 const CartContext = React.createContext({
   items: [] as StorageItems[],
-  add: (product: ProductType, quantity: number) => null,
-  update: (id: number, quantity: number) => null,
-})
+} as CartContextType)
 
 export const CartProvider: React.FC = ({ children }) => {
+  const { getStorage, setStorage } =
+    useLocalStorage<StorageItems[]>('@CART/PRODUCTS')
+  const { isClient } = useIsClient()
+
   const [items, setItems] = useState<StorageItems[]>([] as StorageItems[])
+
+  useEffect(() => {
+    setItems(getStorage() || [])
+  }, [isClient])
 
   const add = (product: ProductType, quantity = 1) => {
     const foundItem = items.findIndex(({ item }) => item.id === product.id)
@@ -28,8 +43,7 @@ export const CartProvider: React.FC = ({ children }) => {
     }
 
     setItems(newItems)
-
-    return null
+    setStorage(newItems)
   }
 
   const update = (id: number, quantity: number) => {
@@ -38,12 +52,18 @@ export const CartProvider: React.FC = ({ children }) => {
     copyItems[idx].total = quantity
 
     setItems(copyItems)
+    setStorage(copyItems)
+  }
 
-    return null
+  const remove = (id: number) => {
+    const copyItems = items.filter((e) => e.item.id !== id)
+
+    setItems(copyItems)
+    setStorage(copyItems)
   }
 
   return (
-    <CartContext.Provider value={{ items, add, update }}>
+    <CartContext.Provider value={{ items, add, remove, update }}>
       {children}
     </CartContext.Provider>
   )

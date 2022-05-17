@@ -1,4 +1,3 @@
-import { clear } from 'console'
 import Cookies from 'js-cookie'
 
 const SESSION_KEY = 'SESSION_TOKEN'

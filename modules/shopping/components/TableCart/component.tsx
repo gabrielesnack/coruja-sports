@@ -10,13 +10,15 @@ import {
   Select,
   Box,
   Image,
+  IconButton,
 } from '@chakra-ui/react'
 
 import { toCurrencyBRL } from '../../../commons/helpers/currency'
+import { TrashIcon } from '../../../commons/icons'
 import { useCartContext } from '../../context/CartContext'
 
 export const TableCart = () => {
-  const { items, update } = useCartContext()
+  const { items, update, remove } = useCartContext()
 
   const maxOptions = new Array(100).fill(1)
 
@@ -42,6 +44,7 @@ export const TableCart = () => {
             <Th>Produto</Th>
             <Th>Quantidade</Th>
             <Th>Preço</Th>
+            <Th>Ações</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -57,7 +60,9 @@ export const TableCart = () => {
                 <Select
                   variant="flushed"
                   defaultValue={total}
-                  onChange={(e) => update(item.id, Number(e.target.value))}
+                  onChange={(e) =>
+                    update && update(item.id, Number(e.target.value))
+                  }
                 >
                   {maxOptions.map((e, idx) => {
                     return (
@@ -73,6 +78,15 @@ export const TableCart = () => {
                 </Select>
               </Td>
               <Td>{toCurrencyBRL(item.price)}</Td>
+              <Td>
+                <IconButton
+                  color="danger"
+                  variant="ghost"
+                  aria-label="Remover produto do carrinho"
+                  icon={<TrashIcon></TrashIcon>}
+                  onClick={() => remove && remove(item.id)}
+                />
+              </Td>
             </Tr>
           ))}
         </Tbody>

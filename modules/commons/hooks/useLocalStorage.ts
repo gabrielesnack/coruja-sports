@@ -3,7 +3,7 @@ import { useIsClient } from './useIsClient'
 export const useLocalStorage = <TResult>(key: string) => {
   const { isClient } = useIsClient()
 
-  function get() {
+  function getStorage() {
     if (!isClient) return
 
     const value = localStorage.getItem(key)
@@ -12,14 +12,14 @@ export const useLocalStorage = <TResult>(key: string) => {
     return null
   }
 
-  function update<TValue>(value: TValue) {
+  function setStorage<TValue>(value: TValue) {
     if (!isClient) return
 
     localStorage.setItem(key, JSON.stringify(value))
   }
 
   return {
-    get,
-    update,
+    getStorage,
+    setStorage,
   }
 }
