@@ -12,6 +12,7 @@ import {
   StatArrow,
   Badge,
 } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import { NextPage } from 'next/types'
 import Footer from '../../modules/commons/components/footer'
 import Header from '../../modules/commons/components/header'
@@ -21,11 +22,14 @@ import {
   BagIcon,
   CoinIcon,
   PeopleIcon,
+  TruckIcon,
   TShirtIcon,
   UserIcon,
 } from '../../modules/commons/icons'
 
 const Admin: NextPage = () => {
+  const router = useRouter()
+
   return (
     <Layout header={<Header />} footer={<Footer />}>
       <Container {...CONTAINER_PROPS} py="10">
@@ -39,7 +43,7 @@ const Admin: NextPage = () => {
           mb="10"
         >
           <Stat
-            bg="whiteAlpha.500"
+            bg="whiteAlpha.900"
             borderWidth="1px"
             borderRadius="md"
             boxShadow="sm"
@@ -64,7 +68,7 @@ const Admin: NextPage = () => {
           </Stat>
 
           <Stat
-            bg="whiteAlpha.500"
+            bg="whiteAlpha.900"
             borderWidth="1px"
             borderRadius="md"
             boxShadow="sm"
@@ -92,7 +96,7 @@ const Admin: NextPage = () => {
           </Stat>
 
           <Stat
-            bg="whiteAlpha.500"
+            bg="whiteAlpha.900"
             borderWidth="1px"
             borderRadius="md"
             boxShadow="sm"
@@ -120,7 +124,7 @@ const Admin: NextPage = () => {
           </Stat>
 
           <Stat
-            bg="whiteAlpha.500"
+            bg="whiteAlpha.900"
             borderWidth="1px"
             borderRadius="md"
             boxShadow="sm"
@@ -160,7 +164,7 @@ const Admin: NextPage = () => {
           <Box
             p="6"
             boxShadow="sm"
-            bgColor="whiteAlpha.500"
+            bgColor="whiteAlpha.900"
             borderWidth="1px"
             borderRadius="md"
             cursor="pointer"
@@ -190,10 +194,11 @@ const Admin: NextPage = () => {
           <Box
             p="6"
             boxShadow="sm"
-            bgColor="whiteAlpha.500"
+            bgColor="whiteAlpha.900"
             borderWidth="1px"
             borderRadius="md"
             cursor="pointer"
+            onClick={() => router.push('/admin/products/')}
           >
             <Flex
               flexDir="column"
@@ -211,6 +216,38 @@ const Admin: NextPage = () => {
               </Text>
 
               <TShirtIcon boxSize="20" />
+
+              <Badge colorScheme="blue" alignSelf="self-end">
+                Utilizar
+              </Badge>
+            </Flex>
+          </Box>
+
+          <Box
+            p="6"
+            boxShadow="sm"
+            bgColor="whiteAlpha.900"
+            borderWidth="1px"
+            borderRadius="md"
+            cursor="pointer"
+            onClick={() => router.push('/admin/suppliers/')}
+          >
+            <Flex
+              flexDir="column"
+              justifyContent="center"
+              alignItems="center"
+              gap="4"
+            >
+              <Text
+                fontSize="sm"
+                textAlign="center"
+                fontWeight="bold"
+                textTransform="uppercase"
+              >
+                Gerenciar Fornecedores
+              </Text>
+
+              <TruckIcon boxSize="20" />
 
               <Badge colorScheme="blue" alignSelf="self-end">
                 Utilizar

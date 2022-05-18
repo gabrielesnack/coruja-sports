@@ -23,7 +23,7 @@ const CreateProduct: NextPage = () => {
     <Layout header={<Header></Header>} footer={<Footer></Footer>}>
       <Container {...CONTAINER_PROPS} mb="12">
         <Heading my="12" fontSize="xl">
-          Preencha as informações abaixo para cadastrar um Produto
+          Preencha as informações abaixo para cadastrar um produto
         </Heading>
 
         <Box d="flex" flexDir="column" gap="4" bgColor="whiteAlpha.900" p="8">
@@ -74,9 +74,13 @@ const CreateProduct: NextPage = () => {
                   placeholder="Selecione os Tamanhos"
                   isMulti
                   options={[
+                    { label: 'PP', value: 'PP' },
                     { label: 'P', value: 'P' },
                     { label: 'M', value: 'M' },
                     { label: 'G', value: 'G' },
+                    { label: 'GG', value: 'GG' },
+                    { label: 'XG', value: 'XG' },
+                    { label: 'XGG', value: 'XGG' },
                   ]}
                 />
               </Field>
@@ -84,7 +88,6 @@ const CreateProduct: NextPage = () => {
               <Field>
                 <Select
                   placeholder="Selecione o Fornecedor"
-                  isMulti
                   options={[{ label: 'AliExpress', value: 1 }]}
                 />
               </Field>
