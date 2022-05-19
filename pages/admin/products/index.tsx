@@ -27,8 +27,8 @@ const ManageProduct: NextPage = () => {
     <Layout header={<Header></Header>} footer={<Footer></Footer>}>
       <Container {...CONTAINER_PROPS} mb="12">
         <Flex justifyContent="space-between" alignItems="center">
-          <Heading my="12" fontSize="xl">
-            Produtos Cadastrados
+          <Heading my="12" fontSize="2xl">
+            Bem vindo a sessão de produtos
           </Heading>
 
           <Flex gap="4">

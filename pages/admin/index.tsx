@@ -21,6 +21,7 @@ import { CONTAINER_PROPS } from '../../modules/commons/config/constants'
 import {
   BagIcon,
   CoinIcon,
+  OrderIcon,
   PeopleIcon,
   TruckIcon,
   TShirtIcon,
@@ -168,6 +169,7 @@ const Admin: NextPage = () => {
             borderWidth="1px"
             borderRadius="md"
             cursor="pointer"
+            onClick={() => router.push('/admin/collaborators/')}
           >
             <Flex
               flexDir="column"
@@ -248,6 +250,38 @@ const Admin: NextPage = () => {
               </Text>
 
               <TruckIcon boxSize="20" />
+
+              <Badge colorScheme="blue" alignSelf="self-end">
+                Utilizar
+              </Badge>
+            </Flex>
+          </Box>
+
+          <Box
+            p="6"
+            boxShadow="sm"
+            bgColor="whiteAlpha.900"
+            borderWidth="1px"
+            borderRadius="md"
+            cursor="pointer"
+            onClick={() => router.push('/admin/orders/')}
+          >
+            <Flex
+              flexDir="column"
+              justifyContent="center"
+              alignItems="center"
+              gap="4"
+            >
+              <Text
+                fontSize="sm"
+                textAlign="center"
+                fontWeight="bold"
+                textTransform="uppercase"
+              >
+                Gerenciar Pedidos
+              </Text>
+
+              <OrderIcon boxSize="20" />
 
               <Badge colorScheme="blue" alignSelf="self-end">
                 Utilizar
