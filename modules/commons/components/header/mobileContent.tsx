@@ -52,6 +52,14 @@ export function MobileContent() {
         </NextLink>
       </Box>
 
+      <Box mb="8">
+        <NextLink href="/cart" passHref>
+          <Link fontWeight="semibold" variant="link" colorScheme="secondary">
+            Visualizar meu carrinho
+          </Link>
+        </NextLink>
+      </Box>
+
       <Box mb="4">
         <Text fontWeight="semibold" mb="4" onClick={onToggleChampions}>
           Categorias <ChevronDownIcon />
