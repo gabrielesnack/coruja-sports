@@ -15,8 +15,9 @@ import {
   Badge,
   Collapse,
   Image,
+  IconButton,
 } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
+import { PreviewIcon } from '../../../commons/icons'
 
 export const ProductDetailModal = () => {
   const modal = useDisclosure()
@@ -27,15 +28,15 @@ export const ProductDetailModal = () => {
 
   return (
     <Flex justifyContent="center" alignItems="center">
-      <Button
-        variant="outline"
-        colorScheme="info"
-        size="xs"
+      <IconButton
+        variant="ghost"
+        color="info"
+        aria-label="Visualizar Detalhes"
+        icon={<PreviewIcon />}
         onClick={modal.onOpen}
-        borderRadius="0"
       >
         Ver Detalhes
-      </Button>
+      </IconButton>
 
       <Modal
         onClose={modal.onClose}
@@ -153,14 +154,6 @@ export const ProductDetailModal = () => {
               </Box>
             </Flex>
           </ModalBody>
-          <ModalFooter>
-            <Flex justify="space-between" w="100%">
-              <Button colorScheme="danger">Excluir</Button>
-              <Button colorScheme="primary" onClick={modal.onClose}>
-                Fechar
-              </Button>
-            </Flex>
-          </ModalFooter>
         </ModalContent>
       </Modal>
     </Flex>

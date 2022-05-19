@@ -1,3 +1,4 @@
+import { EditIcon } from '@chakra-ui/icons'
 import {
   Box,
   Button,
@@ -16,6 +17,7 @@ import {
   Tr,
 } from '@chakra-ui/react'
 import { NextPage } from 'next/types'
+import { EditCategoryModal } from '../../../modules/admin/components/EditCategoryModal/component'
 import { Field } from '../../../modules/commons/components/field'
 import Footer from '../../../modules/commons/components/footer'
 import Header from '../../../modules/commons/components/header'
@@ -81,6 +83,8 @@ const ManageCategories: NextPage = () => {
                         aria-label="excluir"
                         icon={<TrashIcon />}
                       />
+
+                      <EditCategoryModal />
                     </Td>
                   </Tr>
                   <Tr>
@@ -93,6 +97,7 @@ const ManageCategories: NextPage = () => {
                         aria-label="excluir"
                         icon={<TrashIcon />}
                       />
+                      <EditCategoryModal />
                     </Td>
                   </Tr>
                   <Tr>
@@ -105,6 +110,7 @@ const ManageCategories: NextPage = () => {
                         aria-label="excluir"
                         icon={<TrashIcon />}
                       />
+                      <EditCategoryModal />
                     </Td>
                   </Tr>
                 </Tbody>

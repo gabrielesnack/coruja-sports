@@ -1,9 +1,11 @@
+import { EditIcon } from '@chakra-ui/icons'
 import {
   Box,
   Button,
   Container,
   Flex,
   Heading,
+  IconButton,
   Table,
   TableContainer,
   Tbody,
@@ -19,6 +21,7 @@ import Footer from '../../../modules/commons/components/footer'
 import Header from '../../../modules/commons/components/header'
 import { Layout } from '../../../modules/commons/components/layout'
 import { CONTAINER_PROPS } from '../../../modules/commons/config/constants'
+import { TrashIcon } from '../../../modules/commons/icons'
 
 const ManageProduct: NextPage = () => {
   const router = useRouter()
@@ -66,7 +69,21 @@ const ManageProduct: NextPage = () => {
                   <Td>AliExpress</Td>
                   <Td>R$ 170,00</Td>
                   <Td>
-                    <ProductDetailModal />
+                    <Flex>
+                      <IconButton
+                        variant="ghost"
+                        color="danger"
+                        aria-label="excluir"
+                        icon={<TrashIcon />}
+                      />
+                      <IconButton
+                        variant="ghost"
+                        color="info"
+                        aria-label="editar"
+                        icon={<EditIcon />}
+                      />
+                      <ProductDetailModal />
+                    </Flex>
                   </Td>
                 </Tr>
                 <Tr>
@@ -74,7 +91,21 @@ const ManageProduct: NextPage = () => {
                   <Td>AliExpress</Td>
                   <Td>R$ 170,00</Td>
                   <Td>
-                    <ProductDetailModal />
+                    <Flex>
+                      <IconButton
+                        variant="ghost"
+                        color="danger"
+                        aria-label="excluir"
+                        icon={<TrashIcon />}
+                      />
+                      <IconButton
+                        variant="ghost"
+                        color="info"
+                        aria-label="editar"
+                        icon={<EditIcon />}
+                      />
+                      <ProductDetailModal />
+                    </Flex>
                   </Td>
                 </Tr>
                 <Tr>
@@ -82,7 +113,21 @@ const ManageProduct: NextPage = () => {
                   <Td>AliExpress</Td>
                   <Td>R$ 170,00</Td>
                   <Td>
-                    <ProductDetailModal />
+                    <Flex>
+                      <IconButton
+                        variant="ghost"
+                        color="danger"
+                        aria-label="excluir"
+                        icon={<TrashIcon />}
+                      />
+                      <IconButton
+                        variant="ghost"
+                        color="info"
+                        aria-label="editar"
+                        icon={<EditIcon />}
+                      />
+                      <ProductDetailModal />
+                    </Flex>
                   </Td>
                 </Tr>
               </Tbody>

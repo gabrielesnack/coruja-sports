@@ -1,3 +1,4 @@
+import { EditIcon } from '@chakra-ui/icons'
 import {
   Box,
   Button,
@@ -75,7 +76,7 @@ const ManageSuppliers: NextPage = () => {
                         variant="ghost"
                         color="info"
                         aria-label="editar"
-                        icon={<PencilIcon />}
+                        icon={<EditIcon />}
                       />
                     </Flex>
                   </Td>
