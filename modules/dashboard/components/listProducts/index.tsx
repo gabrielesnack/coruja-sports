@@ -30,8 +30,14 @@ function ListProducts({ title, inverseColor }: ListProductsProps) {
 
       <Grid
         width="100%"
-        gap="4"
-        templateColumns={['1fr', null, '1fr 1fr', '1fr 1fr 1fr']}
+        gap={['4', null, null, '6']}
+        templateColumns={[
+          '1fr',
+          null,
+          '1fr 1fr',
+          '1fr 1fr 1fr ',
+          '1fr 1fr 1fr 1fr',
+        ]}
       >
         <ProductCard {...productProps} />
         <ProductCard {...productProps} />

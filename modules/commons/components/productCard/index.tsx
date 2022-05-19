@@ -13,19 +13,18 @@ function ProductCard({ name, price, variations, images }: ProductProps) {
   const imageURL = images[0]
   const imageAlt = `imagem da ${name}`
 
-  const property = {
-    reviewCount: 34,
-    rating: 4,
-  }
-
   return (
     <Box {...BoxWrapperProps} onClick={() => router.push('product/santos')}>
-      <Box w="100%" d="flex" justifyContent="center">
+      <Box
+        w="100%"
+        d="flex"
+        justifyContent="center"
+        p={!imageURL ? '20' : undefined}
+      >
         <Image
           src={imageURL}
           alt={imageAlt}
-          w={imageURL ? '100%' : '50%'}
-          pt={!imageURL ? '16' : 'unset'}
+          w={'100%'}
           fallbackSrc="/no-pictures.png"
         />
       </Box>

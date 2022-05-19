@@ -4,8 +4,6 @@ export const BoxWrapperProps: BoxProps = {
   d: 'flex',
   flexDir: 'column',
   justifyContent: 'space-between',
-  w: '320px',
-  h: '460px',
   borderWidth: '1px',
   borderRadius: 'lg',
   overflow: 'hidden',
