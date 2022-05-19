@@ -9,9 +9,9 @@ export const ProductPreview = () => (
     d={['none', null, null, 'initial']}
   >
     <Box borderWidth="1px" maxW="560px" mb="2">
-      <Image src="/camiseta.jpeg" />
+      <Image src="/camiseta.jpeg" alt="camiseta" />
     </Box>
-    <Flex gap="1" d={['none', null, null, 'flex']}>
+    {/* <Flex gap="1" d={['none', null, null, 'flex']}>
       <Box
         borderWidth="1px"
         borderRadius="md"
@@ -48,6 +48,6 @@ export const ProductPreview = () => (
       >
         <Image src="/camiseta.jpeg" borderRadius="md" />
       </Box>
-    </Flex>
+    </Flex> */}
   </Box>
 )

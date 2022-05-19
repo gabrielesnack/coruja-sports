@@ -180,7 +180,7 @@ const ProductDetail: NextPage = () => {
                 <Button
                   colorScheme="secondary"
                   variant="outline"
-                  onClick={() => add(product, quantity)}
+                  onClick={() => add && add(product, quantity)}
                 >
                   Adicionar ao carrinho
                 </Button>

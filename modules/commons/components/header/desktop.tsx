@@ -49,28 +49,11 @@ function HeaderDesktop() {
                 as={Button}
                 rightIcon={<ChevronDownIcon />}
               >
-                Campeonatos
+                Categorias
               </MenuButton>
               <MenuList>
                 {championships.map((e, idx) => (
                   <MenuItem key={`championship-${idx}`}>{e}</MenuItem>
-                ))}
-              </MenuList>
-            </Menu>
-          </ListItem>
-          <ListItem>
-            <Menu>
-              <MenuButton
-                variant="link"
-                colorScheme="primary"
-                as={Button}
-                rightIcon={<ChevronDownIcon />}
-              >
-                Modelos
-              </MenuButton>
-              <MenuList>
-                {tShirtModels.map((e, idx) => (
-                  <MenuItem key={`tshirtmodels-${idx}`}>{e}</MenuItem>
                 ))}
               </MenuList>
             </Menu>

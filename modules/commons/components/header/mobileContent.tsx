@@ -15,11 +15,9 @@ import { useRouter } from 'next/router'
 import { HEADER_SIZE } from '../../config/constants'
 import { useUserContext } from '../../contexts/userContext'
 import InputSearch from '../InputSearch'
-import { championships, tShirtModels } from './props'
+import { championships } from './props'
 
 export function MobileContent() {
-  const { isOpen: isOpenSectionModels, onToggle: onToggleModels } =
-    useDisclosure()
   const { isOpen: isOpenSectionChampions, onToggle: onToggleChampions } =
     useDisclosure()
 
@@ -56,27 +54,12 @@ export function MobileContent() {
 
       <Box mb="4">
         <Text fontWeight="semibold" mb="4" onClick={onToggleChampions}>
-          Campeonatos <ChevronDownIcon />
+          Categorias <ChevronDownIcon />
         </Text>
         <Collapse in={isOpenSectionChampions} animateOpacity>
           <List d="flex" flexDirection="column" gap="6">
             {championships.map((e, idx) => (
               <ListItem key={`championships-${idx}`}>
-                <Link>{e}</Link>
-              </ListItem>
-            ))}
-          </List>
-        </Collapse>
-      </Box>
-
-      <Box mb="4">
-        <Text fontWeight="semibold" mb="4" onClick={onToggleModels}>
-          Modelos <ChevronDownIcon />
-        </Text>
-        <Collapse in={isOpenSectionModels} animateOpacity>
-          <List d="flex" flexDirection="column" gap="6">
-            {tShirtModels.map((e, idx) => (
-              <ListItem key={`tshirtmodels-${idx}`}>
                 <Link>{e}</Link>
               </ListItem>
             ))}
