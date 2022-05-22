@@ -17,7 +17,7 @@ export const useLogin = () => {
         body: payload,
       })
 
-      const { token } = res
+      const { token } = res.data
 
       StorageHandler().setSessionToken(token)
 

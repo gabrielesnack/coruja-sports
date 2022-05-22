@@ -37,8 +37,8 @@ export async function getStaticProps(ctx: GetStaticPropsContext<PageParams>) {
     const resProd = await fetchAPI.get<ProductType[]>(`products?search=${term}`)
     const resCat = await fetchAPI.get<ProductType[]>(`categories`)
 
-    if (hasItemArray(resProd)) products = resProd
-    if (hasItemArray(resCat)) categories = resCat
+    if (hasItemArray(resProd.data)) products = resProd.data
+    if (hasItemArray(resCat.data)) categories = resCat.data
   } catch (err: ReturnType<Error>) {
     throw err
   }

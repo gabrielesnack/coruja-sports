@@ -5,7 +5,7 @@ import { toCurrencyBRL } from '../../helpers/currency'
 import { ProductProps } from './interface'
 import { BoxWrapperProps } from './props'
 
-function ProductCard({ name, price, variations, images }: ProductProps) {
+function ProductCard({ id, name, price, variations, images }: ProductProps) {
   const router = useRouter()
 
   const size = (variations && variations[0].Tamanho) || []
@@ -14,7 +14,7 @@ function ProductCard({ name, price, variations, images }: ProductProps) {
   const imageAlt = `imagem da ${name}`
 
   return (
-    <Box {...BoxWrapperProps} onClick={() => router.push('product/santos')}>
+    <Box {...BoxWrapperProps} onClick={() => router.push(`/product/${id}`)}>
       <Box
         w="100%"
         d="flex"

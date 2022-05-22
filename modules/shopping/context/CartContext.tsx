@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { useIsClient } from '../../commons/hooks/useIsClient'
 import { useLocalStorage } from '../../commons/hooks/useLocalStorage'
-import { ProductType } from '../../commons/types'
+import { ProductDetailType } from '../../commons/hooks/useProductDetail/interface'
 
 type StorageItems = {
   total: number
-  item: ProductType
+  item: ProductDetailType
 }
 
 type CartContextType = {
   items: StorageItems[]
-  add?: (product: ProductType, quantity: number) => void
+  add?: (product: ProductDetailType, quantity: number) => void
   update?: (id: number, quantity: number) => void
   remove?: (id: number) => void
 }
@@ -30,7 +30,7 @@ export const CartProvider: React.FC = ({ children }) => {
     setItems(getStorage() || [])
   }, [isClient])
 
-  const add = (product: ProductType, quantity = 1) => {
+  const add = (product: ProductDetailType, quantity = 1) => {
     const foundItem = items.findIndex(({ item }) => item.id === product.id)
 
     let newItems: StorageItems[]

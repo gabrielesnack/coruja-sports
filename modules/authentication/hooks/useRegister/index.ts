@@ -28,7 +28,7 @@ export const useRegister = () => {
       const {
         token,
         user: { name, email, id },
-      } = res
+      } = res.data
 
       StorageHandler().setSessionToken(token)
       setUser({ name, email, id })

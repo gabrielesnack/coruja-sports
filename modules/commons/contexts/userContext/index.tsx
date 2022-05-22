@@ -26,7 +26,8 @@ const UserProvider = ({ children }: UserProviderProps) => {
 
     try {
       const response = await fetchAPI.get<UserType>('user')
-      const { email, id, name } = response
+
+      const { email, id, name } = response.data
       handleUser({ email, id, name })
     } catch (err: ReturnType<Error>) {
       StorageHandler().clear()

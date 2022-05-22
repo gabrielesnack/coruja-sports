@@ -12,13 +12,16 @@ import {
   Image,
   IconButton,
 } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 
 import { toCurrencyBRL } from '../../../commons/helpers/currency'
-import { TrashIcon } from '../../../commons/icons'
+import { EyeIcon, TrashIcon } from '../../../commons/icons'
 import { useCartContext } from '../../context/CartContext'
 
 export const TableCart = () => {
   const { items, update, remove } = useCartContext()
+
+  const router = useRouter()
 
   const maxOptions = new Array(100).fill(1)
 
@@ -49,10 +52,10 @@ export const TableCart = () => {
         </Thead>
         <Tbody>
           {items.map(({ item, total }) => (
-            <Tr key={`item-${item.name}`}>
+            <Tr key={`item-${item.id}`}>
               <Td>
                 <Box w="64px" h="64px">
-                  <Image src="/camiseta.jpeg" alt="camiseta" />
+                  <Image src={item.images[0].url} alt={item.name} />
                 </Box>
               </Td>
               <Td>{item.name}</Td>
@@ -64,10 +67,10 @@ export const TableCart = () => {
                     update && update(item.id, Number(e.target.value))
                   }
                 >
-                  {maxOptions.map((e, idx) => {
+                  {maxOptions.map((_, idx) => {
                     return (
                       <option
-                        key={`quantidade-${idx + 1}`}
+                        key={`${item.id}-qtd-${idx + 1}`}
                         value={idx + 1}
                         defaultChecked
                       >
@@ -83,8 +86,15 @@ export const TableCart = () => {
                   color="danger"
                   variant="ghost"
                   aria-label="Remover produto do carrinho"
-                  icon={<TrashIcon></TrashIcon>}
+                  icon={<TrashIcon />}
                   onClick={() => remove && remove(item.id)}
+                />
+                <IconButton
+                  color="info"
+                  variant="ghost"
+                  aria-label="Visualizar Produto"
+                  icon={<EyeIcon />}
+                  onClick={() => router.push(`product/${item.id}`)}
                 />
               </Td>
             </Tr>

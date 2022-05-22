@@ -1,53 +1,28 @@
-import { Box, Image, Flex } from '@chakra-ui/react'
+import { Box, Image, Show } from '@chakra-ui/react'
+import { useProductDetail } from '../../../commons/hooks/useProductDetail'
+import { ProductPreviewProps } from './interface'
 
-export const ProductPreview = () => (
-  <Box
-    p="2"
-    bgColor="whiteAlpha.900"
-    borderWidth="1px"
-    borderRadius="lg"
-    d={['none', null, null, 'initial']}
-  >
-    <Box borderWidth="1px" maxW="560px" mb="2">
-      <Image src="/camiseta.jpeg" alt="camiseta" />
-    </Box>
-    {/* <Flex gap="1" d={['none', null, null, 'flex']}>
+export const ProductPreview = ({ id }: ProductPreviewProps) => {
+  const { data } = useProductDetail(id)
+  const image = data?.images[0].url
+
+  return (
+    <Show above="lg">
       <Box
+        d="flex"
+        justifyContent="center"
+        alignItems="center"
+        w="560px"
+        maxW="560px"
+        p="2"
+        bgColor="whiteAlpha.900"
         borderWidth="1px"
-        borderRadius="md"
-        w="64px"
-        h="64px"
-        cursor="pointer"
+        borderRadius="lg"
       >
-        <Image src="/camiseta.jpeg" borderRadius="md" />
+        <Box w={image ? undefined : '33%'}>
+          <Image src={image} fallbackSrc="/no-pictures.png" alt="camiseta" />
+        </Box>
       </Box>
-      <Box
-        borderWidth="1px"
-        borderRadius="md"
-        w="64px"
-        h="64px"
-        cursor="pointer"
-      >
-        <Image src="/camiseta.jpeg" borderRadius="md" />
-      </Box>
-      <Box
-        borderWidth="1px"
-        borderRadius="md"
-        w="64px"
-        h="64px"
-        cursor="pointer"
-      >
-        <Image src="/camiseta.jpeg" borderRadius="md" />
-      </Box>
-      <Box
-        borderWidth="1px"
-        borderRadius="md"
-        w="64px"
-        h="64px"
-        cursor="pointer"
-      >
-        <Image src="/camiseta.jpeg" borderRadius="md" />
-      </Box>
-    </Flex> */}
-  </Box>
-)
+    </Show>
+  )
+}

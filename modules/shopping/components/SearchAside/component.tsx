@@ -12,14 +12,6 @@ export const SearchAside = ({ categories }: SearchAsideProps) => {
         <Text key={`categoria-${item.id}`}>{item.name}</Text>
       ))}
 
-      <Heading fontSize="lg" my="6">
-        Gênero
-      </Heading>
-
-      {['Menino', 'Menina', 'Homem', 'Mulher', 'Bebê'].map((item, idx) => (
-        <Text key={`categoria-${idx}`}>{item}</Text>
-      ))}
-
       <Heading my="6" fontSize="lg">
         Tamanhos
       </Heading>
