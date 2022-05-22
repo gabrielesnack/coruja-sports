@@ -2,7 +2,7 @@ import { Box, Container } from '@chakra-ui/react'
 import HeaderDesktop from './desktop'
 import HeaderMobile from './mobile'
 import { useMediaQuery } from '@chakra-ui/react'
-import ClientOnly from '../clientOnly'
+import ClientOnly from '../ClientOnly'
 import { CONTAINER_PROPS, HEADER_SIZE } from '../../config/constants'
 
 function Header() {

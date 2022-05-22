@@ -10,14 +10,14 @@ import {
   Tabs,
 } from '@chakra-ui/react'
 import type { NextPage } from 'next'
-import ClientOnly from '../../modules/commons/components/clientOnly'
-import Footer from '../../modules/commons/components/footer'
-import Header from '../../modules/commons/components/header'
-import { Layout } from '../../modules/commons/components/layout'
+import ClientOnly from '../../modules/commons/components/ClientOnly'
+import Footer from '../../modules/commons/components/Footer'
+import Header from '../../modules/commons/components/Header'
+import { Layout } from '../../modules/commons/components/Layout'
 import { CONTAINER_PROPS } from '../../modules/commons/config/constants'
-import { Address } from '../../modules/profile/components/address'
-import { Configuration } from '../../modules/profile/components/configuration'
-import { GeneralInformation } from '../../modules/profile/components/general'
+import { Address } from '../../modules/profile/components/Address'
+import { Configuration } from '../../modules/profile/components/Configuration'
+import { GeneralInformation } from '../../modules/profile/components/General'
 import { MyOrders } from '../../modules/profile/components/MyOrders'
 
 const Me: NextPage = () => {

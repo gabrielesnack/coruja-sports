@@ -9,10 +9,10 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { NextPage } from 'next/types'
-import { Field } from '../../../modules/commons/components/field'
-import Footer from '../../../modules/commons/components/footer'
-import Header from '../../../modules/commons/components/header'
-import { Layout } from '../../../modules/commons/components/layout'
+import { Field } from '../../../modules/commons/components/Field'
+import Footer from '../../../modules/commons/components/Footer'
+import Header from '../../../modules/commons/components/Header'
+import { Layout } from '../../../modules/commons/components/Layout'
 import { CONTAINER_PROPS } from '../../../modules/commons/config/constants'
 
 const CreateSuppliers: NextPage = () => {

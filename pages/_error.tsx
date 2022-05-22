@@ -1,9 +1,9 @@
 import { Button, Container, Flex, Heading, Text } from '@chakra-ui/react'
 import { NextPage, NextPageContext } from 'next'
 import { useRouter } from 'next/router'
-import Footer from '../modules/commons/components/footer'
-import Header from '../modules/commons/components/header'
-import { Layout } from '../modules/commons/components/layout'
+import Footer from '../modules/commons/components/Footer'
+import Header from '../modules/commons/components/Header'
+import { Layout } from '../modules/commons/components/Layout'
 import { CONTAINER_PROPS } from '../modules/commons/config/constants'
 
 type ErrorType = {

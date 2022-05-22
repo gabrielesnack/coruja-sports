@@ -1,5 +1,5 @@
 import { Box, Flex, Select, Show, Text } from '@chakra-ui/react'
-import ClientOnly from '../../../commons/components/clientOnly'
+import ClientOnly from '../../../commons/components/ClientOnly'
 
 export const SearchSorting = () => {
   return (

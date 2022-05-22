@@ -1,5 +1,5 @@
 import { Grid, GridItem } from '@chakra-ui/react'
-import ProductCard from '../../../commons/components/productCard'
+import ProductCard from '../../../commons/components/ProductCard'
 import { SearchListProps } from './interface'
 
 export const SearchList = ({ products }: SearchListProps) => {

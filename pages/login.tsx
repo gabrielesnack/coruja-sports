@@ -1,8 +1,8 @@
 import NextLink from 'next/link'
 import { Box, Container, Flex, Heading, Link, Text } from '@chakra-ui/react'
 import type { NextPage } from 'next'
-import { LoginForm } from '../modules/authentication/components/loginForm'
-import { Layout } from '../modules/commons/components/layout'
+import { LoginForm } from '../modules/authentication/components/LoginForm'
+import { Layout } from '../modules/commons/components/Layout'
 import { CONTAINER_PROPS } from '../modules/commons/config/constants'
 
 const Login: NextPage = () => {

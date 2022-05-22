@@ -1,9 +1,9 @@
 import { Box, Flex, Image } from '@chakra-ui/react'
 import type { NextPage } from 'next'
-import Footer from '../modules/commons/components/footer'
-import Header from '../modules/commons/components/header'
-import { Layout } from '../modules/commons/components/layout'
-import ListProducts from '../modules/dashboard/components/listProducts'
+import Footer from '../modules/commons/components/Footer'
+import Header from '../modules/commons/components/Header'
+import { Layout } from '../modules/commons/components/Layout'
+import ListProducts from '../modules/dashboard/components/ListProducts'
 
 const Home: NextPage = () => {
   // console.log(process.env.NEXT_PUBLIC_API_URL)

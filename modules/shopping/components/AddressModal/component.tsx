@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react'
 import { PlusIcon } from '../../../commons/icons'
 
-export const ModalAddress = () => {
+export const AddressModal = () => {
   const { isOpen, onClose, onOpen } = useDisclosure()
 
   return (

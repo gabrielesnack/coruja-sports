@@ -2,7 +2,7 @@ import { Box, Text, Button } from '@chakra-ui/react'
 import { toCurrencyBRL } from '../../../commons/helpers/currency'
 import { CheckoutFactory } from '../../../commons/thirdparty/MercadoPago'
 import { useCartContext } from '../../context/CartContext'
-import { ModalAddress } from '../modalAddress/component'
+import { AddressModal } from '../AddressModal/component'
 
 export const ResumeCart = () => {
   const { items, totalPrice } = useCartContext()
@@ -51,7 +51,7 @@ export const ResumeCart = () => {
           Endereço de Entrega:
         </Text>
 
-        <ModalAddress />
+        <AddressModal />
       </Box>
 
       <Button px="10" colorScheme="primary" onClick={() => openCheckout()}>

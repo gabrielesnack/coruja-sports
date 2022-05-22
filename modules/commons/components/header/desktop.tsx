@@ -12,11 +12,11 @@ import {
   Box,
   Icon,
 } from '@chakra-ui/react'
-import { CartIcon } from '../../icons/'
+import { CartIcon } from '../../icons'
 import { Logo } from './logo'
 import { championships, tShirtModels } from './props'
 import InputSearch from '../InputSearch'
-import { UserMenu } from '../userMenu'
+import { UserMenu } from '../UserMenu'
 import { useRouter } from 'next/router'
 import { useCartContext } from '../../../shopping/context/CartContext'
 

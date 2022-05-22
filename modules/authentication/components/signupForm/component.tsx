@@ -11,12 +11,12 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 import { RegisterInputsType } from './interface'
 import { schemaValidation } from './props'
-import { InputPassword } from '../../../commons/components/inputPassword'
+import { InputPassword } from '../../../commons/components/InputPassword'
 import { sub } from 'date-fns'
-import { DatePicker } from '../../../commons/components/datePicker'
+import { DatePicker } from '../../../commons/components/DatePicker'
 import InputMask from 'react-input-mask'
 import { useRegister } from '../../hooks/useRegister'
-import { Field } from '../../../commons/components/field'
+import { Field } from '../../../commons/components/Field'
 
 export const SignUpForm = () => {
   const { isOpen: isAcceptTerm, onToggle: acceptTerm } = useDisclosure()

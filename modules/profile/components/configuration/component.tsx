@@ -10,7 +10,7 @@ import {
   InputGroup,
 } from '@chakra-ui/react'
 import { useState } from 'react'
-import ClientOnly from '../../../commons/components/clientOnly'
+import ClientOnly from '../../../commons/components/ClientOnly'
 import { EyeIcon, EyeSlashIcon } from '../../../commons/icons'
 
 export const Configuration = () => {

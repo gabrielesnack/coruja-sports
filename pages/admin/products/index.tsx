@@ -17,9 +17,9 @@ import {
 import { useRouter } from 'next/router'
 import { NextPage } from 'next/types'
 import { ProductDetailModal } from '../../../modules/admin/components/ProductDetailModal'
-import Footer from '../../../modules/commons/components/footer'
-import Header from '../../../modules/commons/components/header'
-import { Layout } from '../../../modules/commons/components/layout'
+import Footer from '../../../modules/commons/components/Footer'
+import Header from '../../../modules/commons/components/Header'
+import { Layout } from '../../../modules/commons/components/Layout'
 import { CONTAINER_PROPS } from '../../../modules/commons/config/constants'
 import { TrashIcon } from '../../../modules/commons/icons'
 
