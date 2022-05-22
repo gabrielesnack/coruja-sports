@@ -12,7 +12,7 @@ const InputSearch = () => {
   }
 
   const handleOnEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e && e?.code === 'Enter') {
+    if (e && (e?.code === 'Enter' || e?.code === 'NumpadEnter')) {
       router.push(`/search/${value}`)
       return
     }
