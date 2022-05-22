@@ -47,7 +47,7 @@ export const ProductDetail = ({ id }: ProductDetailProps) => {
       <Flex h="100%" flexDir="column" justifyContent="space-between" gap="10">
         <Flex flexDir="column" gap="4">
           <Box d="flex" flexDir="column" gap="1">
-            <Heading mt="4" fontSize="2xl">
+            <Heading mt="4" fontSize="2xl" fontWeight="semibold">
               {product.name}
             </Heading>
 
@@ -68,7 +68,7 @@ export const ProductDetail = ({ id }: ProductDetailProps) => {
             </Button>
           </Box>
 
-          <Text fontSize="3xl" fontWeight="light">
+          <Text fontSize="3xl" fontWeight="bold">
             {toCurrencyBRL(product.price)}
           </Text>
 
