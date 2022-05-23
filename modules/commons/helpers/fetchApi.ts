@@ -1,4 +1,3 @@
-import { keysToSnakeCase } from './keysToSnakeCase'
 import { StorageHandler } from './storageHandler'
 
 type RequestTypes = 'POST' | 'GET' | 'PUT'
@@ -32,9 +31,7 @@ async function fetchFactory<TResponse>(
   const token = StorageHandler().getSessionToken()
   const Authorization = token ? `Bearear ${token}` : ''
 
-  const body = options?.body
-    ? JSON.stringify(keysToSnakeCase(options.body))
-    : undefined
+  const body = options?.body ? JSON.stringify(options.body) : undefined
 
   try {
     const res = await fetch(url, {

@@ -16,3 +16,14 @@ export type CategoriesType = {
   id: number
   name: string
 }
+
+export type PriceChangeType = {
+  floatValue: number
+  formattedValue: string
+  value: string
+}
+
+export type OptionType<TValue> = {
+  label: string
+  value: TValue
+}

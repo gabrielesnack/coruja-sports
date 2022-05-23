@@ -83,18 +83,18 @@ export const TableCart = () => {
               <Td>{toCurrencyBRL(item.price)}</Td>
               <Td>
                 <IconButton
-                  color="danger"
-                  variant="ghost"
-                  aria-label="Remover produto do carrinho"
-                  icon={<TrashIcon />}
-                  onClick={() => remove && remove(item.id)}
-                />
-                <IconButton
                   color="info"
                   variant="ghost"
                   aria-label="Visualizar Produto"
                   icon={<EyeIcon />}
                   onClick={() => router.push(`product/${item.id}`)}
+                />
+                <IconButton
+                  color="danger"
+                  variant="ghost"
+                  aria-label="Remover produto do carrinho"
+                  icon={<TrashIcon />}
+                  onClick={() => remove && remove(item.id)}
                 />
               </Td>
             </Tr>
