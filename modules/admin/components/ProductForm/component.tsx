@@ -19,7 +19,7 @@ import { Field } from '../../../commons/components/Field'
 import { ProductInputs, ProductInputsValues } from './interface'
 import { InputPriceProps, schemaValidation } from './props'
 import { OptionType, PriceChangeType } from '../../../commons/types'
-import { useUpdateProduct } from '../../hooks/useUpdateProduct'
+import { useCreateProduct } from '../../hooks/useCreateProduct'
 
 export const ProductForm = () => {
   const {
@@ -32,7 +32,7 @@ export const ProductForm = () => {
     resolver: yupResolver(schemaValidation),
   })
 
-  const { submit } = useUpdateProduct()
+  const { submit } = useCreateProduct()
 
   const onSubmit: SubmitHandler<ProductInputs> = async (data) => {
     const values = data as ProductInputsValues

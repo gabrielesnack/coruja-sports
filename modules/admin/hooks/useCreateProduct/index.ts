@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { fetchAPI } from '../../../commons/helpers/fetchApi'
 import { SubmitProductProps } from './interface'
 
-export const useUpdateProduct = () => {
+export const useCreateProduct = () => {
   const [isLoading, setLoading] = useState(false)
   const toast = useToast()
 
@@ -35,9 +35,6 @@ export const useUpdateProduct = () => {
         ],
         images: [{ url: image }],
       }
-
-      console.log({ payload })
-
       const response = await fetchAPI.post('products', {
         body: payload,
       })
@@ -55,6 +52,7 @@ export const useUpdateProduct = () => {
 
       return { ok: true, ...response }
     } catch (err) {
+      setLoading(false)
       toast({
         title: 'Não foi possível criar o produto.',
         description:
