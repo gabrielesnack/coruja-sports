@@ -21,7 +21,7 @@ import { InputPriceProps, schemaValidation } from './props'
 import { OptionType, PriceChangeType } from '../../../commons/types'
 import { useUpdateProduct } from '../../hooks/useUpdateProduct'
 
-export const UpdateProduct = () => {
+export const ProductForm = () => {
   const {
     control,
     register,

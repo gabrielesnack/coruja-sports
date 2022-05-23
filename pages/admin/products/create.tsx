@@ -4,7 +4,7 @@ import Footer from '../../../modules/commons/components/Footer'
 import Header from '../../../modules/commons/components/Header'
 import { Layout } from '../../../modules/commons/components/Layout'
 import { CONTAINER_PROPS } from '../../../modules/commons/config/constants'
-import { UpdateProduct } from '../../../modules/admin/components/UpdateProduct'
+import { ProductForm } from '../../../modules/admin/components/ProductForm'
 
 const CreateProduct: NextPage = () => {
   return (
@@ -14,7 +14,7 @@ const CreateProduct: NextPage = () => {
           Preencha as informações abaixo para cadastrar um produto
         </Heading>
 
-        <UpdateProduct />
+        <ProductForm />
       </Container>
     </Layout>
   )

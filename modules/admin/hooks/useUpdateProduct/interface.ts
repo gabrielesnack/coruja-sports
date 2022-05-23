@@ -1,3 +1,3 @@
-import { ProductInputsValues } from '../../components/UpdateProduct/interface'
+import { ProductInputsValues } from '../../components/ProductForm/interface'
 
 export type SubmitProductProps = ProductInputsValues
