@@ -14,6 +14,7 @@ export const ProductPreview = ({ id }: ProductPreviewProps) => {
         alignItems="center"
         w="560px"
         maxW="560px"
+        h="min-content"
         p="2"
         bgColor="whiteAlpha.900"
         borderWidth="1px"

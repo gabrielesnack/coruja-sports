@@ -4,18 +4,7 @@ import { CONTAINER_PROPS } from '../../../commons/config/constants'
 import { ProductType } from '../../../commons/types'
 import { ListProductsProps } from './interface'
 
-function ListProducts({ title, inverseColor }: ListProductsProps) {
-  const productProps = {
-    id: 1,
-    name: 'camisa do santos',
-    description: '',
-    variations: [
-      { Tamanho: ['P', 'M', 'G'], Cor: ['Branco', 'Preto', 'Azul', 'Rosa'] },
-    ],
-    images: [],
-    price: 10.14,
-  } as ProductType
-
+function ListProducts({ title, inverseColor, products }: ListProductsProps) {
   return (
     <Container {...CONTAINER_PROPS} pb="12" mb="12">
       <Heading
@@ -39,9 +28,11 @@ function ListProducts({ title, inverseColor }: ListProductsProps) {
           '1fr 1fr 1fr 1fr',
         ]}
       >
-        <ProductCard {...productProps} />
-        <ProductCard {...productProps} />
-        <ProductCard {...productProps} />
+        {products
+          ?.slice(products.length - 8, products.length)
+          .map((product) => {
+            return <ProductCard key={`product-${product.id}`} {...product} />
+          })}
       </Grid>
     </Container>
   )

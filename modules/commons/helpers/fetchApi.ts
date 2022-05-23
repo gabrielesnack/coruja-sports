@@ -1,22 +1,22 @@
 import { StorageHandler } from './storageHandler'
 
-type RequestTypes = 'POST' | 'GET' | 'PUT'
+export type RequestTypes = 'POST' | 'GET' | 'PUT'
 
-type FetchContext = {
+export type FetchContext = {
   method: RequestTypes
 }
 
-type OptionsFetchType = {
+export type OptionsFetchType = {
   headers?: Record<string, string>
   body?: Record<string, unknown>
 }
 
-type FetchResponseType<TResult> = {
+export type FetchResponseType<TResult> = {
   status: number
   data: TResult
 }
 
-type FetchFactoryType = <TResponse>(
+export type FetchFactoryType = <TResponse>(
   path: string,
   options?: OptionsFetchType
 ) => Promise<FetchResponseType<TResponse>>
