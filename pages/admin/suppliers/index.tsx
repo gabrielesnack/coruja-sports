@@ -17,6 +17,8 @@ import {
 import { cnpj } from 'cpf-cnpj-validator'
 import { useRouter } from 'next/router'
 import { NextPage } from 'next/types'
+import { useSWRConfig } from 'swr'
+import { useDeleteSupplier } from '../../../modules/admin/hooks/useDeleteSupplier'
 import { useGetSupplier } from '../../../modules/admin/hooks/useSupplier'
 import Footer from '../../../modules/commons/components/Footer'
 import Header from '../../../modules/commons/components/Header'
@@ -27,7 +29,14 @@ import { TrashIcon } from '../../../modules/commons/icons'
 const ManageSuppliers: NextPage = () => {
   const router = useRouter()
 
-  const { suppliers, isLoading } = useGetSupplier()
+  const { suppliers, isLoading, mutate } = useGetSupplier()
+  const { submit } = useDeleteSupplier()
+
+  const onDelete = async (id: number) => {
+    const response = await submit(id)
+    if (response.ok && suppliers)
+      mutate({ ...suppliers, data: suppliers.data.filter((e) => e.id !== id) })
+  }
 
   return (
     <Layout header={<Header />} footer={<Footer />}>
@@ -79,6 +88,7 @@ const ManageSuppliers: NextPage = () => {
                             color="danger"
                             aria-label="excluir"
                             icon={<TrashIcon />}
+                            onClick={() => onDelete(item.id)}
                           />
                         </Flex>
                       </Td>

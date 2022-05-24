@@ -6,7 +6,7 @@ import { SupplierType } from './interface'
 export const useGetSupplier = (initTerm?: string) => {
   const [currentTerm, setTerm] = useState<string | undefined>(initTerm)
 
-  const { data, error } = useSWR(
+  const { data, error, mutate } = useSWR(
     `providers?search=${currentTerm || ''}`,
     (url: string) => fetcher<SupplierType[]>(url)
   )
@@ -14,6 +14,7 @@ export const useGetSupplier = (initTerm?: string) => {
   return {
     suppliers: data,
     isLoading: data && !error,
+    mutate,
     setTerm,
   }
 }

@@ -1,6 +1,6 @@
 import { StorageHandler } from './storageHandler'
 
-export type RequestTypes = 'POST' | 'GET' | 'PUT'
+export type RequestTypes = 'POST' | 'GET' | 'PUT' | 'DELETE'
 
 export type FetchContext = {
   method: RequestTypes
@@ -46,7 +46,10 @@ async function fetchFactory<TResponse>(
 
     if (!res.ok) throw res
 
-    const data = await res.json()
+    const data = await res
+      .json()
+      .then((res) => res)
+      .catch(() => ({}))
 
     return {
       status: res.status as number,
@@ -61,4 +64,5 @@ export const fetchAPI = {
   post: fetchFactory.bind({ method: 'POST' }) as FetchFactoryType,
   get: fetchFactory.bind({ method: 'GET' }) as FetchFactoryType,
   put: fetchFactory.bind({ method: 'PUT' }) as FetchFactoryType,
+  del: fetchFactory.bind({ method: 'DELETE' }) as FetchFactoryType,
 }
