@@ -12,7 +12,14 @@ export type ProductInputs = {
 }
 
 export type ProductInputsValues = ProductInputs & {
-  provider: OptionType<number>[]
+  id?: number
+  provider: OptionType<number>
   sizes: OptionType<number>[]
   categories: OptionType<number>[]
+}
+
+export type ProductFormProps = {
+  initValues?: Partial<ProductInputsValues> & {
+    id?: number
+  }
 }

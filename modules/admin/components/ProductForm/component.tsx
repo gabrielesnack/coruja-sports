@@ -16,12 +16,23 @@ import { Select } from 'chakra-react-select'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import CurrencyFormat from 'react-currency-format'
 import { Field } from '../../../commons/components/Field'
-import { ProductInputs, ProductInputsValues } from './interface'
-import { InputPriceProps, schemaValidation } from './props'
+import {
+  ProductFormProps,
+  ProductInputs,
+  ProductInputsValues,
+} from './interface'
+import { InputPriceProps, schemaValidation, toOption } from './props'
 import { OptionType, PriceChangeType } from '../../../commons/types'
-import { useCreateProduct } from '../../hooks/useCreateProduct'
+import { useCreateOrUpdateProduct } from '../../hooks/useCreateOrUpdateProduct'
+import { useCategories } from '../../../commons/hooks/useCategories'
+import { useGetSupplier } from '../../hooks/useSupplier'
+import { useRouter } from 'next/router'
 
-export const ProductForm = () => {
+export const ProductForm = ({ initValues }: ProductFormProps) => {
+  const isUpdating = !!initValues?.id
+
+  const router = useRouter()
+
   const {
     control,
     register,
@@ -30,10 +41,16 @@ export const ProductForm = () => {
     reset,
   } = useForm<ProductInputs>({
     resolver: yupResolver(schemaValidation),
+    defaultValues: initValues,
   })
 
-  const { submit } = useCreateProduct()
+  const { categories } = useCategories()
+  const categoriesOptions = toOption(categories?.data)
 
+  const { suppliers } = useGetSupplier()
+  const supplierOptions = toOption(suppliers?.data)
+
+  const { submit } = useCreateOrUpdateProduct()
   const onSubmit: SubmitHandler<ProductInputs> = async (data) => {
     const values = data as ProductInputsValues
     const res = await submit(values)
@@ -93,11 +110,7 @@ export const ProductForm = () => {
                   value={field.value as unknown as OptionType<Number>}
                   onBlur={field.onBlur}
                   onChange={field.onChange}
-                  options={[
-                    { label: 'Brasileirão', value: 1 },
-                    { label: 'La Liga', value: 2 },
-                    { label: 'Serie A', value: 3 },
-                  ]}
+                  options={categoriesOptions}
                 />
               )}
             />
@@ -151,13 +164,12 @@ export const ProductForm = () => {
               render={({ field }) => (
                 <Select
                   placeholder="Selecione o Fornecedor"
-                  isMulti
                   name={field.name}
                   ref={field.ref}
                   value={field.value as unknown as OptionType<Number>}
                   onBlur={field.onBlur}
                   onChange={field.onChange}
-                  options={[{ label: 'AliExpress', value: 1 }]}
+                  options={supplierOptions}
                 />
               )}
             />
@@ -186,6 +198,7 @@ export const ProductForm = () => {
                       id="highlight"
                       mt="1"
                       size="md"
+                      isChecked={field.value}
                       onChange={field.onChange}
                       onBlur={field.onBlur}
                     />
@@ -195,9 +208,20 @@ export const ProductForm = () => {
             </Field>
           </GridItem>
         </Grid>
-        <Button type="submit" colorScheme="primary" alignSelf="end">
-          Criar Produto
-        </Button>
+        <Flex gap="4" justifyContent="flex-end">
+          <Button
+            variant="outline"
+            colorScheme="primary"
+            alignSelf="end"
+            px="6"
+            onClick={() => router.back()}
+          >
+            Voltar
+          </Button>
+          <Button type="submit" colorScheme="primary" alignSelf="end" px="6">
+            {isUpdating ? 'Salvar' : 'Criar Produto'}
+          </Button>
+        </Flex>
       </FormControl>
     </Box>
   )

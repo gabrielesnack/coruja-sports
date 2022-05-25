@@ -89,6 +89,7 @@ const ManageProduct: NextPage = () => {
                           color="info"
                           aria-label="editar"
                           icon={<EditIcon />}
+                          onClick={() => router.push(`products/${product.id}`)}
                         />
                         <ProductDetailModal id={product.id} />
                         <IconButton
