@@ -4,7 +4,8 @@ import { SupplierType } from '../../hooks/useSupplier/interface'
 export type SupplierInputs = {
   name: string
   cnpj: string
-  apiCode: string
+  email: string
+  telefone: string
 }
 
 export type SupplierFormProps = {

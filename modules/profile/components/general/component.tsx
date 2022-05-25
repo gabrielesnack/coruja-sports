@@ -31,13 +31,6 @@ export const GeneralInformation = () => {
           </Text>
           <Input defaultValue="43.796.750-5" />
         </Box>
-
-        <Box d="flex" flexDir="column" gap="2">
-          <Text fontSize="sm" fontWeight="semibold" color="gray.500">
-            Número de telefone
-          </Text>
-          <Input defaultValue="(97) 2896-6222" />
-        </Box>
       </Grid>
 
       <Button

@@ -6,7 +6,10 @@ import { Layout } from '../../modules/commons/components/Layout'
 import { CONTAINER_PROPS } from '../../modules/commons/config/constants'
 import { fetchAPI } from '../../modules/commons/helpers/fetchApi'
 import { hasItemArray } from '../../modules/commons/helpers/hasItemArray'
-import { CategoriesType, ProductType } from '../../modules/commons/types'
+import {
+  CategoriesType,
+  ProductResponseType,
+} from '../../modules/commons/types'
 import { SearchAside } from '../../modules/shopping/components/SearchAside'
 import { SearchFilter } from '../../modules/shopping/components/SearchFilter/'
 import { SearchList } from '../../modules/shopping/components/SearchList'
@@ -14,7 +17,7 @@ import { SearchSorting } from '../../modules/shopping/components/SearchSorting'
 
 type SearchProps = {
   categories?: CategoriesType[]
-  products?: ProductType[]
+  products?: ProductResponseType[]
   product?: string
 }
 
@@ -34,8 +37,10 @@ export async function getStaticProps(ctx: GetStaticPropsContext<PageParams>) {
   const term = ctx.params?.product || ''
 
   try {
-    const resProd = await fetchAPI.get<ProductType[]>(`products?search=${term}`)
-    const resCat = await fetchAPI.get<ProductType[]>(`categories`)
+    const resProd = await fetchAPI.get<ProductResponseType[]>(
+      `products?search=${term}`
+    )
+    const resCat = await fetchAPI.get<ProductResponseType[]>(`categories`)
 
     if (hasItemArray(resProd.data)) products = resProd.data
     if (hasItemArray(resCat.data)) categories = resCat.data

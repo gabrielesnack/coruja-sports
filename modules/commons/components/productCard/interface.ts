@@ -1,3 +1,3 @@
-import { ProductType } from '../../types'
+import { ProductResponseType } from '../../types'
 
-export type ProductProps = ProductType
+export type ProductProps = ProductResponseType

@@ -1,5 +1,5 @@
-import { ProductType } from '../../../commons/types'
+import { ProductResponseType } from '../../../commons/types'
 
 export type SearchListProps = {
-  products: ProductType[]
+  products: ProductResponseType[]
 }

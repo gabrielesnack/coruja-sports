@@ -61,18 +61,18 @@ const ManageSuppliers: NextPage = () => {
               <Table size="sm" variant="striped" colorScheme="blackAlpha">
                 <Thead>
                   <Tr>
-                    <Th>Código API</Th>
                     <Th>Nome</Th>
-                    <Th>CNPJ</Th>
+                    <Th>Email</Th>
+                    <Th>Telefone</Th>
                     <Th>Ações</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
                   {suppliers?.data?.map((item) => (
                     <Tr key={item.id}>
-                      <Td>{item.apiCode}</Td>
                       <Td>{item.name}</Td>
-                      <Td>{cnpj.format(item.cnpj)}</Td>
+                      <Td>-</Td>
+                      <Td>-</Td>
                       <Td>
                         <Flex gap="4">
                           <IconButton

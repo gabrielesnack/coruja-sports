@@ -48,13 +48,6 @@ export const SupplierForm = ({
       onSubmit={handleSubmit(onSubmit)}
     >
       <Grid templateColumns={['1fr', null, '1fr 1fr 1fr']} gap="6">
-        <Field isInvalid={!!errors.apiCode} errMsg={errors.apiCode?.message}>
-          <Input
-            placeholder="Código da API"
-            size="md"
-            {...register('apiCode')}
-          />
-        </Field>
         <Field isInvalid={!!errors.name} errMsg={errors.name?.message}>
           <Input
             placeholder="Nome do Fornecedor"
@@ -62,15 +55,11 @@ export const SupplierForm = ({
             {...register('name')}
           />
         </Field>
-        <Field isInvalid={!!errors.cnpj} errMsg={errors.cnpj?.message}>
-          <Input
-            // @ts-ignore
-            as={ReactInputMask}
-            placeholder="CNPJ"
-            size="md"
-            mask="99.999.999/9999-99"
-            {...register('cnpj')}
-          />
+        <Field isInvalid={!!errors.email} errMsg={errors.email?.message}>
+          <Input placeholder="EMAIL" size="md" {...register('email')} />
+        </Field>
+        <Field isInvalid={!!errors.telefone} errMsg={errors.telefone?.message}>
+          <Input placeholder="TELEFONE" size="md" {...register('telefone')} />
         </Field>
       </Grid>
 

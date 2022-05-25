@@ -1,7 +1,7 @@
 import { Container, Grid, Heading } from '@chakra-ui/react'
 import ProductCard from '../../../commons/components/ProductCard'
 import { CONTAINER_PROPS } from '../../../commons/config/constants'
-import { ProductType } from '../../../commons/types'
+import { ProductResponseType } from '../../../commons/types'
 import { ListProductsProps } from './interface'
 
 function ListProducts({ title, inverseColor, products }: ListProductsProps) {

@@ -21,10 +21,14 @@ import Footer from '../../../modules/commons/components/Footer'
 import Header from '../../../modules/commons/components/Header'
 import { Layout } from '../../../modules/commons/components/Layout'
 import { CONTAINER_PROPS } from '../../../modules/commons/config/constants'
+import { toCurrencyBRL } from '../../../modules/commons/helpers/currency'
+import { useProduct } from '../../../modules/commons/hooks/useProduct'
 import { TrashIcon } from '../../../modules/commons/icons'
 
 const ManageProduct: NextPage = () => {
   const router = useRouter()
+
+  const { products } = useProduct()
 
   return (
     <Layout header={<Header></Header>} footer={<Footer></Footer>}>
@@ -64,72 +68,30 @@ const ManageProduct: NextPage = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                <Tr>
-                  <Td>Camiseta do Santos Retrô</Td>
-                  <Td>AliExpress</Td>
-                  <Td>R$ 170,00</Td>
-                  <Td>
-                    <Flex>
-                      <IconButton
-                        variant="ghost"
-                        color="danger"
-                        aria-label="excluir"
-                        icon={<TrashIcon />}
-                      />
-                      <IconButton
-                        variant="ghost"
-                        color="info"
-                        aria-label="editar"
-                        icon={<EditIcon />}
-                      />
-                      <ProductDetailModal />
-                    </Flex>
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td>Camiseta do Santos Retrô</Td>
-                  <Td>AliExpress</Td>
-                  <Td>R$ 170,00</Td>
-                  <Td>
-                    <Flex>
-                      <IconButton
-                        variant="ghost"
-                        color="danger"
-                        aria-label="excluir"
-                        icon={<TrashIcon />}
-                      />
-                      <IconButton
-                        variant="ghost"
-                        color="info"
-                        aria-label="editar"
-                        icon={<EditIcon />}
-                      />
-                      <ProductDetailModal />
-                    </Flex>
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td>Camiseta do Santos Retrô</Td>
-                  <Td>AliExpress</Td>
-                  <Td>R$ 170,00</Td>
-                  <Td>
-                    <Flex>
-                      <IconButton
-                        variant="ghost"
-                        color="danger"
-                        aria-label="excluir"
-                        icon={<TrashIcon />}
-                      />
-                      <IconButton
-                        variant="ghost"
-                        color="info"
-                        aria-label="editar"
-                        icon={<EditIcon />}
-                      />
-                      <ProductDetailModal />
-                    </Flex>
-                  </Td>
-                </Tr>
+                {products?.data.map((product) => (
+                  <Tr>
+                    <Td>{product.name}</Td>
+                    <Td>{product.provider}</Td>
+                    <Td>{toCurrencyBRL(product.price)}</Td>
+                    <Td>
+                      <Flex>
+                        <IconButton
+                          variant="ghost"
+                          color="info"
+                          aria-label="editar"
+                          icon={<EditIcon />}
+                        />
+                        <ProductDetailModal id={product.id} />
+                        <IconButton
+                          variant="ghost"
+                          color="danger"
+                          aria-label="excluir"
+                          icon={<TrashIcon />}
+                        />
+                      </Flex>
+                    </Td>
+                  </Tr>
+                ))}
               </Tbody>
             </Table>
           </TableContainer>

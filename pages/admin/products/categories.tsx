@@ -76,6 +76,7 @@ const ManageCategories: NextPage = () => {
                   <Tr>
                     <Td>Brasileirão</Td>
                     <Td>
+                      <EditCategoryModal />
                       <IconButton
                         size="sm"
                         variant="ghost"
@@ -83,13 +84,12 @@ const ManageCategories: NextPage = () => {
                         aria-label="excluir"
                         icon={<TrashIcon />}
                       />
-
-                      <EditCategoryModal />
                     </Td>
                   </Tr>
                   <Tr>
                     <Td>Brasileirão</Td>
                     <Td>
+                      <EditCategoryModal />
                       <IconButton
                         size="sm"
                         variant="ghost"
@@ -97,12 +97,12 @@ const ManageCategories: NextPage = () => {
                         aria-label="excluir"
                         icon={<TrashIcon />}
                       />
-                      <EditCategoryModal />
                     </Td>
                   </Tr>
                   <Tr>
                     <Td>Brasileirão</Td>
                     <Td>
+                      <EditCategoryModal />
                       <IconButton
                         size="sm"
                         variant="ghost"
@@ -110,7 +110,6 @@ const ManageCategories: NextPage = () => {
                         aria-label="excluir"
                         icon={<TrashIcon />}
                       />
-                      <EditCategoryModal />
                     </Td>
                   </Tr>
                 </Tbody>

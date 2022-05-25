@@ -7,18 +7,18 @@ import {
   fetchAPI,
   FetchResponseType,
 } from '../modules/commons/helpers/fetchApi'
-import { ProductType } from '../modules/commons/types'
+import { ProductResponseType } from '../modules/commons/types'
 import ListProducts from '../modules/dashboard/components/ListProducts'
 
 type PageParams = {
-  highlightedProducts: FetchResponseType<ProductType[]>
+  highlightedProducts: FetchResponseType<ProductResponseType[]>
 }
 
 export async function getStaticProps() {
   let highlightedProducts = null
 
   try {
-    highlightedProducts = await fetchAPI.get<ProductType[]>(
+    highlightedProducts = await fetchAPI.get<ProductResponseType[]>(
       `/products/highlighted`
     )
   } catch (err: ReturnType<Error>) {

@@ -65,6 +65,13 @@ const ManageOrders: NextPage = () => {
                   <Td>
                     <Flex gap="4">
                       <EditOrderModal />
+                      <IconButton
+                        variant="ghost"
+                        color="danger"
+                        size="sm"
+                        aria-label="cancelar"
+                        icon={<TrashIcon />}
+                      />
                     </Flex>
                   </Td>
                 </Tr>
