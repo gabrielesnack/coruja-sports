@@ -2,7 +2,7 @@ import { useToast } from '@chakra-ui/react'
 import { useState } from 'react'
 import { fetchAPI } from '../../../commons/helpers/fetchApi'
 
-export const useDeleteSupplier = () => {
+export const useDeleteProduct = () => {
   const [isLoading, setLoading] = useState(false)
   const toast = useToast()
 

@@ -17,6 +17,7 @@ import {
 import { useRouter } from 'next/router'
 import { NextPage } from 'next/types'
 import { ProductDetailModal } from '../../../modules/admin/components/ProductDetailModal'
+import { useDeleteProduct } from '../../../modules/admin/hooks/useDeleteProduct'
 import Footer from '../../../modules/commons/components/Footer'
 import Header from '../../../modules/commons/components/Header'
 import { Layout } from '../../../modules/commons/components/Layout'
@@ -28,7 +29,15 @@ import { TrashIcon } from '../../../modules/commons/icons'
 const ManageProduct: NextPage = () => {
   const router = useRouter()
 
-  const { products } = useProduct()
+  const { products, mutate } = useProduct()
+  const { submit } = useDeleteProduct()
+
+  const onDelete = async (id: number) => {
+    const res = await submit(id)
+
+    if (res.ok && products)
+      mutate({ ...products, data: products?.data.filter((e) => e.id !== id) })
+  }
 
   return (
     <Layout header={<Header></Header>} footer={<Footer></Footer>}>
@@ -69,7 +78,7 @@ const ManageProduct: NextPage = () => {
               </Thead>
               <Tbody>
                 {products?.data.map((product) => (
-                  <Tr>
+                  <Tr key={product.id}>
                     <Td>{product.name}</Td>
                     <Td>{product.provider}</Td>
                     <Td>{toCurrencyBRL(product.price)}</Td>
@@ -87,6 +96,7 @@ const ManageProduct: NextPage = () => {
                           color="danger"
                           aria-label="excluir"
                           icon={<TrashIcon />}
+                          onClick={() => onDelete(product.id)}
                         />
                       </Flex>
                     </Td>
