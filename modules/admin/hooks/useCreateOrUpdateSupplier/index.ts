@@ -1,14 +1,14 @@
 import { useToast } from '@chakra-ui/react'
 import { useState } from 'react'
 import { fetchAPI } from '../../../commons/helpers/fetchApi'
-import { SupplierInputs } from '../../components/SupplierForm/interface'
 import { cnpj as CNPJValidator } from 'cpf-cnpj-validator'
+import { SupplierSubmitProps } from './interface'
 
-export const useCreateSupplier = () => {
+export const useCreateOrUpdateSupplier = () => {
   const [isLoading, setLoading] = useState(false)
   const toast = useToast()
 
-  const submit = async ({ cnpj, name, apiCode }: SupplierInputs) => {
+  const submit = async ({ id, cnpj, name, apiCode }: SupplierSubmitProps) => {
     setLoading(true)
 
     try {
@@ -17,12 +17,20 @@ export const useCreateSupplier = () => {
         name,
         api_code: apiCode,
       }
-      const response = await fetchAPI.post('/providers', {
+
+      const url = id ? `providers/${id}` : 'providers'
+      const method = id ? 'put' : 'post'
+
+      const response = await fetchAPI[method](url, {
         body: payload,
       })
 
+      const title = id
+        ? 'Fornecedor atualizado com sucesso'
+        : 'Fornecedor criado com sucesso.'
+
       toast({
-        title: 'Fornecedor criado com sucesso.',
+        title,
         status: 'success',
         duration: 2000,
         isClosable: true,
@@ -35,8 +43,13 @@ export const useCreateSupplier = () => {
       return { ok: true, ...response }
     } catch (err) {
       setLoading(false)
+
+      const title = id
+        ? 'Não foi possível atualizar o fornecedor.'
+        : 'Não foi possível criar o fornecedor.'
+
       toast({
-        title: 'Não foi possível criar o fornecedor.',
+        title,
         description:
           'Tente novamente mais tarde ou entre em contato com a nossa equipe.',
         status: 'error',

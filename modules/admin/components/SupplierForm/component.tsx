@@ -1,13 +1,20 @@
-import { Button, FormControl, Grid, Input } from '@chakra-ui/react'
+import { Button, Flex, FormControl, Grid, Input } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useRouter } from 'next/router'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import ReactInputMask from 'react-input-mask'
 import { Field } from '../../../commons/components/Field'
-import { useCreateSupplier } from '../../hooks/useCreateSupplier'
-import { SupplierInputs } from './interface'
+import { useCreateOrUpdateSupplier } from '../../hooks/useCreateOrUpdateSupplier'
+import { SupplierType } from '../../hooks/useSupplier/interface'
+import { SupplierFormProps, SupplierInputs } from './interface'
 import { schemaValidation } from './props'
 
-export const SupplierForm = () => {
+export const SupplierForm = ({
+  initialValue,
+  onSubmitCallback,
+}: SupplierFormProps) => {
+  const router = useRouter()
+
   const {
     register,
     formState: { errors },
@@ -15,14 +22,21 @@ export const SupplierForm = () => {
     reset,
   } = useForm<SupplierInputs>({
     resolver: yupResolver(schemaValidation),
+    defaultValues: initialValue,
   })
 
-  const { submit } = useCreateSupplier()
+  const { submit } = useCreateOrUpdateSupplier()
 
   const onSubmit: SubmitHandler<SupplierInputs> = async (data) => {
-    const res = await submit(data)
+    const payload = { ...data, id: initialValue?.id }
+    const res = await submit(payload)
 
-    if (res.ok) reset()
+    const isUpdating = initialValue?.id
+
+    if (res.ok) {
+      onSubmitCallback && onSubmitCallback(payload as SupplierType)
+      !isUpdating && reset()
+    }
   }
 
   return (
@@ -60,15 +74,28 @@ export const SupplierForm = () => {
         </Field>
       </Grid>
 
-      <Button
-        type="submit"
-        colorScheme="primary"
-        px="10"
-        w={['100%', null, 'min-content']}
-        alignSelf="end"
-      >
-        Salvar
-      </Button>
+      <Flex gap="4" justifyContent="end">
+        <Button
+          colorScheme="primary"
+          variant="outline"
+          px="10"
+          w={['100%', null, 'min-content']}
+          alignSelf="end"
+          onClick={() => router.back()}
+        >
+          Voltar
+        </Button>
+
+        <Button
+          type="submit"
+          colorScheme="primary"
+          px="10"
+          w={['100%', null, 'min-content']}
+          alignSelf="end"
+        >
+          Salvar
+        </Button>
+      </Flex>
     </FormControl>
   )
 }

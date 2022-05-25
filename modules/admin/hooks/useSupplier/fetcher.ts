@@ -17,14 +17,15 @@ export const fetcher = async <TResult = SupplierType | SupplierType[]>(
     let data: unknown
 
     if (isArray<SupplierResponseType>(response.data)) {
-      data = response.data.map((e) => ({
-        ...e,
-        apiCode: e.api_code,
+      data = response.data.map(({ api_code, ...rest }) => ({
+        ...rest,
+        apiCode: api_code,
       })) as SupplierType[]
     } else {
+      const { api_code, ...rest } = response.data
       data = {
-        ...response.data,
-        apiCode: response.data.api_code,
+        ...rest,
+        apiCode: api_code,
       } as SupplierType
     }
 

@@ -81,6 +81,7 @@ const ManageSuppliers: NextPage = () => {
                             color="info"
                             aria-label="editar"
                             icon={<EditIcon />}
+                            onClick={() => router.push(`suppliers/${item.id}`)}
                           />
                           <IconButton
                             size="sm"

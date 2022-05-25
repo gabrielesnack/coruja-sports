@@ -18,3 +18,16 @@ export const useGetSupplier = (initTerm?: string) => {
     setTerm,
   }
 }
+
+export const useFindSupplier = (id?: number) => {
+  const { data, error, mutate } = useSWR(
+    id ? `providers/${id}` : null,
+    (url: string) => fetcher<SupplierType>(url)
+  )
+
+  return {
+    supplier: data,
+    isLoading: !data && !error,
+    mutate,
+  }
+}
