@@ -17,15 +17,40 @@ import {
   Tr,
 } from '@chakra-ui/react'
 import { NextPage } from 'next/types'
+import { CreateCategory } from '../../../modules/admin/components/CreateCategory'
 import { EditCategoryModal } from '../../../modules/admin/components/EditCategoryModal/component'
+import { useDeleteCategory } from '../../../modules/admin/hooks/useDeleteCategory'
 import { Field } from '../../../modules/commons/components/Field'
 import Footer from '../../../modules/commons/components/Footer'
 import Header from '../../../modules/commons/components/Header'
 import { Layout } from '../../../modules/commons/components/Layout'
 import { CONTAINER_PROPS } from '../../../modules/commons/config/constants'
+import { useCategories } from '../../../modules/commons/hooks/useCategories'
 import { TrashIcon } from '../../../modules/commons/icons'
+import { CategoriesType } from '../../../modules/commons/types'
 
 const ManageCategories: NextPage = () => {
+  const { categories, mutate } = useCategories()
+  const { submit: deleteItem } = useDeleteCategory()
+
+  const onUpdateItem = (data: CategoriesType) => {
+    if (!categories) return
+
+    const idx = categories.data.findIndex(({ id }) => id === data.id)
+    const newData = [...categories.data.filter((e) => e.id != idx), data]
+    mutate({ ...categories, data: newData })
+  }
+
+  const onDeleteItem = async (id: number) => {
+    if (!categories) return
+
+    const res = await deleteItem(id)
+    if (res.ok) {
+      const newData = categories.data.filter((e) => e.id != id)
+      mutate({ ...categories, data: newData })
+    }
+  }
+
   return (
     <Layout header={<Header></Header>} footer={<Footer></Footer>}>
       <Container {...CONTAINER_PROPS} mb="12">
@@ -34,25 +59,7 @@ const ManageCategories: NextPage = () => {
         </Heading>
 
         <Box p="6" mb="6" bgColor="whiteAlpha.900" boxShadow="xl">
-          <Heading
-            fontSize="medium"
-            fontWeight="bold"
-            mb="4"
-            color="blackAlpha.800"
-          >
-            Adicionar Categoria
-          </Heading>
-
-          <FormControl as="form" mb="6">
-            <Grid templateColumns={['1fr', null, '1fr .3fr 1fr']} gap="6">
-              <Field>
-                <Input placeholder="Nome da Categoria" size="md" />
-              </Field>
-              <Button type="submit" colorScheme="primary">
-                Salvar
-              </Button>
-            </Grid>
-          </FormControl>
+          <CreateCategory onSubmitCallback={onUpdateItem} />
 
           <Heading
             fontSize="medium"
@@ -73,45 +80,26 @@ const ManageCategories: NextPage = () => {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  <Tr>
-                    <Td>Brasileirão</Td>
-                    <Td>
-                      <EditCategoryModal />
-                      <IconButton
-                        size="sm"
-                        variant="ghost"
-                        color="danger"
-                        aria-label="excluir"
-                        icon={<TrashIcon />}
-                      />
-                    </Td>
-                  </Tr>
-                  <Tr>
-                    <Td>Brasileirão</Td>
-                    <Td>
-                      <EditCategoryModal />
-                      <IconButton
-                        size="sm"
-                        variant="ghost"
-                        color="danger"
-                        aria-label="excluir"
-                        icon={<TrashIcon />}
-                      />
-                    </Td>
-                  </Tr>
-                  <Tr>
-                    <Td>Brasileirão</Td>
-                    <Td>
-                      <EditCategoryModal />
-                      <IconButton
-                        size="sm"
-                        variant="ghost"
-                        color="danger"
-                        aria-label="excluir"
-                        icon={<TrashIcon />}
-                      />
-                    </Td>
-                  </Tr>
+                  {categories?.data?.map((e) => (
+                    <Tr key={e.id}>
+                      <Td>{e.name}</Td>
+                      <Td>
+                        <EditCategoryModal
+                          id={e.id}
+                          name={e.name}
+                          onSubmitCallback={onUpdateItem}
+                        />
+                        <IconButton
+                          size="sm"
+                          variant="ghost"
+                          color="danger"
+                          aria-label="excluir"
+                          icon={<TrashIcon />}
+                          onClick={() => onDeleteItem(e.id)}
+                        />
+                      </Td>
+                    </Tr>
+                  ))}
                 </Tbody>
               </Table>
             </TableContainer>
