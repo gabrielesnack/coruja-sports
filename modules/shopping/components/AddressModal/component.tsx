@@ -1,4 +1,5 @@
 import {
+  Badge,
   Box,
   Button,
   List,
@@ -11,13 +12,34 @@ import {
   ModalHeader,
   ModalOverlay,
   Radio,
+  RadioGroup,
   Text,
   useDisclosure,
 } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 import { PlusIcon } from '../../../commons/icons'
+import { useAddress } from '../../../profile/hooks/useAddress'
+import { useCartContext } from '../../context/CartContext'
 
 export const AddressModal = () => {
+  const router = useRouter()
   const { isOpen, onClose, onOpen } = useDisclosure()
+
+  const { updateShipment, shipmentId } = useCartContext()
+  const { addresses } = useAddress()
+
+  const [radioValue, setRadioValue] = useState<number>()
+
+  const currentAddress = addresses?.data.find((e) => e.id === shipmentId)
+  const previewAddress = currentAddress
+    ? `${currentAddress?.street}, ${currentAddress?.number}`
+    : 'Nenhum Selecionado'
+
+  const onSave = () => {
+    onClose()
+    updateShipment && updateShipment(radioValue as NonNullable<number>)
+  }
 
   return (
     <>
@@ -28,7 +50,7 @@ export const AddressModal = () => {
         size="sm"
         onClick={onOpen}
       >
-        Rua Domingos Francisco de Sousa
+        {previewAddress}
       </Button>
 
       <Modal
@@ -45,43 +67,47 @@ export const AddressModal = () => {
           <ModalBody d="flex" flexDir="column" gap="6" mb="4">
             <Text fontWeight="semibold">Em um dos seus endereços</Text>
 
-            <List d="flex" flexDir="column" gap="3">
-              <ListItem borderBottom="1px solid #e2e2e2" py="2">
-                <Radio value="1">
-                  <Box>
-                    <Text fontSize="sm" fontWeight="semibold">
-                      Rua Arco-Íris, 88
-                    </Text>
-                    <Text fontSize="xs">CEP: 69316-055 - Boa Vista - RR</Text>
-                  </Box>
-                </Radio>
-              </ListItem>
-              <ListItem borderBottom="1px solid #e2e2e2" py="2">
-                <Radio value="1">
-                  <Box>
-                    <Text fontSize="sm" fontWeight="semibold">
-                      Rua Moacyr Artemes Menegatti, 37
-                    </Text>
-                    <Text fontSize="xs">CEP: Colatina - Colatina - ES</Text>
-                  </Box>
-                </Radio>
-              </ListItem>
-              <ListItem borderBottom="1px solid #e2e2e2" py="2">
-                <Radio value="1">
-                  <Box>
-                    <Text fontSize="sm" fontWeight="semibold">
-                      Rua Osmundo Farias, 115
-                    </Text>
-                    <Text fontSize="xs">CEP: 59147-415 - Parnamirim - RN</Text>
-                  </Box>
-                </Radio>
-              </ListItem>
-            </List>
+            <RadioGroup
+              onChange={(val) => setRadioValue(Number(val))}
+              value={radioValue}
+            >
+              <List d="flex" flexDir="column" gap="3">
+                {addresses?.data.map((e) => (
+                  <ListItem
+                    key={e.id}
+                    pos="relative"
+                    borderBottom="1px solid #e2e2e2"
+                    py="2"
+                  >
+                    <Radio value={e.id}>
+                      <Box>
+                        <Text fontSize="sm" fontWeight="semibold">
+                          {e.street}, {e.number}
+                        </Text>
+                        <Text fontSize="xs">
+                          CEP: {e.zipCode} - {e.city} - {e.state.value}
+                        </Text>
+                        <Badge
+                          fontSize="x-small"
+                          colorScheme="blue"
+                          pos="absolute"
+                          top="20%"
+                          right="0"
+                        >
+                          {e.alias}
+                        </Badge>
+                      </Box>
+                    </Radio>
+                  </ListItem>
+                ))}
+              </List>
+            </RadioGroup>
 
             <Button
               leftIcon={<PlusIcon />}
               variant="link"
               colorScheme="primary"
+              onClick={() => router.push('/profile/me')}
             >
               Adicionar um novo endereço
             </Button>
@@ -96,7 +122,7 @@ export const AddressModal = () => {
             >
               Cancelar
             </Button>
-            <Button colorScheme="primary" px="8">
+            <Button colorScheme="primary" px="8" onClick={onSave}>
               Salvar
             </Button>
           </ModalFooter>

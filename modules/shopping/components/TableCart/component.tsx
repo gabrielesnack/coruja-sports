@@ -13,8 +13,10 @@ import {
   IconButton,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+import { useCallback, useMemo } from 'react'
 
 import { toCurrencyBRL } from '../../../commons/helpers/currency'
+import { ProductDetailType } from '../../../commons/hooks/useProductDetail/interface'
 import { EyeIcon, TrashIcon } from '../../../commons/icons'
 import { useCartContext } from '../../context/CartContext'
 
@@ -23,7 +25,15 @@ export const TableCart = () => {
 
   const router = useRouter()
 
-  const maxOptions = new Array(100).fill(1)
+  const maxOptions = useMemo(() => new Array(100).fill(1), [])
+
+  const computeSize = useCallback(
+    (productProviderVariationId: number, sizes: ProductDetailType['sizes']) =>
+      sizes.find(
+        (e) => e.productProviderVariationId === productProviderVariationId
+      )?.name,
+    []
+  )
 
   return (
     <TableContainer
@@ -46,13 +56,14 @@ export const TableCart = () => {
             <Th></Th>
             <Th>Produto</Th>
             <Th>Quantidade</Th>
+            <Th>Tamanho</Th>
             <Th>Preço</Th>
             <Th>Ações</Th>
           </Tr>
         </Thead>
         <Tbody>
-          {items.map(({ item, total }) => (
-            <Tr key={`item-${item.id}`}>
+          {items.map(({ id, item, total }) => (
+            <Tr key={`item-${id}`}>
               <Td>
                 <Box w="64px" h="64px">
                   <Image src={item.images[0].url} alt={item.name} />
@@ -64,7 +75,7 @@ export const TableCart = () => {
                   variant="flushed"
                   defaultValue={total}
                   onChange={(e) =>
-                    update && update(item.id, Number(e.target.value))
+                    update && update({ id, quantity: Number(e.target.value) })
                   }
                 >
                   {maxOptions.map((_, idx) => {
@@ -80,6 +91,7 @@ export const TableCart = () => {
                   })}
                 </Select>
               </Td>
+              <Td>{computeSize(id, item.sizes)}</Td>
               <Td>{toCurrencyBRL(item.price)}</Td>
               <Td>
                 <IconButton
@@ -94,7 +106,7 @@ export const TableCart = () => {
                   variant="ghost"
                   aria-label="Remover produto do carrinho"
                   icon={<TrashIcon />}
-                  onClick={() => remove && remove(item.id)}
+                  onClick={() => remove && remove(id)}
                 />
               </Td>
             </Tr>

@@ -24,10 +24,17 @@ export type ProviderVariationsResponse = {
   id: number
   variation_type_id: number
   name: string
+  product_provider_variations: ProductProviderVariations
   variation_type: {
     id: number
     name: string
   }
+}
+
+export type ProductProviderVariations = {
+  id: number
+  product_provider_id: number
+  variation_id: number
 }
 
 export type ProductDetailType = {
@@ -42,6 +49,7 @@ export type ProductDetailType = {
 
 export type ProductSizesType = {
   id: number
+  productProviderVariationId: number
   name: string
   variationTypeName: string
 }

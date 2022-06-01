@@ -1,9 +1,7 @@
 import { fetchAPI } from '../../helpers/fetchApi'
 import { ProductDetailResponse, ProductDetailType } from './interface'
 
-export const fetchProductDetail = async (
-  url: string
-): Promise<ProductDetailType> => {
+export const fetcher = async (url: string): Promise<ProductDetailType> => {
   try {
     const response = await fetchAPI.get<ProductDetailResponse>(url)
 
@@ -24,6 +22,7 @@ export const fetchProductDetail = async (
 
     const sizes = filterVarationsBySize.map((size) => ({
       id: size.id,
+      productProviderVariationId: size.product_provider_variations.id,
       name: size.name,
       variationTypeName: size.variation_type.name,
     }))

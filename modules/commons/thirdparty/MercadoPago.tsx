@@ -5,7 +5,7 @@ interface MercadoPagoCheckout {
 }
 
 declare class MercadoPago {
-  checkout(arg0: { preference: { id: string } }): MercadoPagoCheckout
+  checkout(arg0: { preference: { id: number } }): MercadoPagoCheckout
   constructor(public_key: string)
 }
 
@@ -25,7 +25,7 @@ export class CheckoutFactory {
   public create() {
     this._checkout = CheckoutFactory.mercadoPago.checkout({
       preference: {
-        id: 'teste',
+        id: 1,
       },
     })
   }

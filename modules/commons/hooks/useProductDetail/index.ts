@@ -1,11 +1,8 @@
 import useSWR from 'swr'
-import { fetchProductDetail } from './fetcher'
+import { fetcher } from './fetcher'
 
 export const useProductDetail = (id?: number) => {
-  const { data, error } = useSWR(
-    id ? `products/${id}` : null,
-    fetchProductDetail
-  )
+  const { data, error } = useSWR(id ? `products/${id}` : null, fetcher)
 
   return {
     data,

@@ -1,37 +1,27 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { useIsClient } from '../../commons/hooks/useIsClient'
 import { useLocalStorage } from '../../commons/hooks/useLocalStorage'
-import { ProductDetailType } from '../../commons/hooks/useProductDetail/interface'
-
-type StorageItems = {
-  total: number
-  item: ProductDetailType
-}
-
-type CartContextType = {
-  items: StorageItems[]
-  add?: (product: ProductDetailType, quantity: number) => void
-  update?: (id: number, quantity: number) => void
-  remove?: (id: number) => void
-}
+import { CartContextType, StorageActionProps, StorageItems } from './interface'
 
 const CartContext = React.createContext({
   items: [] as StorageItems[],
 } as CartContextType)
 
 export const CartProvider: React.FC = ({ children }) => {
-  const { getStorage, setStorage } =
-    useLocalStorage<StorageItems[]>('@CART/PRODUCTS')
   const { isClient } = useIsClient()
 
+  const { getStorage, setStorage } =
+    useLocalStorage<StorageItems[]>('@CART/PRODUCTS')
+
   const [items, setItems] = useState<StorageItems[]>([] as StorageItems[])
+  const [shipmentId, setShipmentId] = useState<number>()
 
   useEffect(() => {
     setItems(getStorage() || [])
   }, [isClient])
 
-  const add = (product: ProductDetailType, quantity = 1) => {
-    const foundItem = items.findIndex(({ item }) => item.id === product.id)
+  const add = ({ id, product, quantity }: StorageActionProps) => {
+    const foundItem = items.findIndex((item) => item.id === id)
 
     let newItems: StorageItems[]
 
@@ -39,15 +29,15 @@ export const CartProvider: React.FC = ({ children }) => {
       newItems = [...items]
       newItems[foundItem].total += quantity
     } else {
-      newItems = [...items, { total: quantity, item: product }]
+      newItems = [...items, { id, total: quantity, item: product }]
     }
 
     setItems(newItems)
     setStorage(newItems)
   }
 
-  const update = (id: number, quantity: number) => {
-    const idx = items.findIndex((e) => e.item.id === id)
+  const update = ({ id, quantity }: Omit<StorageActionProps, 'product'>) => {
+    const idx = items.findIndex((item) => item.id === id)
     const copyItems = JSON.parse(JSON.stringify(items)) as StorageItems[]
     copyItems[idx].total = quantity
 
@@ -56,14 +46,18 @@ export const CartProvider: React.FC = ({ children }) => {
   }
 
   const remove = (id: number) => {
-    const copyItems = items.filter((e) => e.item.id !== id)
+    const copyItems = items.filter((item) => item.id !== id)
 
     setItems(copyItems)
     setStorage(copyItems)
   }
 
+  const updateShipment = (value: number) => setShipmentId(value)
+
   return (
-    <CartContext.Provider value={{ items, add, remove, update }}>
+    <CartContext.Provider
+      value={{ items, add, remove, update, updateShipment, shipmentId }}
+    >
       {children}
     </CartContext.Provider>
   )
