@@ -20,13 +20,19 @@ import { ProductDetailProps } from './inteface'
 export const ProductDetail = ({ id }: ProductDetailProps) => {
   const showMore = useDisclosure()
   const [quantity, setQuantity] = useState<number>(1)
+  const [size, setSize] = useState<number>(1)
 
   const { add } = useCartContext()
   const { data } = useProductDetail(id)
   const product = data as ProductDetailType
 
   const handleAddItem = () => {
-    add && add(product, quantity)
+    const productProviderVariationId = product.sizes.find(
+      (e) => e.id === size
+    )?.productProviderVariationId
+
+    if (!productProviderVariationId) return
+    add && add({ id: productProviderVariationId, product, quantity })
   }
 
   return (
@@ -88,7 +94,10 @@ export const ProductDetail = ({ id }: ProductDetailProps) => {
           <Box d="flex" alignItems="center" gap="4" color="blackAlpha.700">
             <Text fontSize="lg">Tamanho: </Text>
 
-            <Select size="md">
+            <Select
+              size="md"
+              onChange={(e) => setSize(Number(e.target?.value))}
+            >
               {product.sizes.map((size) => (
                 <Box as="option" key={`size-${size.id}`} value={size.id}>
                   {size.name}

@@ -89,7 +89,7 @@ const SearchProduct: NextPage<SearchProps> = ({
           alignItems={[null, null, null, 'center']}
           my="12"
         >
-          <Heading fontSize="2xl" fontWeight="light">
+          <Heading fontSize="2xl" fontWeight="medium">
             {hasResultMessage}
             {hasProducts && (
               <Text d="inline-block" fontWeight="bold">
@@ -102,7 +102,7 @@ const SearchProduct: NextPage<SearchProps> = ({
           {hasProducts && <SearchSorting />}
         </Flex>
 
-        <Flex w="100%" gap="12">
+        <Flex w="100%">
           {categories && <SearchAside categories={categories} />}
 
           {products && <SearchList products={products} />}

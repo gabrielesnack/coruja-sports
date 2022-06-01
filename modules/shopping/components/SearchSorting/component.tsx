@@ -10,9 +10,6 @@ export const SearchSorting = () => {
             Ordernar por:
           </Text>
           <Select fontSize="xl" variant="unstyled">
-            <Box as="option" defaultChecked>
-              mais populares
-            </Box>
             <Box as="option">menor preço</Box>
             <Box as="option">maior preço</Box>
           </Select>
