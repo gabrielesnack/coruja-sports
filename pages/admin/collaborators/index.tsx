@@ -13,6 +13,7 @@ import {
   Thead,
   Tr,
   Input,
+  IconButton,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { NextPage } from 'next/types'
@@ -22,6 +23,7 @@ import Footer from '../../../modules/commons/components/Footer'
 import Header from '../../../modules/commons/components/Header'
 import { Layout } from '../../../modules/commons/components/Layout'
 import { CONTAINER_PROPS } from '../../../modules/commons/config/constants'
+import { TrashIcon } from '../../../modules/commons/icons'
 
 const ManageCollaborators: NextPage = () => {
   const router = useRouter()
@@ -53,6 +55,7 @@ const ManageCollaborators: NextPage = () => {
                   <Th>Nome</Th>
                   <Th>E-mail</Th>
                   <Th>Permissão</Th>
+                  <Th></Th>
                 </Tr>
               </Thead>
               <Tbody>
@@ -64,9 +67,16 @@ const ManageCollaborators: NextPage = () => {
                       <Select bgColor="whiteAlpha.900" size="sm">
                         <option>Admin</option>
                         <option>Funcionário</option>
-                        <option>Usuário</option>
                       </Select>
                     </ClientOnly>
+                  </Td>
+                  <Td>
+                    <IconButton
+                      variant="ghost"
+                      color="danger"
+                      aria-label="excluir"
+                      icon={<TrashIcon />}
+                    />
                   </Td>
                 </Tr>
               </Tbody>

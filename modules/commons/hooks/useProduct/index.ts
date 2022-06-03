@@ -1,11 +1,14 @@
+import { useState } from 'react'
 import useSWR from 'swr'
 import { fetcher } from './fetcher'
 
-export const useProduct = (term?: string) => {
+export const useProduct = (initTerm?: string) => {
+  const [currentTerm, setTerm] = useState<string | undefined>(initTerm)
+
   const { data, error, mutate } = useSWR(
-    `products?search=${term || ''}`,
+    `products?search=${currentTerm || ''}`,
     fetcher
   )
 
-  return { products: data, isLoading: !data && !error, mutate }
+  return { products: data, isLoading: !data && !error, mutate, setTerm }
 }

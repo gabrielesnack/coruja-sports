@@ -10,6 +10,7 @@ import {
   useDisclosure,
   Image,
   Grid,
+  Badge,
 } from '@chakra-ui/react'
 
 export const OrderItem = () => {
@@ -17,10 +18,13 @@ export const OrderItem = () => {
 
   return (
     <Box
+      pos="relative"
       bgColor="whiteAlpha.900"
       boxShadow="xl"
       borderWidth="1px"
-      p={['4', '8']}
+      px={['4', '10']}
+      pt={['10']}
+      pb={['6']}
       w="100%"
     >
       <Flex
@@ -28,6 +32,16 @@ export const OrderItem = () => {
         justifyContent={[null, null, null, 'space-between']}
         alignItems={[null, null, null, 'center']}
       >
+        <Badge
+          pos="absolute"
+          top="1rem"
+          left={['4', '10']}
+          colorScheme="blue"
+          px="2"
+          fontSize="x-small"
+        >
+          Pedido em análise
+        </Badge>
         <Grid
           templateColumns={[
             '1fr 1fr',
@@ -64,25 +78,44 @@ export const OrderItem = () => {
           </Box>
         </Grid>
 
-        <Button
-          w={['100%', null, 'fit-content']}
-          alignSelf={[null, null, 'center']}
-          size="sm"
-          variant="outline"
-          colorScheme="info"
-          borderRadius="0"
-          onClick={onToggle}
-        >
-          Ver Detalhes
-        </Button>
+        <Flex gap="4" alignSelf={[null, null, 'center']}>
+          <Button
+            w={['100%', null, 'fit-content']}
+            size="sm"
+            variant="outline"
+            colorScheme="danger"
+            borderRadius="0"
+          >
+            Cancelar
+          </Button>
+          <Button
+            w={['100%', null, 'fit-content']}
+            size="sm"
+            variant="outline"
+            colorScheme="info"
+            borderRadius="0"
+            onClick={onToggle}
+          >
+            Ver Detalhes
+          </Button>
+        </Flex>
       </Flex>
       <Collapse in={isOpen} animateOpacity>
         <Divider my="4" />
         <List spacing="4">
           <ListItem>
             <Flex gap="8">
-              <Box boxSize="96px">
+              <Box boxSize="96px" position="relative">
                 <Image src="/camiseta.jpeg" alt="camiseta" />
+                <Badge
+                  colorScheme="gray"
+                  pos="absolute"
+                  right="0"
+                  bottom="0"
+                  rounded="0"
+                >
+                  <Text color="blackAlpha.800">2</Text>
+                </Badge>
               </Box>
 
               <Flex
@@ -99,7 +132,9 @@ export const OrderItem = () => {
                   Camiseta do santos retrô
                 </Text>
                 <Text color="blackAlpha.800">Tamanho: P</Text>
-                <Text color="blackAlpha.800">Quantidade: 3</Text>
+                <Text color="blackAlpha.800">
+                  Código de Rastreio: #HE466U434S52M1AHK
+                </Text>
                 <Text fontWeight="bold">R$ 79,00</Text>
               </Flex>
             </Flex>
@@ -107,8 +142,17 @@ export const OrderItem = () => {
           <Divider />
           <ListItem>
             <Flex gap="8">
-              <Box boxSize="96px">
+              <Box boxSize="96px" position="relative">
                 <Image src="/camiseta.jpeg" alt="camiseta" />
+                <Badge
+                  colorScheme="gray"
+                  pos="absolute"
+                  right="0"
+                  bottom="0"
+                  rounded="0"
+                >
+                  <Text color="blackAlpha.800">5</Text>
+                </Badge>
               </Box>
 
               <Flex
@@ -124,8 +168,10 @@ export const OrderItem = () => {
                 >
                   Camiseta do santos retrô
                 </Text>
-                <Text color="blackAlpha.800">Tamanho: P</Text>
-                <Text color="blackAlpha.800">Quantidade: 3</Text>
+                <Text color="blackAlpha.800">Tamanho: M</Text>
+                <Text color="blackAlpha.800">
+                  Código de Rastreio: #HE466U434S52M1AHK
+                </Text>
                 <Text fontWeight="bold">R$ 79,00</Text>
               </Flex>
             </Flex>

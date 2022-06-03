@@ -24,6 +24,10 @@ import {
 } from '@chakra-ui/react'
 import { Select } from 'chakra-react-select'
 import { useRouter } from 'next/router'
+import {
+  CodeTrackEditable,
+  CodeTrackEditableWrapper,
+} from '../CodeTrackEditable'
 
 export const EditOrderModal = () => {
   const modal = useDisclosure()
@@ -65,6 +69,9 @@ export const EditOrderModal = () => {
                       <Text fontSize="sm">
                         3 unidades | M | R$ 147,00 | AliExpress
                       </Text>
+                      <CodeTrackEditableWrapper>
+                        <CodeTrackEditable />
+                      </CodeTrackEditableWrapper>
                     </Box>
                   </ListItem>
                   <Divider />
@@ -76,6 +83,9 @@ export const EditOrderModal = () => {
                       <Text fontSize="sm">
                         3 unidades | M | R$ 147,00 | AliExpress
                       </Text>
+                      <CodeTrackEditableWrapper>
+                        <CodeTrackEditable />
+                      </CodeTrackEditableWrapper>
                     </Box>
                   </ListItem>
                   <Divider />
@@ -87,6 +97,9 @@ export const EditOrderModal = () => {
                       <Text fontSize="sm">
                         3 unidades | M | R$ 147,00 | AliExpress
                       </Text>
+                      <CodeTrackEditableWrapper>
+                        <CodeTrackEditable />
+                      </CodeTrackEditableWrapper>
                     </Box>
                   </ListItem>
                   <Divider />
@@ -115,11 +128,7 @@ export const EditOrderModal = () => {
             </Flex>
           </ModalBody>
           <ModalFooter>
-            <Flex justify="space-between" w="100%">
-              <Button colorScheme="danger" size="sm">
-                Cancelar Pedido
-              </Button>
-
+            <Flex justify="end" w="100%">
               <Box minW="180px">
                 <Select
                   size="sm"

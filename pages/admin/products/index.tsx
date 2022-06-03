@@ -6,6 +6,7 @@ import {
   Flex,
   Heading,
   IconButton,
+  Input,
   Table,
   TableContainer,
   Tbody,
@@ -16,6 +17,7 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { NextPage } from 'next/types'
+import { useRef } from 'react'
 import { ProductDetailModal } from '../../../modules/admin/components/ProductDetailModal'
 import { useDeleteProduct } from '../../../modules/admin/hooks/useDeleteProduct'
 import Footer from '../../../modules/commons/components/Footer'
@@ -28,8 +30,11 @@ import { TrashIcon } from '../../../modules/commons/icons'
 
 const ManageProduct: NextPage = () => {
   const router = useRouter()
+  const ref = useRef(
+    null
+  ) as unknown as React.MutableRefObject<HTMLInputElement>
 
-  const { products, mutate } = useProduct()
+  const { products, mutate, setTerm, isLoading } = useProduct()
   const { submit } = useDeleteProduct()
 
   const onDelete = async (id: number) => {
@@ -39,11 +44,32 @@ const ManageProduct: NextPage = () => {
       mutate({ ...products, data: products?.data.filter((e) => e.id !== id) })
   }
 
+  const onSearch = () => {
+    const value = ref?.current?.value as string
+    setTerm(value)
+  }
+
+  const onEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e && (e?.code === 'Enter' || e?.code === 'NumpadEnter')) {
+      onSearch()
+    }
+  }
+
   return (
     <Layout header={<Header></Header>} footer={<Footer></Footer>}>
       <Container {...CONTAINER_PROPS} mb="12">
-        <Flex justifyContent="space-between" alignItems="center">
-          <Heading my="12" fontSize="2xl">
+        <Flex
+          flexDir={['column', null, null, 'row']}
+          justifyContent="space-between"
+          alignItems="center"
+          mt="12"
+          mb="6"
+        >
+          <Heading
+            fontSize="2xl"
+            textAlign={['center', null, null, 'left']}
+            mb={[6, null, 0]}
+          >
             Bem vindo a sessão de produtos
           </Heading>
 
@@ -63,6 +89,26 @@ const ManageProduct: NextPage = () => {
               Novo Produto
             </Button>
           </Flex>
+        </Flex>
+
+        <Flex justifyContent="end" mb="6" gap="4">
+          <Input
+            ref={ref}
+            bg="whiteAlpha.900"
+            w={['100%', null, null, 'min-content']}
+            placeholder="Buscar Produto"
+            size="sm"
+            onKeyPress={onEnter}
+          />
+          <Button
+            colorScheme="primary"
+            variant="outline"
+            size="sm"
+            rounded={0}
+            onClick={onSearch}
+          >
+            Buscar
+          </Button>
         </Flex>
 
         <Box bgColor="whiteAlpha.900" boxShadow="xl" p="1" borderWidth="1px">
