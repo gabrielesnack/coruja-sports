@@ -18,8 +18,13 @@ import {
 import { Select } from 'chakra-react-select'
 import { useRouter } from 'next/router'
 import { NextPage } from 'next/types'
+import { useRef } from 'react'
 import { EditOrderModal } from '../../../modules/admin/components/EditOrderModal'
 import ClientOnly from '../../../modules/commons/components/ClientOnly'
+import {
+  ConfirmModalRef,
+  ModalConfirm,
+} from '../../../modules/commons/components/ConfirmModal'
 import Footer from '../../../modules/commons/components/Footer'
 import Header from '../../../modules/commons/components/Header'
 import { Layout } from '../../../modules/commons/components/Layout'
@@ -28,6 +33,8 @@ import { EditIcon, PencilIcon, TrashIcon } from '../../../modules/commons/icons'
 
 const ManageOrders: NextPage = () => {
   const router = useRouter()
+
+  const confirmDialog = useRef<ConfirmModalRef>(null)
 
   return (
     <ClientOnly>
@@ -107,6 +114,12 @@ const ManageOrders: NextPage = () => {
                           size="sm"
                           aria-label="cancelar"
                           icon={<TrashIcon />}
+                          onClick={() => {
+                            confirmDialog.current?.openDialog({
+                              describe: '',
+                              onConfirm: () => {},
+                            })
+                          }}
                         />
                       </Flex>
                     </Td>
@@ -116,6 +129,8 @@ const ManageOrders: NextPage = () => {
             </TableContainer>
           </Box>
         </Container>
+
+        <ModalConfirm ref={confirmDialog} />
       </Layout>
     </ClientOnly>
   )

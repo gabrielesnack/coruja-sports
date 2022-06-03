@@ -9,7 +9,9 @@ import {
   Button,
   useDisclosure,
   Collapse,
+  useToast,
 } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { toCurrencyBRL } from '../../../commons/helpers/currency'
 import { useProductDetail } from '../../../commons/hooks/useProductDetail'
@@ -18,7 +20,11 @@ import { useCartContext } from '../../context/CartContext'
 import { ProductDetailProps } from './inteface'
 
 export const ProductDetail = ({ id }: ProductDetailProps) => {
+  const router = useRouter()
+  const toast = useToast()
+
   const showMore = useDisclosure()
+
   const [quantity, setQuantity] = useState<number>(1)
   const [size, setSize] = useState<number>(1)
 
@@ -32,7 +38,17 @@ export const ProductDetail = ({ id }: ProductDetailProps) => {
     )?.productProviderVariationId
 
     if (!productProviderVariationId) return
-    add && add({ id: productProviderVariationId, product, quantity })
+    if (add) {
+      add({ id: productProviderVariationId, product, quantity })
+      toast({
+        title: 'item adicionado ao carrinho.',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+        position: 'bottom',
+        variant: 'left-accent',
+      })
+    }
   }
 
   return (
@@ -123,7 +139,9 @@ export const ProductDetail = ({ id }: ProductDetailProps) => {
         </Flex>
 
         <Box d="flex" flexDir="column" alignSelf="flex-end" w="100%" gap="4">
-          <Button colorScheme="primary">Comprar</Button>
+          <Button colorScheme="primary" onClick={() => router.push('/cart')}>
+            Visualizar carrinho
+          </Button>
           <Button
             colorScheme="secondary"
             variant="outline"

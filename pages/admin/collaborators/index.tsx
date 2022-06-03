@@ -14,11 +14,16 @@ import {
   Tr,
   Input,
   IconButton,
+  Modal,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { NextPage } from 'next/types'
+import { useRef } from 'react'
 import ClientOnly from '../../../modules/commons/components/ClientOnly'
-import { Field } from '../../../modules/commons/components/Field'
+import {
+  ConfirmModalRef,
+  ModalConfirm,
+} from '../../../modules/commons/components/ConfirmModal'
 import Footer from '../../../modules/commons/components/Footer'
 import Header from '../../../modules/commons/components/Header'
 import { Layout } from '../../../modules/commons/components/Layout'
@@ -27,6 +32,8 @@ import { TrashIcon } from '../../../modules/commons/icons'
 
 const ManageCollaborators: NextPage = () => {
   const router = useRouter()
+
+  const confirmDialog = useRef<ConfirmModalRef>(null)
 
   return (
     <Layout header={<Header />} footer={<Footer />}>
@@ -76,6 +83,13 @@ const ManageCollaborators: NextPage = () => {
                       color="danger"
                       aria-label="excluir"
                       icon={<TrashIcon />}
+                      onClick={() => {
+                        confirmDialog.current?.openDialog({
+                          describe:
+                            'Gabriel Jorge não vai poder acessar à área administrativa depois de confirmar a ação.',
+                          onConfirm: () => {},
+                        })
+                      }}
                     />
                   </Td>
                 </Tr>
@@ -84,6 +98,8 @@ const ManageCollaborators: NextPage = () => {
           </TableContainer>
         </Box>
       </Container>
+
+      <ModalConfirm ref={confirmDialog} />
     </Layout>
   )
 }

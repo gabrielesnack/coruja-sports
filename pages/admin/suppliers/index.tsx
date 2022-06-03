@@ -17,9 +17,14 @@ import {
 import { cnpj } from 'cpf-cnpj-validator'
 import { useRouter } from 'next/router'
 import { NextPage } from 'next/types'
+import { useRef } from 'react'
 import { useSWRConfig } from 'swr'
 import { useDeleteSupplier } from '../../../modules/admin/hooks/useDeleteSupplier'
 import { useGetSupplier } from '../../../modules/admin/hooks/useSupplier'
+import {
+  ConfirmModalRef,
+  ModalConfirm,
+} from '../../../modules/commons/components/ConfirmModal'
 import Footer from '../../../modules/commons/components/Footer'
 import Header from '../../../modules/commons/components/Header'
 import { Layout } from '../../../modules/commons/components/Layout'
@@ -28,6 +33,7 @@ import { TrashIcon } from '../../../modules/commons/icons'
 
 const ManageSuppliers: NextPage = () => {
   const router = useRouter()
+  const confirmDialog = useRef<ConfirmModalRef>(null)
 
   const { suppliers, isLoading, mutate } = useGetSupplier()
   const { submit } = useDeleteSupplier()
@@ -89,7 +95,12 @@ const ManageSuppliers: NextPage = () => {
                             color="danger"
                             aria-label="excluir"
                             icon={<TrashIcon />}
-                            onClick={() => onDelete(item.id)}
+                            onClick={() =>
+                              confirmDialog.current?.openDialog({
+                                describe: `O Fornecedor ${item.name} será removido e a ação não poderá ser desfeita.`,
+                                onConfirm: () => onDelete(item.id),
+                              })
+                            }
                           />
                         </Flex>
                       </Td>
@@ -101,6 +112,8 @@ const ManageSuppliers: NextPage = () => {
           )}
         </Box>
       </Container>
+
+      <ModalConfirm ref={confirmDialog} />
     </Layout>
   )
 }

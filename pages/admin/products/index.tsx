@@ -20,6 +20,10 @@ import { NextPage } from 'next/types'
 import { useRef } from 'react'
 import { ProductDetailModal } from '../../../modules/admin/components/ProductDetailModal'
 import { useDeleteProduct } from '../../../modules/admin/hooks/useDeleteProduct'
+import {
+  ModalConfirm,
+  ConfirmModalRef,
+} from '../../../modules/commons/components/ConfirmModal'
 import Footer from '../../../modules/commons/components/Footer'
 import Header from '../../../modules/commons/components/Header'
 import { Layout } from '../../../modules/commons/components/Layout'
@@ -30,9 +34,12 @@ import { TrashIcon } from '../../../modules/commons/icons'
 
 const ManageProduct: NextPage = () => {
   const router = useRouter()
+
   const ref = useRef(
     null
   ) as unknown as React.MutableRefObject<HTMLInputElement>
+
+  const confirmDialog = useRef<ConfirmModalRef>(null)
 
   const { products, mutate, setTerm, isLoading } = useProduct()
   const { submit } = useDeleteProduct()
@@ -143,7 +150,12 @@ const ManageProduct: NextPage = () => {
                           color="danger"
                           aria-label="excluir"
                           icon={<TrashIcon />}
-                          onClick={() => onDelete(product.id)}
+                          onClick={() => {
+                            confirmDialog.current?.openDialog({
+                              describe: `A camiseta ${product.name} será removida e após a confirmação a ação não poderá ser desfeita.`,
+                              onConfirm: () => onDelete(product.id),
+                            })
+                          }}
                         />
                       </Flex>
                     </Td>
@@ -154,6 +166,8 @@ const ManageProduct: NextPage = () => {
           </TableContainer>
         </Box>
       </Container>
+
+      <ModalConfirm ref={confirmDialog} />
     </Layout>
   )
 }
