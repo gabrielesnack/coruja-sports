@@ -19,10 +19,13 @@ import InputSearch from '../InputSearch'
 import { UserMenu } from '../UserMenu'
 import { useRouter } from 'next/router'
 import { useCartContext } from '../../../shopping/context/CartContext'
+import { useCategories } from '../../hooks/useCategories'
 
 function HeaderDesktop() {
   const router = useRouter()
   const { notify } = useCartContext()
+
+  const { categories } = useCategories()
 
   return (
     <Grid
@@ -52,8 +55,8 @@ function HeaderDesktop() {
                 Categorias
               </MenuButton>
               <MenuList>
-                {championships.map((e, idx) => (
-                  <MenuItem key={`championship-${idx}`}>{e}</MenuItem>
+                {categories?.data.map((e, idx) => (
+                  <MenuItem key={`championship-${e.id}`}>{e.name}</MenuItem>
                 ))}
               </MenuList>
             </Menu>
