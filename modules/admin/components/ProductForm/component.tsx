@@ -21,7 +21,12 @@ import {
   ProductInputs,
   ProductInputsValues,
 } from './interface'
-import { InputPriceProps, schemaValidation, toOption } from './props'
+import {
+  InputPriceProps,
+  schemaValidation,
+  sizeOptions,
+  toOption,
+} from './props'
 import { OptionType, PriceChangeType } from '../../../commons/types'
 import { useCreateOrUpdateProduct } from '../../hooks/useCreateOrUpdateProduct'
 import { useCategories } from '../../../commons/hooks/useCategories'
@@ -38,6 +43,7 @@ export const ProductForm = ({ initValues }: ProductFormProps) => {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
     reset,
   } = useForm<ProductInputs>({
     resolver: yupResolver(schemaValidation),
@@ -51,11 +57,24 @@ export const ProductForm = ({ initValues }: ProductFormProps) => {
   const supplierOptions = toOption(suppliers?.data)
 
   const { submit } = useCreateOrUpdateProduct()
+
   const onSubmit: SubmitHandler<ProductInputs> = async (data) => {
     const values = data as ProductInputsValues
     const res = await submit(values)
 
-    if (res.ok) reset()
+    if (res.ok) clearAllFields()
+  }
+
+  const clearAllFields = () => {
+    reset()
+    // force other componentes to reset their values.
+    setValue('price', 0)
+    // @ts-ignore
+    setValue('sizes', [])
+    // @ts-ignore
+    setValue('categories', [])
+    // @ts-ignore
+    setValue('provider', null)
   }
 
   return (
@@ -103,11 +122,12 @@ export const ProductForm = ({ initValues }: ProductFormProps) => {
               name="categories"
               render={({ field }) => (
                 <Select
+                  instanceId="categories"
                   placeholder="Selecione as categorias"
                   isMulti
                   name={field.name}
                   ref={field.ref}
-                  value={field.value as unknown as OptionType<Number>}
+                  value={field.value as unknown as OptionType<number>[]}
                   onBlur={field.onBlur}
                   onChange={field.onChange}
                   options={categoriesOptions}
@@ -133,22 +153,15 @@ export const ProductForm = ({ initValues }: ProductFormProps) => {
               name="sizes"
               render={({ field }) => (
                 <Select
+                  instanceId="sizes"
                   placeholder="Selecione os Tamanhos"
                   isMulti
                   name={field.name}
                   ref={field.ref}
-                  value={field.value as unknown as OptionType<Number>}
                   onBlur={field.onBlur}
+                  value={field.value as unknown as OptionType<number>}
                   onChange={field.onChange}
-                  options={[
-                    { label: 'PP', value: 1 },
-                    { label: 'P', value: 2 },
-                    { label: 'M', value: 3 },
-                    { label: 'G', value: 4 },
-                    { label: 'GG', value: 5 },
-                    { label: 'XG', value: 6 },
-                    { label: 'XGG', value: 7 },
-                  ]}
+                  options={sizeOptions}
                 />
               )}
             />
@@ -163,10 +176,11 @@ export const ProductForm = ({ initValues }: ProductFormProps) => {
               name="provider"
               render={({ field }) => (
                 <Select
+                  instanceId="provider"
                   placeholder="Selecione o Fornecedor"
                   name={field.name}
                   ref={field.ref}
-                  value={field.value as unknown as OptionType<Number>}
+                  value={field.value as unknown as OptionType<number>}
                   onBlur={field.onBlur}
                   onChange={field.onChange}
                   options={supplierOptions}

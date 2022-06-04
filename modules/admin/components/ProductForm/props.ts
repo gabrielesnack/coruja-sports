@@ -36,3 +36,13 @@ export const InputPriceProps = {
 export const toOption = (data?: CategoriesType[] | null) => {
   return data?.map((e) => ({ label: e.name, value: e.id })) || []
 }
+
+export const sizeOptions = [
+  { label: 'PP', value: 1 },
+  { label: 'P', value: 2 },
+  { label: 'M', value: 3 },
+  { label: 'G', value: 4 },
+  { label: 'GG', value: 5 },
+  { label: 'XG', value: 6 },
+  { label: 'XGG', value: 7 },
+]
