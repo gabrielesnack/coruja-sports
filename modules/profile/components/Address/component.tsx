@@ -59,6 +59,9 @@ export const Address = () => {
   const onSubmit: SubmitHandler<AddressInputs> = async (data) => {
     const res = await createAddress(data as AddressInputValues)
     if (res.ok && res.data && addresses) {
+      reset()
+      // @ts-ignore
+      setValue('state', null)
       mutate({ ...addresses, data: [...addresses.data, res.data] })
     }
   }
@@ -221,6 +224,7 @@ export const Address = () => {
                   name="state"
                   render={({ field }) => (
                     <CustomSelect
+                      instanceId="state"
                       isDisabled={isLockedForm}
                       isInvalid={!!errors.state}
                       placeholder="Selecione o estado"
