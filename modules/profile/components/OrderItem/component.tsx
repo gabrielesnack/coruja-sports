@@ -12,9 +12,14 @@ import {
   Grid,
   Badge,
 } from '@chakra-ui/react'
+import format from 'date-fns/format'
+import { toCurrencyBRL } from '../../../commons/helpers/currency'
+import { OrderItemProps } from './interface'
 
-export const OrderItem = () => {
+export const OrderItem = ({ total, createadAt }: OrderItemProps) => {
   const { isOpen, onToggle } = useDisclosure()
+
+  const formattedDate = format(new Date(createadAt), 'dd/MM/yyyy')
 
   return (
     <Box
@@ -62,13 +67,13 @@ export const OrderItem = () => {
             <Text color="blackAlpha.700" fontWeight="semibold">
               Data da Solicitação
             </Text>
-            <Text>03/05/2022</Text>
+            <Text>{formattedDate}</Text>
           </Box>
           <Box>
             <Text color="blackAlpha.700" fontWeight="semibold">
               Valor Total
             </Text>
-            <Text>R$ 179,00</Text>
+            <Text>{toCurrencyBRL(total)}</Text>
           </Box>
           <Box>
             <Text color="blackAlpha.700" fontWeight="semibold">

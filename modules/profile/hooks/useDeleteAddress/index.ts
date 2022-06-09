@@ -10,7 +10,8 @@ export const useDeleteAddress = () => {
     setLoading(true)
 
     try {
-      await fetchAPI.del(`address/${id}`)
+      const response = await fetchAPI.del(`user-address/${id}`)
+      console.log({ response })
 
       toast({
         title: 'Endereço excluido com sucesso.',

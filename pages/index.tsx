@@ -12,14 +12,19 @@ import ListProducts from '../modules/dashboard/components/ListProducts'
 
 type PageParams = {
   highlightedProducts: FetchResponseType<ProductResponseType[]>
+  recentProducts: FetchResponseType<ProductResponseType[]>
 }
 
 export async function getStaticProps() {
   let highlightedProducts = null
+  let recentProducts = null
 
   try {
     highlightedProducts = await fetchAPI.get<ProductResponseType[]>(
       `/products/highlighted`
+    )
+    recentProducts = await fetchAPI.get<ProductResponseType[]>(
+      `/products/recents`
     )
   } catch (err: ReturnType<Error>) {
     throw err
@@ -28,12 +33,16 @@ export async function getStaticProps() {
   return {
     props: {
       highlightedProducts,
+      recentProducts,
     },
     revalidate: 60,
   }
 }
 
-const Home: NextPage<PageParams> = ({ highlightedProducts }) => {
+const Home: NextPage<PageParams> = ({
+  highlightedProducts,
+  recentProducts,
+}) => {
   // console.log(process.env.NEXT_PUBLIC_API_URL)
   return (
     <Layout header={<Header />} footer={<Footer />}>
@@ -57,7 +66,7 @@ const Home: NextPage<PageParams> = ({ highlightedProducts }) => {
           <ListProducts
             title="Conheça nossos lançamentos"
             inverseColor
-            products={highlightedProducts.data}
+            products={recentProducts.data}
           />
         </Flex>
 

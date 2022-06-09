@@ -1,7 +1,10 @@
 import { Flex, Input } from '@chakra-ui/react'
+import { useOrders } from '../../hooks/useOrders'
 import { OrderItem } from '../OrderItem/component'
 
 export const MyOrders = () => {
+  const { orders } = useOrders()
+
   return (
     <Flex flexDir="column" gap="2">
       <Input
@@ -11,9 +14,9 @@ export const MyOrders = () => {
         my="4"
       />
 
-      <OrderItem />
-      <OrderItem />
-      <OrderItem />
+      {orders?.map((props) => (
+        <OrderItem key={`order-${props.id}`} {...props} />
+      ))}
     </Flex>
   )
 }

@@ -66,9 +66,17 @@ export const Address = () => {
     }
   }
 
-  const onDelete = () => {
+  const onDelete = async () => {
     const id = getValues('id')
-    id && deleteAddress(id)
+    if (id && addresses) {
+      const response = await deleteAddress(id)
+      if (!response.ok) return
+      onSelectAddress(0)
+      mutate({
+        ...addresses,
+        data: addresses.data?.filter((e) => e.id !== id),
+      })
+    }
   }
 
   const onSearchZipCode = async () => {
