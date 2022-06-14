@@ -14,10 +14,12 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { NextPage } from 'next/types'
+import { useStats } from '../../modules/admin/hooks/useStats'
 import Footer from '../../modules/commons/components/Footer'
 import Header from '../../modules/commons/components/Header'
 import { Layout } from '../../modules/commons/components/Layout'
 import { CONTAINER_PROPS } from '../../modules/commons/config/constants'
+import { toCurrencyBRL } from '../../modules/commons/helpers/currency'
 import {
   BagIcon,
   CoinIcon,
@@ -30,6 +32,9 @@ import {
 
 const Admin: NextPage = () => {
   const router = useRouter()
+  const { stats } = useStats()
+
+  const arrowType = (v?: number) => (v >= 0 ? 'increase' : 'decrease')
 
   return (
     <Layout header={<Header />} footer={<Footer />}>
@@ -59,7 +64,7 @@ const Admin: NextPage = () => {
               >
                 <Box>
                   <StatLabel>Total de Usuários</StatLabel>
-                  <StatNumber>341</StatNumber>
+                  <StatNumber>{stats?.userStats.total}</StatNumber>
                 </Box>
 
                 <UserIcon boxSize="8" />
@@ -84,14 +89,16 @@ const Admin: NextPage = () => {
               >
                 <Box>
                   <StatLabel>Novos Usuários</StatLabel>
-                  <StatNumber>37</StatNumber>
+                  <StatNumber>{stats?.userStats.weekly.count}</StatNumber>
                 </Box>
 
                 <UserIcon boxSize="8" />
               </Flex>
               <StatHelpText>
-                <StatArrow type="increase" />
-                17.05% - Semanal
+                <StatArrow
+                  type={arrowType(stats?.userStats.weekly.increaseadPercent)}
+                />
+                {stats?.userStats.weekly.increaseadPercent}% - Semanal
               </StatHelpText>
             </Flex>
           </Stat>
@@ -112,14 +119,16 @@ const Admin: NextPage = () => {
               >
                 <Box>
                   <StatLabel>Quantidade de Pedidos</StatLabel>
-                  <StatNumber>43</StatNumber>
+                  <StatNumber>{stats?.orderStats.weekly.count}</StatNumber>
                 </Box>
 
                 <BagIcon boxSize="8" />
               </Flex>
               <StatHelpText>
-                <StatArrow type="increase" />
-                12.05% - Mensal
+                <StatArrow
+                  type={arrowType(stats?.orderStats.weekly.increaseadPercent)}
+                />
+                {stats?.orderStats.weekly.increaseadPercent}% - Mensal
               </StatHelpText>
             </Flex>
           </Stat>
@@ -140,14 +149,18 @@ const Admin: NextPage = () => {
               >
                 <Box>
                   <StatLabel>Total de Vendas</StatLabel>
-                  <StatNumber>R$ 14.359,44</StatNumber>
+                  <StatNumber>
+                    {toCurrencyBRL(stats?.salesStats.weekly.total || 0)}
+                  </StatNumber>
                 </Box>
 
                 <CoinIcon boxSize="8" />
               </Flex>
               <StatHelpText>
-                <StatArrow type="increase" />
-                7% - Semanal
+                <StatArrow
+                  type={arrowType(stats?.salesStats.weekly.increaseadPercent)}
+                />
+                {stats?.salesStats.weekly.increaseadPercent}% - Semanal
               </StatHelpText>
             </Flex>
           </Stat>

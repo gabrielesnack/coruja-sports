@@ -15,8 +15,16 @@ import {
 import format from 'date-fns/format'
 import { toCurrencyBRL } from '../../../commons/helpers/currency'
 import { OrderItemProps } from './interface'
+import { v5 as uuidv5 } from 'uuid'
 
-export const OrderItem = ({ total, createadAt }: OrderItemProps) => {
+export const OrderItem = ({
+  id,
+  items,
+  total,
+  status,
+  addressIdentifier,
+  createadAt,
+}: OrderItemProps) => {
   const { isOpen, onToggle } = useDisclosure()
 
   const formattedDate = format(new Date(createadAt), 'dd/MM/yyyy')
@@ -45,7 +53,7 @@ export const OrderItem = ({ total, createadAt }: OrderItemProps) => {
           px="2"
           fontSize="x-small"
         >
-          Pedido em análise
+          {status}
         </Badge>
         <Grid
           templateColumns={[
@@ -61,7 +69,9 @@ export const OrderItem = ({ total, createadAt }: OrderItemProps) => {
             <Text color="blackAlpha.700" fontWeight="semibold">
               Código do Pedido
             </Text>
-            <Text>#A8S123MA897</Text>
+            <Text>
+              {uuidv5(String(id), '1b671a64-40d5-491e-99b0-da01ff1f3341')}
+            </Text>
           </Box>
           <Box>
             <Text color="blackAlpha.700" fontWeight="semibold">
@@ -79,7 +89,7 @@ export const OrderItem = ({ total, createadAt }: OrderItemProps) => {
             <Text color="blackAlpha.700" fontWeight="semibold">
               Local de Entrega
             </Text>
-            <Text>Casa</Text>
+            <Text>{addressIdentifier}</Text>
           </Box>
         </Grid>
 
@@ -108,79 +118,46 @@ export const OrderItem = ({ total, createadAt }: OrderItemProps) => {
       <Collapse in={isOpen} animateOpacity>
         <Divider my="4" />
         <List spacing="4">
-          <ListItem>
-            <Flex gap="8">
-              <Box boxSize="96px" position="relative">
-                <Image src="/camiseta.jpeg" alt="camiseta" />
-                <Badge
-                  colorScheme="gray"
-                  pos="absolute"
-                  right="0"
-                  bottom="0"
-                  rounded="0"
-                >
-                  <Text color="blackAlpha.800">2</Text>
-                </Badge>
-              </Box>
+          {items.map((item) => (
+            <ListItem key={`order-${id}-item-${item.id}`}>
+              <Flex mb="4" gap="8">
+                <Box boxSize="96px" position="relative">
+                  <Image src={item.image} alt="camiseta" />
+                  <Badge
+                    colorScheme="gray"
+                    pos="absolute"
+                    right="0"
+                    bottom="0"
+                    rounded="0"
+                  >
+                    <Text color="blackAlpha.800">{item.quantity}</Text>
+                  </Badge>
+                </Box>
 
-              <Flex
-                flexDir="column"
-                justifyContent="space-between"
-                maxW="calc(100% - 140px)"
-              >
-                <Text
-                  color="blue.600"
-                  fontWeight="semibold"
-                  noOfLines={1}
-                  pr="1"
+                <Flex
+                  flexDir="column"
+                  justifyContent="space-between"
+                  maxW="calc(100% - 140px)"
                 >
-                  Camiseta do santos retrô
-                </Text>
-                <Text color="blackAlpha.800">Tamanho: P</Text>
-                <Text color="blackAlpha.800">
-                  Código de Rastreio: #HE466U434S52M1AHK
-                </Text>
-                <Text fontWeight="bold">R$ 79,00</Text>
+                  <Text
+                    color="blue.600"
+                    fontWeight="semibold"
+                    noOfLines={1}
+                    pr="1"
+                  >
+                    {item.name}
+                  </Text>
+                  <Text color="blackAlpha.800">{item.variation}</Text>
+                  <Text color="blackAlpha.800">
+                    Código de Rastreio: {item.trackingCode || 'indisponível'}
+                  </Text>
+                  <Text fontWeight="bold">{toCurrencyBRL(item.price)}</Text>
+                </Flex>
               </Flex>
-            </Flex>
-          </ListItem>
-          <Divider />
-          <ListItem>
-            <Flex gap="8">
-              <Box boxSize="96px" position="relative">
-                <Image src="/camiseta.jpeg" alt="camiseta" />
-                <Badge
-                  colorScheme="gray"
-                  pos="absolute"
-                  right="0"
-                  bottom="0"
-                  rounded="0"
-                >
-                  <Text color="blackAlpha.800">5</Text>
-                </Badge>
-              </Box>
 
-              <Flex
-                flexDir="column"
-                justifyContent="space-between"
-                maxW="calc(100% - 140px)"
-              >
-                <Text
-                  color="blue.600"
-                  fontWeight="semibold"
-                  noOfLines={1}
-                  pr="1"
-                >
-                  Camiseta do santos retrô
-                </Text>
-                <Text color="blackAlpha.800">Tamanho: M</Text>
-                <Text color="blackAlpha.800">
-                  Código de Rastreio: #HE466U434S52M1AHK
-                </Text>
-                <Text fontWeight="bold">R$ 79,00</Text>
-              </Flex>
-            </Flex>
-          </ListItem>
+              <Divider />
+            </ListItem>
+          ))}
         </List>
       </Collapse>
     </Box>
