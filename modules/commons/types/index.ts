@@ -3,7 +3,7 @@ export type ProductResponseType = {
   name: string
   description: string
   price: number
-  provider: string
+  provider: ProviderType
   variations: ProductVarationsType[]
   images: string[]
 }
@@ -15,6 +15,15 @@ export type ProductType = Omit<ProductResponseType, 'variations'> & {
 type ProductVarationsType = {
   Tamanho: string[]
   Cor: string[]
+}
+
+type ProviderType = {
+  created_at: string
+  email: string
+  id: number
+  name: string
+  phone: string
+  site: string
 }
 
 export type CategoriesType = {

@@ -16,6 +16,7 @@ import format from 'date-fns/format'
 import { toCurrencyBRL } from '../../../commons/helpers/currency'
 import { OrderItemProps } from './interface'
 import { v5 as uuidv5 } from 'uuid'
+import { CancelOrderModal } from '../CancelOrderModal'
 
 export const OrderItem = ({
   id,
@@ -98,21 +99,13 @@ export const OrderItem = ({
             w={['100%', null, 'fit-content']}
             size="sm"
             variant="outline"
-            colorScheme="danger"
-            borderRadius="0"
-          >
-            Cancelar
-          </Button>
-          <Button
-            w={['100%', null, 'fit-content']}
-            size="sm"
-            variant="outline"
             colorScheme="info"
             borderRadius="0"
             onClick={onToggle}
           >
-            Ver Detalhes
+            Detalhes
           </Button>
+          <CancelOrderModal id={id} />
         </Flex>
       </Flex>
       <Collapse in={isOpen} animateOpacity>

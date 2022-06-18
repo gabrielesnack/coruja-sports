@@ -11,15 +11,19 @@ import {
   useEditableControls,
   Text,
 } from '@chakra-ui/react'
+import { CodeTrackEditableWrapperProps } from './interface'
 
-export const CodeTrackEditableWrapper: React.FC = ({ children }) => {
+export const CodeTrackEditableWrapper: React.FC<
+  CodeTrackEditableWrapperProps
+> = ({ children, onSubmit, defaultValue }) => {
   return (
     <Editable
       d="flex"
       alignItems="center"
-      defaultValue="#AJ2KODJ1209381"
       fontSize="sm"
       isPreviewFocusable={false}
+      onSubmit={(e) => onSubmit(e)}
+      defaultValue={defaultValue}
     >
       {children}
     </Editable>

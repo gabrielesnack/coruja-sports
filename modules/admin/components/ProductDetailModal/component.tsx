@@ -102,7 +102,7 @@ export const ProductDetailModal = ({ id }: ProductDetailModalProps) => {
                   w="100%"
                 >
                   <Text fontWeight="semibold">Fornecedor: </Text>
-                  <Text fontWeight="bold">{data?.provider}</Text>
+                  {/* <Text fontWeight="bold">{data?.provider}</Text> */}
                 </Box>
 
                 <Box
@@ -142,7 +142,10 @@ export const ProductDetailModal = ({ id }: ProductDetailModalProps) => {
                   <Text fontWeight="semibold">Tamanhos: </Text>
                   <Flex gap="4" flexFlow="wrap">
                     {data?.sizes.map((e) => (
-                      <Badge colorScheme="blue" key={e.id}>
+                      <Badge
+                        colorScheme="blue"
+                        key={`product-${id}-size-${e.id}`}
+                      >
                         {e.name}
                       </Badge>
                     ))}

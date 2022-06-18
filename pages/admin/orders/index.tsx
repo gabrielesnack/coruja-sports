@@ -16,10 +16,13 @@ import {
   Tr,
 } from '@chakra-ui/react'
 import { Select } from 'chakra-react-select'
+import { format } from 'date-fns'
 import { useRouter } from 'next/router'
 import { NextPage } from 'next/types'
 import { useRef } from 'react'
 import { EditOrderModal } from '../../../modules/admin/components/EditOrderModal'
+import { useCancelOrder } from '../../../modules/admin/hooks/useCancelOrder'
+import { useOrders } from '../../../modules/admin/hooks/useOrders'
 import ClientOnly from '../../../modules/commons/components/ClientOnly'
 import {
   ConfirmModalRef,
@@ -29,12 +32,25 @@ import Footer from '../../../modules/commons/components/Footer'
 import Header from '../../../modules/commons/components/Header'
 import { Layout } from '../../../modules/commons/components/Layout'
 import { CONTAINER_PROPS } from '../../../modules/commons/config/constants'
+import { toCurrencyBRL } from '../../../modules/commons/helpers/currency'
+import { useStatus } from '../../../modules/commons/hooks/useStatus'
 import { EditIcon, PencilIcon, TrashIcon } from '../../../modules/commons/icons'
 
 const ManageOrders: NextPage = () => {
   const router = useRouter()
 
   const confirmDialog = useRef<ConfirmModalRef>(null)
+
+  const { orders, findOrderBy } = useOrders()
+  const { listStatus } = useStatus()
+
+  const { submit } = useCancelOrder()
+
+  const onCancel = (id: number) => {
+    submit(id)
+  }
+
+  const formattedDate = (str: Date) => format(new Date(str), 'dd/MM/yyyy')
 
   return (
     <ClientOnly>
@@ -71,11 +87,8 @@ const ManageOrders: NextPage = () => {
                 <Select
                   size="sm"
                   placeholder="Filtrar"
-                  options={[
-                    { label: 'Todos', value: 'all' },
-                    { label: 'Solicitação Cancelamento', value: 'undo' },
-                    { label: 'Reembolsados', value: 'refund' },
-                  ]}
+                  onChange={(e) => findOrderBy(e?.value)}
+                  options={listStatus}
                 />
               </Box>
             </Flex>
@@ -95,35 +108,43 @@ const ManageOrders: NextPage = () => {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  <Tr>
-                    <Td>#94817283</Td>
-                    <Td>Gabriel Jorge</Td>
-                    <Td>
-                      <Badge variant="solid" colorScheme="green" size="sm">
-                        Enviado
-                      </Badge>
-                    </Td>
-                    <Td>R$ 317,00</Td>
-                    <Td>18/05/2022</Td>
-                    <Td>
-                      <Flex gap="4">
-                        <EditOrderModal />
-                        <IconButton
-                          variant="ghost"
-                          color="danger"
-                          size="sm"
-                          aria-label="cancelar"
-                          icon={<TrashIcon />}
-                          onClick={() => {
-                            confirmDialog.current?.openDialog({
-                              describe: '',
-                              onConfirm: () => {},
-                            })
-                          }}
-                        />
-                      </Flex>
-                    </Td>
-                  </Tr>
+                  {orders?.map((order) => (
+                    <Tr key={order.id}>
+                      <Td>{order.id}</Td>
+                      <Td>{order.user.name}</Td>
+                      <Td>
+                        <Badge
+                          variant="solid"
+                          colorScheme="blue"
+                          fontSize="x-small"
+                        >
+                          {order.status}
+                        </Badge>
+                      </Td>
+                      <Td>{toCurrencyBRL(order.total)}</Td>
+                      <Td>{formattedDate(order.createadAt)}</Td>
+                      <Td>
+                        <Flex gap="4">
+                          <EditOrderModal {...order} />
+                          <IconButton
+                            variant="ghost"
+                            color="danger"
+                            size="sm"
+                            aria-label="cancelar"
+                            icon={<TrashIcon />}
+                            onClick={() => {
+                              confirmDialog.current?.openDialog({
+                                describe: `O pedido de ${order.user.name} será cancelado.`,
+                                onConfirm: () => {
+                                  onCancel(order.id)
+                                },
+                              })
+                            }}
+                          />
+                        </Flex>
+                      </Td>
+                    </Tr>
+                  ))}
                 </Tbody>
               </Table>
             </TableContainer>
