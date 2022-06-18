@@ -55,11 +55,14 @@ export const SupplierForm = ({
             {...register('name')}
           />
         </Field>
+        <Field isInvalid={!!errors.site} errMsg={errors.site?.message}>
+          <Input placeholder="SITE" size="md" {...register('site')} />
+        </Field>
         <Field isInvalid={!!errors.email} errMsg={errors.email?.message}>
           <Input placeholder="EMAIL" size="md" {...register('email')} />
         </Field>
-        <Field isInvalid={!!errors.telefone} errMsg={errors.telefone?.message}>
-          <Input placeholder="TELEFONE" size="md" {...register('telefone')} />
+        <Field isInvalid={!!errors.phone} errMsg={errors.phone?.message}>
+          <Input placeholder="TELEFONE" size="md" {...register('phone')} />
         </Field>
       </Grid>
 

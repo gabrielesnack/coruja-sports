@@ -8,14 +8,21 @@ export const useCreateOrUpdateSupplier = () => {
   const [isLoading, setLoading] = useState(false)
   const toast = useToast()
 
-  const submit = async ({ id, cnpj, name, apiCode }: SupplierSubmitProps) => {
+  const submit = async ({
+    id,
+    email,
+    site,
+    name,
+    phone,
+  }: SupplierSubmitProps) => {
     setLoading(true)
 
     try {
       const payload = {
-        cnpj: CNPJValidator.strip(cnpj),
         name,
-        api_code: apiCode,
+        site,
+        email,
+        phone,
       }
 
       const url = id ? `providers/${id}` : 'providers'

@@ -1,15 +1,17 @@
 export type SupplierType = {
   id: number
   name: string
+  site: string
   email: string
-  telefone: string
+  phone: string
 }
 
 export type SupplierResponseType = {
   id: number
   name: string
+  site: string
   email: string
-  telefone: string
+  phone: string
 }
 
 export type FetcherResponse<TData> = {

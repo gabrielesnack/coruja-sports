@@ -68,6 +68,7 @@ const ManageSuppliers: NextPage = () => {
                 <Thead>
                   <Tr>
                     <Th>Nome</Th>
+                    <Th>Site</Th>
                     <Th>Email</Th>
                     <Th>Telefone</Th>
                     <Th>Ações</Th>
@@ -77,8 +78,9 @@ const ManageSuppliers: NextPage = () => {
                   {suppliers?.data?.map((item) => (
                     <Tr key={item.id}>
                       <Td>{item.name}</Td>
-                      <Td>-</Td>
-                      <Td>-</Td>
+                      <Td>{item.site}</Td>
+                      <Td>{item.email}</Td>
+                      <Td>{item.phone}</Td>
                       <Td>
                         <Flex gap="4">
                           <IconButton

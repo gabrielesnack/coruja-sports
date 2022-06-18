@@ -20,6 +20,7 @@ import { NextPage } from 'next/types'
 import { useRef } from 'react'
 import { ProductDetailModal } from '../../../modules/admin/components/ProductDetailModal'
 import { useDeleteProduct } from '../../../modules/admin/hooks/useDeleteProduct'
+import ClientOnly from '../../../modules/commons/components/ClientOnly'
 import {
   ModalConfirm,
   ConfirmModalRef,
@@ -63,112 +64,116 @@ const ManageProduct: NextPage = () => {
   }
 
   return (
-    <Layout header={<Header></Header>} footer={<Footer></Footer>}>
-      <Container {...CONTAINER_PROPS} mb="12">
-        <Flex
-          flexDir={['column', null, null, 'row']}
-          justifyContent="space-between"
-          alignItems="center"
-          mt="12"
-          mb="6"
-        >
-          <Heading
-            fontSize="2xl"
-            textAlign={['center', null, null, 'left']}
-            mb={[6, null, 0]}
+    <ClientOnly>
+      <Layout header={<Header></Header>} footer={<Footer></Footer>}>
+        <Container {...CONTAINER_PROPS} mb="12">
+          <Flex
+            flexDir={['column', null, null, 'row']}
+            justifyContent="space-between"
+            alignItems="center"
+            mt="12"
+            mb="6"
           >
-            Bem vindo a sessão de produtos
-          </Heading>
+            <Heading
+              fontSize="2xl"
+              textAlign={['center', null, null, 'left']}
+              mb={[6, null, 0]}
+            >
+              Bem vindo a sessão de produtos
+            </Heading>
 
-          <Flex gap="4">
+            <Flex gap="4">
+              <Button
+                colorScheme="primary"
+                size="sm"
+                onClick={() => router.push('products/categories')}
+              >
+                Nova Categoria
+              </Button>
+              <Button
+                colorScheme="primary"
+                size="sm"
+                onClick={() => router.push('products/create')}
+              >
+                Novo Produto
+              </Button>
+            </Flex>
+          </Flex>
+
+          <Flex justifyContent="end" mb="6" gap="4">
+            <Input
+              ref={ref}
+              bg="whiteAlpha.900"
+              w={['100%', null, null, 'min-content']}
+              placeholder="Buscar Produto"
+              size="sm"
+              onKeyPress={onEnter}
+            />
             <Button
               colorScheme="primary"
+              variant="outline"
               size="sm"
-              onClick={() => router.push('products/categories')}
+              rounded={0}
+              onClick={onSearch}
             >
-              Nova Categoria
-            </Button>
-            <Button
-              colorScheme="primary"
-              size="sm"
-              onClick={() => router.push('products/create')}
-            >
-              Novo Produto
+              Buscar
             </Button>
           </Flex>
-        </Flex>
 
-        <Flex justifyContent="end" mb="6" gap="4">
-          <Input
-            ref={ref}
-            bg="whiteAlpha.900"
-            w={['100%', null, null, 'min-content']}
-            placeholder="Buscar Produto"
-            size="sm"
-            onKeyPress={onEnter}
-          />
-          <Button
-            colorScheme="primary"
-            variant="outline"
-            size="sm"
-            rounded={0}
-            onClick={onSearch}
-          >
-            Buscar
-          </Button>
-        </Flex>
-
-        <Box bgColor="whiteAlpha.900" boxShadow="xl" p="1" borderWidth="1px">
-          <TableContainer>
-            <Table size="sm" variant="striped" colorScheme="blackAlpha">
-              <Thead>
-                <Tr>
-                  <Th>Nome</Th>
-                  <Th>Fornecedor</Th>
-                  <Th>Preço</Th>
-                  <Th></Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {products?.data.map((product) => (
-                  <Tr key={product.id}>
-                    <Td>{product.name}</Td>
-                    <Td>{product.provider}</Td>
-                    <Td>{toCurrencyBRL(product.price)}</Td>
-                    <Td>
-                      <Flex>
-                        <IconButton
-                          variant="ghost"
-                          color="info"
-                          aria-label="editar"
-                          icon={<EditIcon />}
-                          onClick={() => router.push(`products/${product.id}`)}
-                        />
-                        <ProductDetailModal id={product.id} />
-                        <IconButton
-                          variant="ghost"
-                          color="danger"
-                          aria-label="excluir"
-                          icon={<TrashIcon />}
-                          onClick={() => {
-                            confirmDialog.current?.openDialog({
-                              describe: `A camiseta ${product.name} será removida e após a confirmação a ação não poderá ser desfeita.`,
-                              onConfirm: () => onDelete(product.id),
-                            })
-                          }}
-                        />
-                      </Flex>
-                    </Td>
+          <Box bgColor="whiteAlpha.900" boxShadow="xl" p="1" borderWidth="1px">
+            <TableContainer>
+              <Table size="sm" variant="striped" colorScheme="blackAlpha">
+                <Thead>
+                  <Tr>
+                    <Th>Nome</Th>
+                    <Th>Fornecedor</Th>
+                    <Th>Preço</Th>
+                    <Th></Th>
                   </Tr>
-                ))}
-              </Tbody>
-            </Table>
-          </TableContainer>
-        </Box>
-      </Container>
+                </Thead>
+                <Tbody>
+                  {products?.data.map((product) => (
+                    <Tr key={`product-${product.id}`}>
+                      <Td>{product.name}</Td>
+                      <Td>{product.provider.name}</Td>
+                      <Td>{toCurrencyBRL(product.price)}</Td>
+                      <Td>
+                        <Flex>
+                          <IconButton
+                            variant="ghost"
+                            color="info"
+                            aria-label="editar"
+                            icon={<EditIcon />}
+                            onClick={() =>
+                              router.push(`products/${product.id}`)
+                            }
+                          />
+                          <ProductDetailModal id={product.id} />
+                          <IconButton
+                            variant="ghost"
+                            color="danger"
+                            aria-label="excluir"
+                            icon={<TrashIcon />}
+                            onClick={() => {
+                              confirmDialog.current?.openDialog({
+                                describe: `A camiseta ${product.name} será removida e após a confirmação a ação não poderá ser desfeita.`,
+                                onConfirm: () => onDelete(product.id),
+                              })
+                            }}
+                          />
+                        </Flex>
+                      </Td>
+                    </Tr>
+                  ))}
+                </Tbody>
+              </Table>
+            </TableContainer>
+          </Box>
+        </Container>
 
-      <ModalConfirm ref={confirmDialog} />
-    </Layout>
+        <ModalConfirm ref={confirmDialog} />
+      </Layout>
+    </ClientOnly>
   )
 }
 
