@@ -17,7 +17,6 @@ import {
 } from '@chakra-ui/react'
 import { Select } from 'chakra-react-select'
 import { format } from 'date-fns'
-import { useRouter } from 'next/router'
 import { NextPage } from 'next/types'
 import { useRef } from 'react'
 import { EditOrderModal } from '../../../modules/admin/components/EditOrderModal'
@@ -34,11 +33,10 @@ import { Layout } from '../../../modules/commons/components/Layout'
 import { CONTAINER_PROPS } from '../../../modules/commons/config/constants'
 import { toCurrencyBRL } from '../../../modules/commons/helpers/currency'
 import { useStatus } from '../../../modules/commons/hooks/useStatus'
-import { EditIcon, PencilIcon, TrashIcon } from '../../../modules/commons/icons'
+import { TrashIcon } from '../../../modules/commons/icons'
+import { ProtectRoute } from '../../../modules/commons/components/ProtectRoute'
 
 const ManageOrders: NextPage = () => {
-  const router = useRouter()
-
   const confirmDialog = useRef<ConfirmModalRef>(null)
 
   const { orders, findOrderBy } = useOrders()
@@ -157,4 +155,4 @@ const ManageOrders: NextPage = () => {
   )
 }
 
-export default ManageOrders
+export default ProtectRoute(['admin', 'employee'], ManageOrders)

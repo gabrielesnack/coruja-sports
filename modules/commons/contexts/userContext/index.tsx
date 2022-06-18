@@ -1,16 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { fetchAPI } from '../../helpers/fetchApi'
 import { StorageHandler } from '../../helpers/storageHandler'
-import { UserContextType, UserProviderProps, UserType } from './interface'
+import {
+  UserContextType,
+  UserProviderProps,
+  UserStatusType,
+  UserType,
+} from './interface'
 
 const UserContext = React.createContext<UserContextType>({
   setUser: () => null,
   logout: () => null,
-  isLogged: false,
+  userStatus: 'idle',
 })
 
 const UserProvider = ({ children }: UserProviderProps) => {
   const [user, setUser] = useState<UserType | undefined>()
+  const [userStatus, setUserStatus] = useState<UserStatusType>('idle')
 
   function handleUser(props: UserType) {
     setUser((state) => ({ ...state, ...props }))
@@ -18,6 +24,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
 
   function logout() {
     setUser(undefined)
+    setUserStatus('offline')
     StorageHandler().clear()
   }
 
@@ -27,9 +34,11 @@ const UserProvider = ({ children }: UserProviderProps) => {
     try {
       const response = await fetchAPI.get<UserType>('user')
 
-      const { email, id, name } = response.data
-      handleUser({ email, id, name })
+      const { email, id, name, roles } = response.data
+      handleUser({ email, id, name, roles })
+      setUserStatus('online')
     } catch (err: ReturnType<Error>) {
+      setUserStatus('offline')
       StorageHandler().clear()
     }
   }
@@ -40,7 +49,12 @@ const UserProvider = ({ children }: UserProviderProps) => {
 
   return (
     <UserContext.Provider
-      value={{ user, setUser: handleUser, isLogged: !!user, logout }}
+      value={{
+        user,
+        setUser: handleUser,
+        userStatus,
+        logout,
+      }}
     >
       {children}
     </UserContext.Provider>

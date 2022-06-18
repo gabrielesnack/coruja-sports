@@ -4,13 +4,19 @@ export type UserType = {
   id: number
   name: string
   email: string
+  roles: {
+    id: number
+    role: string
+  }[]
 }
 
+export type UserStatusType = 'idle' | 'online' | 'offline'
+
 export type UserContextType = {
+  userStatus: UserStatusType
   user?: UserType
   setUser: (props: UserType) => void
   logout: () => void
-  isLogged: boolean
 }
 
 export type UserProviderProps = {

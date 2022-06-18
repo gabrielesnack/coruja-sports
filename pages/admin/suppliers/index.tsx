@@ -14,11 +14,9 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
-import { cnpj } from 'cpf-cnpj-validator'
 import { useRouter } from 'next/router'
 import { NextPage } from 'next/types'
 import { useRef } from 'react'
-import { useSWRConfig } from 'swr'
 import { useDeleteSupplier } from '../../../modules/admin/hooks/useDeleteSupplier'
 import { useGetSupplier } from '../../../modules/admin/hooks/useSupplier'
 import {
@@ -28,6 +26,7 @@ import {
 import Footer from '../../../modules/commons/components/Footer'
 import Header from '../../../modules/commons/components/Header'
 import { Layout } from '../../../modules/commons/components/Layout'
+import { ProtectRoute } from '../../../modules/commons/components/ProtectRoute'
 import { CONTAINER_PROPS } from '../../../modules/commons/config/constants'
 import { TrashIcon } from '../../../modules/commons/icons'
 
@@ -120,4 +119,4 @@ const ManageSuppliers: NextPage = () => {
   )
 }
 
-export default ManageSuppliers
+export default ProtectRoute(['admin', 'employee'], ManageSuppliers)

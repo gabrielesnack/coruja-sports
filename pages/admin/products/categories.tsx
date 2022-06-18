@@ -1,13 +1,8 @@
-import { EditIcon } from '@chakra-ui/icons'
 import {
   Box,
-  Button,
   Container,
-  FormControl,
-  Grid,
   Heading,
   IconButton,
-  Input,
   Table,
   TableContainer,
   Tbody,
@@ -26,7 +21,6 @@ import {
   ConfirmModalRef,
   ModalConfirm,
 } from '../../../modules/commons/components/ConfirmModal'
-import { Field } from '../../../modules/commons/components/Field'
 import Footer from '../../../modules/commons/components/Footer'
 import Header from '../../../modules/commons/components/Header'
 import { Layout } from '../../../modules/commons/components/Layout'
@@ -34,6 +28,7 @@ import { CONTAINER_PROPS } from '../../../modules/commons/config/constants'
 import { useCategories } from '../../../modules/commons/hooks/useCategories'
 import { TrashIcon } from '../../../modules/commons/icons'
 import { CategoriesType } from '../../../modules/commons/types'
+import { ProtectRoute } from '../../../modules/commons/components/ProtectRoute'
 
 const ManageCategories: NextPage = () => {
   const { categories, mutate } = useCategories()
@@ -127,4 +122,4 @@ const ManageCategories: NextPage = () => {
   )
 }
 
-export default ManageCategories
+export default ProtectRoute(['admin', 'employee'], ManageCategories)

@@ -18,8 +18,10 @@ import { useStats } from '../../modules/admin/hooks/useStats'
 import Footer from '../../modules/commons/components/Footer'
 import Header from '../../modules/commons/components/Header'
 import { Layout } from '../../modules/commons/components/Layout'
+import { ProtectRoute } from '../../modules/commons/components/ProtectRoute'
 import { CONTAINER_PROPS } from '../../modules/commons/config/constants'
 import { toCurrencyBRL } from '../../modules/commons/helpers/currency'
+import { useUserHasPermission } from '../../modules/commons/hooks/useHasPermission'
 import {
   BagIcon,
   CoinIcon,
@@ -33,6 +35,8 @@ import {
 const Admin: NextPage = () => {
   const router = useRouter()
   const { stats } = useStats()
+
+  const { isAdmin } = useUserHasPermission()
 
   const arrowType = (v?: number) => (v >= 0 ? 'increase' : 'decrease')
 
@@ -175,37 +179,39 @@ const Admin: NextPage = () => {
           gap="6"
           mb="10"
         >
-          <Box
-            p="6"
-            boxShadow="sm"
-            bgColor="whiteAlpha.900"
-            borderWidth="1px"
-            borderRadius="md"
-            cursor="pointer"
-            onClick={() => router.push('/admin/collaborators/')}
-          >
-            <Flex
-              flexDir="column"
-              justifyContent="center"
-              alignItems="center"
-              gap="4"
+          {isAdmin && (
+            <Box
+              p="6"
+              boxShadow="sm"
+              bgColor="whiteAlpha.900"
+              borderWidth="1px"
+              borderRadius="md"
+              cursor="pointer"
+              onClick={() => router.push('/admin/collaborators/')}
             >
-              <Text
-                fontSize="sm"
-                textAlign="center"
-                fontWeight="bold"
-                textTransform="uppercase"
+              <Flex
+                flexDir="column"
+                justifyContent="center"
+                alignItems="center"
+                gap="4"
               >
-                Gerenciar Colaborador
-              </Text>
+                <Text
+                  fontSize="sm"
+                  textAlign="center"
+                  fontWeight="bold"
+                  textTransform="uppercase"
+                >
+                  Gerenciar Colaborador
+                </Text>
 
-              <PeopleIcon boxSize="20" />
+                <PeopleIcon boxSize="20" />
 
-              <Badge colorScheme="blue" alignSelf="self-end">
-                Utilizar
-              </Badge>
-            </Flex>
-          </Box>
+                <Badge colorScheme="blue" alignSelf="self-end">
+                  Utilizar
+                </Badge>
+              </Flex>
+            </Box>
+          )}
           <Box
             p="6"
             boxShadow="sm"
@@ -307,4 +313,4 @@ const Admin: NextPage = () => {
   )
 }
 
-export default Admin
+export default ProtectRoute(['admin', 'employee'], Admin)

@@ -5,6 +5,7 @@ import Header from '../../../modules/commons/components/Header'
 import { Layout } from '../../../modules/commons/components/Layout'
 import { CONTAINER_PROPS } from '../../../modules/commons/config/constants'
 import { ProductForm } from '../../../modules/admin/components/ProductForm'
+import { ProtectRoute } from '../../../modules/commons/components/ProtectRoute'
 
 const CreateProduct: NextPage = () => {
   return (
@@ -20,4 +21,4 @@ const CreateProduct: NextPage = () => {
   )
 }
 
-export default CreateProduct
+export default ProtectRoute(['admin', 'employee'], CreateProduct)

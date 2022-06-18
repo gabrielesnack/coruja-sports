@@ -13,16 +13,22 @@ import {
 import { useUserContext } from '../../contexts/userContext'
 import { getFirstName } from './props'
 import { useRouter } from 'next/router'
+import { useUserHasPermission } from '../../hooks/useHasPermission'
 
 export const UserMenu = () => {
-  const { isLogged, user, logout } = useUserContext()
+  const { userStatus, user, logout } = useUserContext()
+  const { isAdmin, isEmployee } = useUserHasPermission()
+
+  const isOnline = userStatus === 'online'
+  const canSeeAdminLink = isAdmin || isEmployee
+
   const router = useRouter()
 
   const firstName = getFirstName(user?.name || '')
 
   return (
     <>
-      {isLogged && (
+      {isOnline && (
         <Menu>
           <MenuButton
             as={Button}
@@ -37,9 +43,11 @@ export const UserMenu = () => {
             <MenuItem onClick={() => router.push('/profile/me')}>
               Meu Perfil
             </MenuItem>
-            <MenuItem onClick={() => router.push('/admin')}>
-              Painel Admin
-            </MenuItem>
+            {canSeeAdminLink && (
+              <MenuItem onClick={() => router.push('/admin')}>
+                Painel Admin
+              </MenuItem>
+            )}
             <MenuDivider />
             <MenuItem color="danger" onClick={logout}>
               Sair
@@ -48,7 +56,7 @@ export const UserMenu = () => {
         </Menu>
       )}
 
-      {!isLogged && (
+      {!isOnline && (
         <>
           <NextLink href="/sign-up" passHref>
             <Link fontWeight="semibold" variant="link" colorScheme="secondary">

@@ -21,7 +21,9 @@ export function MobileContent() {
   const { isOpen: isOpenSectionChampions, onToggle: onToggleChampions } =
     useDisclosure()
 
-  const { isLogged, logout } = useUserContext()
+  const { userStatus, logout } = useUserContext()
+
+  const isOnline = userStatus === 'online'
 
   const router = useRouter()
 
@@ -76,7 +78,7 @@ export function MobileContent() {
       </Box>
 
       <Flex h="100%" flexDirection="column" justifyContent="flex-end" gap="4">
-        {!isLogged && (
+        {!isOnline && (
           <>
             <Button colorScheme="primary" onClick={() => router.push('/login')}>
               Entrar
@@ -90,7 +92,7 @@ export function MobileContent() {
             </Button>
           </>
         )}
-        {isLogged && (
+        {isOnline && (
           <Button colorScheme="danger" variant="outline" onClick={logout}>
             Sair
           </Button>

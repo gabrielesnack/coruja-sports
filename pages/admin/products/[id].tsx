@@ -11,10 +11,7 @@ import {
   ProductFormProps,
   ProductInputsValues,
 } from '../../../modules/admin/components/ProductForm/interface'
-import { OptionType } from '../../../modules/commons/types'
-import { ProductDetailType } from '../../../modules/commons/hooks/useProductDetail/interface'
-import { useGetSupplier } from '../../../modules/admin/hooks/useSupplier'
-import { toOption } from '../../../modules/admin/components/ProductForm/props'
+import { ProtectRoute } from '../../../modules/commons/components/ProtectRoute'
 
 const UpdateProduct: NextPage = () => {
   const router = useRouter()
@@ -49,4 +46,4 @@ const UpdateProduct: NextPage = () => {
   )
 }
 
-export default UpdateProduct
+export default ProtectRoute(['admin', 'employee'], UpdateProduct)

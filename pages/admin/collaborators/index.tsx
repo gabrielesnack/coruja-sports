@@ -15,7 +15,6 @@ import {
   IconButton,
   FormControl,
 } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
 import { NextPage } from 'next/types'
 import { useRef } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -33,9 +32,9 @@ import Header from '../../../modules/commons/components/Header'
 import { Layout } from '../../../modules/commons/components/Layout'
 import { CONTAINER_PROPS } from '../../../modules/commons/config/constants'
 import { TrashIcon } from '../../../modules/commons/icons'
+import { ProtectRoute } from '../../../modules/commons/components/ProtectRoute'
 
 const ManageCollaborators: NextPage = () => {
-  const router = useRouter()
   const confirmDialog = useRef<ConfirmModalRef>(null)
 
   const {
@@ -135,4 +134,4 @@ const ManageCollaborators: NextPage = () => {
   )
 }
 
-export default ManageCollaborators
+export default ProtectRoute(['admin'], ManageCollaborators)

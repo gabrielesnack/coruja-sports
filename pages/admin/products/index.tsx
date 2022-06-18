@@ -32,6 +32,7 @@ import { CONTAINER_PROPS } from '../../../modules/commons/config/constants'
 import { toCurrencyBRL } from '../../../modules/commons/helpers/currency'
 import { useProduct } from '../../../modules/commons/hooks/useProduct'
 import { TrashIcon } from '../../../modules/commons/icons'
+import { ProtectRoute } from '../../../modules/commons/components/ProtectRoute'
 
 const ManageProduct: NextPage = () => {
   const router = useRouter()
@@ -177,4 +178,4 @@ const ManageProduct: NextPage = () => {
   )
 }
 
-export default ManageProduct
+export default ProtectRoute(['admin', 'employee'], ManageProduct)
