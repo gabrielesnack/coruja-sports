@@ -56,7 +56,17 @@ function HeaderDesktop() {
               </MenuButton>
               <MenuList>
                 {categories?.data.map((e, idx) => (
-                  <MenuItem key={`championship-${e.id}`}>{e.name}</MenuItem>
+                  <MenuItem
+                    key={`championship-${e.id}`}
+                    onClick={() =>
+                      router.push({
+                        pathname: '/search',
+                        query: { categoriesIds: e.id },
+                      })
+                    }
+                  >
+                    {e.name}
+                  </MenuItem>
                 ))}
               </MenuList>
             </Menu>

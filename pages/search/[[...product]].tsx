@@ -1,5 +1,9 @@
 import { Container, Flex, Heading, Show, Text } from '@chakra-ui/react'
-import { GetStaticPropsContext, NextPage } from 'next'
+import {
+  GetServerSidePropsContext,
+  GetStaticPropsContext,
+  NextPage,
+} from 'next'
 import Footer from '../../modules/commons/components/Footer'
 import Header from '../../modules/commons/components/Header'
 import { Layout } from '../../modules/commons/components/Layout'
@@ -9,41 +13,56 @@ import { hasItemArray } from '../../modules/commons/helpers/hasItemArray'
 import {
   CategoriesType,
   ProductResponseType,
+  SizeResponseType,
 } from '../../modules/commons/types'
 import { SearchAside } from '../../modules/shopping/components/SearchAside'
 import { SearchFilter } from '../../modules/shopping/components/SearchFilter/'
 import { SearchList } from '../../modules/shopping/components/SearchList'
 import { SearchSorting } from '../../modules/shopping/components/SearchSorting'
+import {
+  SearchProvider,
+  useSearchContext,
+} from '../../modules/shopping/context/SearchContext'
+import { useSearchProducts } from '../../modules/shopping/hooks/useSearchProducts'
 
 type SearchProps = {
   categories?: CategoriesType[]
+  sizes: SizeResponseType[]
   products?: ProductResponseType[]
   product?: string
 }
 
 type PageParams = {
   product: string
+  categoriesIds?: string
+  sizesIds?: string
 }
 
-export async function getStaticPaths() {
-  const paths = ['/search/santos'] // pre-render paths, one day we can bring the main searches
-
-  return { paths, fallback: true } // on-demand if the path doesn't exist.
-}
-
-export async function getStaticProps(ctx: GetStaticPropsContext<PageParams>) {
+export async function getServerSideProps(
+  ctx: GetServerSidePropsContext<PageParams>
+) {
   let products = null
   let categories = null
+  let sizes = null
+
   const term = ctx.params?.product || ''
+  const categoriesIds = ctx.query?.categoriesIds || ''
+  const sizesIds = ctx.query?.sizesIds || ''
 
   try {
     const resProd = await fetchAPI.get<ProductResponseType[]>(
-      `products?search=${term}`
+      `products?search=${term}&category_ids=${categoriesIds}&variation_ids=${sizesIds}`
     )
     const resCat = await fetchAPI.get<ProductResponseType[]>(`categories`)
 
+    const resSizes = await fetchAPI.get<SizeResponseType[]>(
+      `products/variations`
+    )
+
     if (hasItemArray(resProd.data)) products = resProd.data
     if (hasItemArray(resCat.data)) categories = resCat.data
+    if (hasItemArray(resSizes.data))
+      sizes = resSizes.data.filter((e) => e.variation_type_id === 1)
   } catch (err: ReturnType<Error>) {
     throw err
   }
@@ -51,20 +70,23 @@ export async function getStaticProps(ctx: GetStaticPropsContext<PageParams>) {
   return {
     props: {
       categories,
+      sizes,
       products,
       product: term,
-      errorCode: 500,
     },
-    revalidate: 60,
   }
 }
 
 const SearchProduct: NextPage<SearchProps> = ({
   categories,
-  products,
+  sizes,
+  products: loadProducts,
   product,
 }) => {
-  const hasProducts = !!products
+  const { products: refreshProducts } = useSearchContext()
+  const products = refreshProducts || loadProducts
+
+  const hasProducts = !!products && products.length > 0
 
   const hasResultMessage =
     hasProducts &&
@@ -103,7 +125,9 @@ const SearchProduct: NextPage<SearchProps> = ({
         </Flex>
 
         <Flex w="100%">
-          {categories && <SearchAside categories={categories} />}
+          {categories && sizes && (
+            <SearchAside categories={categories} sizes={sizes} />
+          )}
 
           {products && <SearchList products={products} />}
         </Flex>
@@ -112,4 +136,8 @@ const SearchProduct: NextPage<SearchProps> = ({
   )
 }
 
-export default SearchProduct
+export default (props: SearchProps) => (
+  <SearchProvider>
+    <SearchProduct {...props} />
+  </SearchProvider>
+)

@@ -5,6 +5,8 @@ import React, { useState } from 'react'
 
 const InputSearch = () => {
   const router = useRouter()
+  const { product, ...query } = router.query
+
   const [value, setValue] = useState<string>('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -13,13 +15,13 @@ const InputSearch = () => {
 
   const handleOnEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e && (e?.code === 'Enter' || e?.code === 'NumpadEnter')) {
-      router.push(`/search/${value}`)
+      router.push({ pathname: `/search/${value}`, query })
       return
     }
   }
 
   const handleOnClick = () => {
-    router.push(`/search/${value}`)
+    router.push({ pathname: `/search/${value}`, query })
   }
 
   return (

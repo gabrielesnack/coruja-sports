@@ -1,7 +1,30 @@
-import { Box, Checkbox, Heading, Radio, Text } from '@chakra-ui/react'
+import {
+  Box,
+  Checkbox,
+  CheckboxGroup,
+  Heading,
+  Radio,
+  RadioGroup,
+  Text,
+} from '@chakra-ui/react'
+import ClientOnly from '../../../commons/components/ClientOnly'
+import { useSearchContext } from '../../context/SearchContext'
 import { SearchAsideProps } from './interface'
 
-export const SearchAside = ({ categories }: SearchAsideProps) => {
+export const SearchAside = ({ categories, sizes }: SearchAsideProps) => {
+  const { category, changeCategory, variations, changeVariations } =
+    useSearchContext()
+
+  console.log({ category, variations })
+
+  const handleCategory = (id: string) => {
+    changeCategory && changeCategory(id)
+  }
+
+  const handleSizes = (sizes: string[]) => {
+    changeVariations && changeVariations(sizes)
+  }
+
   return (
     <Box
       d={['none', null, null, 'initial']}
@@ -18,29 +41,40 @@ export const SearchAside = ({ categories }: SearchAsideProps) => {
         Categorias
       </Heading>
 
-      {categories.map((item) => (
-        <Box key={`categoria-${item.id}`} mb="1">
-          <Radio>
-            <Text fontSize="sm" fontWeight="semibold" color="gray.600">
-              {item.name}
-            </Text>
-          </Radio>
-        </Box>
-      ))}
+      <ClientOnly>
+        <RadioGroup onChange={(v) => handleCategory(v)} value={category}>
+          {categories.map((item) => (
+            <Box key={`categoria-${item.id}`} mb="1">
+              <Radio value={String(item.id)}>
+                <Text fontSize="sm" fontWeight="semibold" color="gray.600">
+                  {item.name}
+                </Text>
+              </Radio>
+            </Box>
+          ))}
+        </RadioGroup>
+      </ClientOnly>
 
       <Heading my="6" fontSize="lg" textAlign="center">
         Tamanhos
       </Heading>
 
-      {['PP', 'P', 'M', 'G', 'GG', 'XG', 'XGG'].map((item, idx) => (
-        <Box key={`categoria-${idx}`} mb="1">
-          <Checkbox>
-            <Text fontSize="sm" fontWeight="semibold" color="gray.600">
-              {item}
-            </Text>
-          </Checkbox>
-        </Box>
-      ))}
+      <ClientOnly>
+        <CheckboxGroup
+          onChange={(v) => handleSizes(v as string[])}
+          value={variations}
+        >
+          {sizes.map((item) => (
+            <Box key={`size-${item.id}`} mb="1">
+              <Checkbox value={String(item.id)}>
+                <Text fontSize="sm" fontWeight="semibold" color="gray.600">
+                  {item.name}
+                </Text>
+              </Checkbox>
+            </Box>
+          ))}
+        </CheckboxGroup>
+      </ClientOnly>
     </Box>
   )
 }

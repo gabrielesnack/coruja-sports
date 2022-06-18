@@ -41,3 +41,9 @@ export type OptionType<TValue> = {
   label: string
   value: TValue
 }
+
+export type SizeResponseType = {
+  id: number
+  variation_type_id: number
+  name: string
+}
