@@ -4,6 +4,7 @@ import { StorageHandler } from '../../helpers/storageHandler'
 import {
   UserContextType,
   UserProviderProps,
+  UserResponse,
   UserStatusType,
   UserType,
 } from './interface'
@@ -29,13 +30,32 @@ const UserProvider = ({ children }: UserProviderProps) => {
   }
 
   async function getUser() {
-    if (!StorageHandler().hasToken() || user) return
+    if (!StorageHandler().hasToken() || user) {
+      setUserStatus('offline')
+      return
+    }
 
     try {
-      const response = await fetchAPI.get<UserType>('user')
+      const response = await fetchAPI.get<UserResponse>('user')
 
-      const { email, id, name, roles } = response.data
-      handleUser({ email, id, name, roles })
+      const {
+        email,
+        id,
+        name,
+        cpf,
+        roles,
+        birth_date: birthDate,
+        phone_number: phone,
+      } = response.data
+      handleUser({
+        email,
+        id,
+        name,
+        roles,
+        birthDate: birthDate ? new Date(birthDate) : undefined,
+        phone,
+        cpf,
+      })
       setUserStatus('online')
     } catch (err: ReturnType<Error>) {
       setUserStatus('offline')

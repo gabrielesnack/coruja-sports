@@ -11,11 +11,14 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import ClientOnly from '../../../commons/components/ClientOnly'
+import { useUserContext } from '../../../commons/contexts/userContext'
 import { EyeIcon, EyeSlashIcon } from '../../../commons/icons'
 
 export const Configuration = () => {
   const [show, setShow] = useState(false)
   const showPass = () => setShow(!show)
+
+  const { user } = useUserContext()
 
   return (
     <Flex flexDir="column" gap="12">
@@ -24,7 +27,7 @@ export const Configuration = () => {
           <Text fontSize="sm" fontWeight="semibold" color="gray.500">
             Email
           </Text>
-          <Input defaultValue="nilton.antune@gmail.com" />
+          <Input defaultValue={user?.email} disabled />
         </Box>
 
         <GridItem />
@@ -70,15 +73,6 @@ export const Configuration = () => {
             </InputGroup>
           </ClientOnly>
         </Box>
-
-        <Box d="flex" flexDir="column" gap="2">
-          <Text fontSize="sm" fontWeight="semibold" color="gray.500">
-            Número de telefone
-          </Text>
-          <Input defaultValue="(97) 2896-6222" />
-        </Box>
-
-        <GridItem></GridItem>
 
         <Box d="flex" flexDir="column" gap="8" pt="6">
           <Button

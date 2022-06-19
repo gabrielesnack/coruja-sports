@@ -4,10 +4,18 @@ export type UserType = {
   id: number
   name: string
   email: string
+  cpf: string
+  phone: string
+  birthDate?: Date
   roles: {
     id: number
     role: string
   }[]
+}
+
+export type UserResponse = Omit<UserType, 'birthDate'> & {
+  birth_date?: Date
+  phone_number: string
 }
 
 export type UserStatusType = 'idle' | 'online' | 'offline'
