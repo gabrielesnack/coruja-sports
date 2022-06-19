@@ -102,7 +102,7 @@ export const ProductDetailModal = ({ id }: ProductDetailModalProps) => {
                   w="100%"
                 >
                   <Text fontWeight="semibold">Fornecedor: </Text>
-                  {/* <Text fontWeight="bold">{data?.provider}</Text> */}
+                  <Text fontWeight="bold">{data?.provider.name}</Text>
                 </Box>
 
                 <Box
@@ -127,8 +127,11 @@ export const ProductDetailModal = ({ id }: ProductDetailModalProps) => {
                 >
                   <Text fontWeight="semibold">Categorias: </Text>
                   <Flex gap="4" flexFlow="wrap">
-                    <Badge colorScheme="blue">La Liga</Badge>
-                    <Badge colorScheme="blue">Brasileirão</Badge>
+                    {data?.categories.map((e) => (
+                      <Badge colorScheme="blue" key={`category-${e.id}`}>
+                        {e.name}
+                      </Badge>
+                    ))}
                   </Flex>
                 </Box>
 
