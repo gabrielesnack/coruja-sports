@@ -15,8 +15,6 @@ export const SearchAside = ({ categories, sizes }: SearchAsideProps) => {
   const { category, changeCategory, variations, changeVariations } =
     useSearchContext()
 
-  console.log({ category, variations })
-
   const handleCategory = (id: string) => {
     changeCategory && changeCategory(id)
   }

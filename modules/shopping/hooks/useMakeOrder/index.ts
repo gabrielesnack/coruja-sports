@@ -27,8 +27,6 @@ export const useMakeOrder = () => {
 
       setLoading(false)
 
-      console.log({ response })
-
       toast({
         title: 'Seu pedido foi criado com sucesso',
         status: 'success',

@@ -36,7 +36,6 @@ export const SignUpForm = () => {
     passwordConfirmation,
     ...rest
   }) => {
-    console.log('ola')
     registerUser(rest)
   }
 

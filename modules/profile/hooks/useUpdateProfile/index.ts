@@ -41,7 +41,6 @@ export const useUpdateProfile = () => {
       }
     } catch (err) {
       setLoading(false)
-      console.log(err)
 
       toast({
         title: 'Não foi possível atualizar as informações',

@@ -40,7 +40,6 @@ export const useCreateAddress = () => {
       )
 
       const data = parseAddress(response.data)
-      console.log(data)
 
       setLoading(false)
 
