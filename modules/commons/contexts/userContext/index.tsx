@@ -30,8 +30,13 @@ const UserProvider = ({ children }: UserProviderProps) => {
   }
 
   async function getUser() {
-    if (!StorageHandler().hasToken() || user) {
-      setUserStatus('offline')
+    const hasToken = StorageHandler().hasToken()
+
+    if (!hasToken || user) {
+      if (!hasToken) {
+        setUserStatus('offline')
+        StorageHandler().clear()
+      }
       return
     }
 

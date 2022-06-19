@@ -29,6 +29,7 @@ async function fetchFactory<TResponse>(
   const url = `${process.env.NEXT_PUBLIC_API_URL}${path}`
 
   const token = StorageHandler().getSessionToken()
+
   const Authorization = token ? `Bearear ${token}` : ''
 
   const body = options?.body ? JSON.stringify(options.body) : undefined

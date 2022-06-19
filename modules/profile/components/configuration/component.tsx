@@ -42,7 +42,6 @@ export const Configuration = () => {
                 pr="4.5rem"
                 type={show ? 'text' : 'password'}
                 placeholder="Digite sua senha"
-                defaultValue="951283012asdlasd"
               />
               <InputRightElement width="4.5rem">
                 <Box onClick={showPass} cursor="pointer">
@@ -63,7 +62,6 @@ export const Configuration = () => {
                 pr="4.5rem"
                 type={show ? 'text' : 'password'}
                 placeholder="Digite sua senha"
-                defaultValue="951283012asdlasd"
               />
               <InputRightElement width="4.5rem">
                 <Box onClick={showPass} cursor="pointer">

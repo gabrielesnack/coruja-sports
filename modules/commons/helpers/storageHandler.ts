@@ -12,7 +12,9 @@ export function StorageHandler() {
   }
 
   function hasToken() {
-    return !!getSessionToken()
+    const token = getSessionToken()
+
+    return !!token
   }
 
   function clear() {
