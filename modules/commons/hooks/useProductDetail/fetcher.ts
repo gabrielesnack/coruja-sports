@@ -12,9 +12,10 @@ export const fetcher = async (url: string): Promise<ProductDetailType> => {
       images,
       is_highlight: isHighlight,
       product_providers: providers,
+      categories,
     } = response.data
 
-    const { price, variations } = providers[0] // products are registered by only one provider
+    const { price, variations, provider } = providers[0] // products are registered by only one provider
 
     const filterVarationsBySize = variations.filter(
       (e) => e.variation_type.name === 'Tamanho'
@@ -35,6 +36,8 @@ export const fetcher = async (url: string): Promise<ProductDetailType> => {
       isHighlight,
       price,
       sizes,
+      categories,
+      provider,
     }
   } catch (err) {
     throw err

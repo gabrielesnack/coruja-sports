@@ -44,13 +44,19 @@ export const useMakeOrder = () => {
         } as MakeOrderPayload,
       }
     } catch (err) {
+      const data = await err.json()
+      let isAddressError = data.errors[0].param === 'user_address_id'
+
+      const description = isAddressError
+        ? 'Por favor insira um endereço de entrega'
+        : 'Tente novamente mais tarde ou entre em contato com a nossa equipe.'
+
       setLoading(false)
 
       toast({
         title: 'Ocorreu um erro durante a criação do pedido',
-        description:
-          'Tente novamente mais tarde ou entre em contato com a nossa equipe.',
-        status: 'success',
+        description,
+        status: 'error',
         duration: 2000,
         isClosable: true,
         position: 'top-right',

@@ -13,6 +13,8 @@ const UserContext = React.createContext<UserContextType>({
   setUser: () => null,
   logout: () => null,
   userStatus: 'idle',
+  isOnline: false,
+  isOffline: false,
 })
 
 const UserProvider = ({ children }: UserProviderProps) => {
@@ -78,6 +80,8 @@ const UserProvider = ({ children }: UserProviderProps) => {
         user,
         setUser: handleUser,
         userStatus,
+        isOnline: userStatus === 'online',
+        isOffline: userStatus === 'offline',
         logout,
       }}
     >

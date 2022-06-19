@@ -5,6 +5,12 @@ export type ProductDetailResponse = {
   is_highlight: boolean
   product_providers: ProductProvidersResponse[]
   images: ImagesResponse[]
+  categories: ProductCategoryResponse[]
+}
+
+export type ProductCategoryResponse = {
+  id: number
+  name: string
 }
 
 export type ImagesResponse = {
@@ -16,6 +22,7 @@ export type ProductProvidersResponse = {
   id: number
   product_id: number
   provider_id: number
+  provider: ProductProviderType
   price: number
   variations: ProviderVariationsResponse[]
 }
@@ -45,6 +52,13 @@ export type ProductDetailType = {
   price: number
   sizes: ProductSizesType[]
   images: ImagesResponse[]
+  categories: ProductCategoryResponse[]
+  provider: ProductProviderType
+}
+
+export type ProductProviderType = {
+  id: number
+  name: string
 }
 
 export type ProductSizesType = {

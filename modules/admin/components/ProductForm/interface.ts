@@ -13,9 +13,9 @@ export type ProductInputs = {
 
 export type ProductInputsValues = ProductInputs & {
   id?: number
-  provider: OptionType<number>
-  sizes: OptionType<number>[]
-  categories: OptionType<number>[]
+  provider?: OptionType<number>
+  sizes?: OptionType<number>[]
+  categories?: OptionType<number>[]
 }
 
 export type ProductFormProps = {

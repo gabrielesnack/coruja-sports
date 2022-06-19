@@ -21,6 +21,8 @@ export type UserResponse = Omit<UserType, 'birthDate'> & {
 export type UserStatusType = 'idle' | 'online' | 'offline'
 
 export type UserContextType = {
+  isOnline: boolean
+  isOffline: boolean
   userStatus: UserStatusType
   user?: UserType
   setUser: (props: UserType) => void

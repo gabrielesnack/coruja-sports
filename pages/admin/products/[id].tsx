@@ -12,6 +12,8 @@ import {
   ProductInputsValues,
 } from '../../../modules/admin/components/ProductForm/interface'
 import { ProtectRoute } from '../../../modules/commons/components/ProtectRoute'
+import { OptionType } from '../../../modules/commons/types'
+import { toOption } from './props'
 
 const UpdateProduct: NextPage = () => {
   const router = useRouter()
@@ -27,10 +29,11 @@ const UpdateProduct: NextPage = () => {
     image: data?.images[0].url,
     isHighlight: !!data?.isHighlight,
     price: data?.price,
-    sizes: data?.sizes.map(({ id, name }) => ({
-      label: name,
-      value: id,
-    })) as ProductInputsValues['sizes'],
+    categories: data?.categories.map(
+      toOption
+    ) as ProductInputsValues['categories'],
+    sizes: data?.sizes.map(toOption) as ProductInputsValues['sizes'],
+    provider: data?.provider ? toOption(data?.provider) : undefined,
   }
 
   return (
