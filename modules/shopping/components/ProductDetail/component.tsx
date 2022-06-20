@@ -1,4 +1,3 @@
-import { StarIcon } from '@chakra-ui/icons'
 import {
   Box,
   Flex,
@@ -12,7 +11,7 @@ import {
   useToast,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toCurrencyBRL } from '../../../commons/helpers/currency'
 import { useProductDetail } from '../../../commons/hooks/useProductDetail'
 import { ProductDetailType } from '../../../commons/hooks/useProductDetail/interface'
@@ -26,18 +25,23 @@ export const ProductDetail = ({ id }: ProductDetailProps) => {
   const showMore = useDisclosure()
 
   const [quantity, setQuantity] = useState<number>(1)
-  const [size, setSize] = useState<number>(1)
+  const [size, setSize] = useState<number>()
 
   const { add } = useCartContext()
   const { data } = useProductDetail(id)
   const product = data as ProductDetailType
 
+  useEffect(() => {
+    data && setSize(data?.sizes[0].id)
+  }, [data])
+
   const handleAddItem = () => {
     const productProviderVariationId = product.sizes.find(
-      (e) => e.id === size
+      (e) => e.id == size
     )?.productProviderVariationId
 
     if (!productProviderVariationId) return
+
     if (add) {
       add({ id: productProviderVariationId, product, quantity })
       toast({
@@ -114,8 +118,13 @@ export const ProductDetail = ({ id }: ProductDetailProps) => {
               size="md"
               onChange={(e) => setSize(Number(e.target?.value))}
             >
-              {product.sizes.map((size) => (
-                <Box as="option" key={`size-${size.id}`} value={size.id}>
+              {product.sizes.map((size, idx) => (
+                <Box
+                  as="option"
+                  key={`size-${size.id}`}
+                  value={size.id}
+                  defaultChecked={idx === 0}
+                >
                   {size.name}
                 </Box>
               ))}
