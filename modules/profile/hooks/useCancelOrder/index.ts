@@ -10,7 +10,11 @@ export const useCancelOrder = () => {
     setLoading(true)
 
     try {
-      await fetchAPI.post(`orders/${id}/cancel`)
+      await fetchAPI.post(`orders/${id}/request-cancel`, {
+        body: {
+          reason,
+        },
+      })
 
       toast({
         title: 'Pedido cancelado com sucesso.',

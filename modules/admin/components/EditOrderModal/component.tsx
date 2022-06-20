@@ -32,6 +32,7 @@ import { useStatus } from '../../../commons/hooks/useStatus'
 import { OptionType } from '../../../commons/types'
 import { OrderType } from '../../hooks/useOrders/interface'
 import { useUpdateOrder } from '../../hooks/useUpdateOrder'
+import { SubmitUpdateOrderProps } from '../../hooks/useUpdateOrder/interface'
 import {
   CodeTrackEditable,
   CodeTrackEditableWrapper,
@@ -54,7 +55,7 @@ export const EditOrderModal = ({
   const { submit } = useUpdateOrder()
 
   const { control, handleSubmit } = useForm<EditOrderInputs>({
-    resolver: yupResolver(schemaValidation(items.length - 2)),
+    resolver: yupResolver(schemaValidation(items.length - 1)),
     defaultValues: {
       status: listStatus.find(
         (e) => e.value === String(statusId)
@@ -70,7 +71,7 @@ export const EditOrderModal = ({
   const onSave = () => {
     handleSubmit(
       (data) => {
-        submit({ id, ...data })
+        submit({ id, ...data } as SubmitUpdateOrderProps)
       },
       (fields) => {
         const err = Object.keys(fields)
@@ -119,7 +120,7 @@ export const EditOrderModal = ({
               </Heading>
               <Collapse startingHeight={120} in={showMore.isOpen}>
                 <List d="flex" flexDir="column" gap="4" px="2">
-                  {items.map((e) => (
+                  {items.map((e, idx) => (
                     <ListItem key={`item-${id}-${e.id}`}>
                       <Box alignItems="center" gap="4" mb="2">
                         <Text fontSize="md" noOfLines={1}>
@@ -131,7 +132,7 @@ export const EditOrderModal = ({
                         </Text>
                         <Controller
                           control={control}
-                          name={`items.${e.id}`}
+                          name={`items.${idx}`}
                           render={({ field }) => (
                             <CodeTrackEditableWrapper
                               onSubmit={(code) =>

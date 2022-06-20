@@ -1,6 +1,7 @@
 import { useToast } from '@chakra-ui/react'
 import { useState } from 'react'
 import { fetchAPI } from '../../../commons/helpers/fetchApi'
+import { isDeliveringOrder } from '../../../commons/hooks/useStatus'
 import { EditOrderInputs } from '../../components/EditOrderModal/interface'
 import { SubmitUpdateOrderProps } from './interface'
 
@@ -14,12 +15,17 @@ export const useUpdateOrder = () => {
     try {
       const payload = {
         status_id: status,
-        items: items
-          .filter((e) => !!e)
-          .map(({ id, code }) => ({
-            item_id: id,
-            delivery_tracking_code: code,
-          })),
+      }
+
+      if (isDeliveringOrder(status)) {
+        Object.assign(payload, {
+          items: items
+            .filter((e) => !!e)
+            .map(({ id, code }) => ({
+              item_id: id,
+              delivery_tracking_code: code,
+            })),
+        })
       }
 
       await fetchAPI.put(`orders/${id}/status`, {

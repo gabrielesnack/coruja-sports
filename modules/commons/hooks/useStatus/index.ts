@@ -16,3 +16,5 @@ export const useStatus = () => {
     listStatus,
   }
 }
+
+export const isDeliveringOrder = (value: string | number) => '5' == value
