@@ -80,7 +80,7 @@ const ManageProduct: NextPage = () => {
               textAlign={['center', null, null, 'left']}
               mb={[6, null, 0]}
             >
-              Bem vindo a sessão de produtos
+              Bem-vindo a sessão de produtos
             </Heading>
 
             <Flex gap="4">

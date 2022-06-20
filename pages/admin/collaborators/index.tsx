@@ -66,7 +66,7 @@ const ManageCollaborators: NextPage = () => {
         <Container {...CONTAINER_PROPS} py="10">
           <Flex justifyContent="space-between" alignItems="center" mb="10">
             <Heading fontSize="2xl">
-              Bem vindo a sessão de colaboradores
+              Bem-vindo a sessão de colaboradores
             </Heading>
 
             <FormControl w="auto" as="form" onSubmit={handleSubmit(onCreate)}>

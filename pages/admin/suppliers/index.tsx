@@ -47,7 +47,7 @@ const ManageSuppliers: NextPage = () => {
     <Layout header={<Header />} footer={<Footer />}>
       <Container {...CONTAINER_PROPS} py="10">
         <Flex justifyContent="space-between" alignItems="center" mb="10">
-          <Heading fontSize="2xl">Bem vindo a sessão de fornecedores</Heading>
+          <Heading fontSize="2xl">Bem-vindo a sessão de fornecedores</Heading>
 
           <Flex gap="4">
             <Button

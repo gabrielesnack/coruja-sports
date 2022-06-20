@@ -44,7 +44,7 @@ const Admin: NextPage = () => {
     <Layout header={<Header />} footer={<Footer />}>
       <Container {...CONTAINER_PROPS} py="10">
         <Heading fontSize="2xl" mb="10">
-          Bem vindo a sessão administrativa
+          Bem-vindo a sessão administrativa
         </Heading>
 
         <Grid
