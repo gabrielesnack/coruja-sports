@@ -11,9 +11,9 @@ export const schemaValidation = (minItems: number) =>
     status: yup
       .string()
       .required('Defina o status do pedido, antes de salvar.'),
-    items: yup
-      .array()
-      .of(option)
-      .required('Preencha todos os códigos de rastreio.')
-      .min(minItems, 'Preencha todos os códigos de rastreio'),
+    // items: yup
+    //   .array()
+    //   .of(option)
+    //   .required('Preencha todos os códigos de rastreio.')
+    //   .min(minItems, 'Preencha todos os códigos de rastreio'),
   })

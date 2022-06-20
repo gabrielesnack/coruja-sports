@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import React, { useContext, useEffect, useState } from 'react'
 import { useIsClient } from '../../../commons/hooks/useIsClient'
 import { ProductResponseType } from '../../../commons/types'
-import { fetcher } from '../../hooks/useSearchProducts/fetcher'
+import { fetcher } from './fetcher'
 
 const SearchContext = React.createContext(
   {} as {
@@ -54,6 +54,7 @@ export const SearchProvider: React.FC = ({ children }) => {
     const url = `products?search=${term}&category_ids=${category}&variation_ids=${sizes}&sort_price=${sortPrice}`
 
     const response = await fetcher(url)
+    console.log(response)
     if (response.ok)
       setProducts(response.data as unknown as ProductResponseType[])
   }

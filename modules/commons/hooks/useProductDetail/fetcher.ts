@@ -28,6 +28,8 @@ export const fetcher = async (url: string): Promise<ProductDetailType> => {
       variationTypeName: size.variation_type.name,
     }))
 
+    console.log(sizes)
+
     return {
       id,
       name,

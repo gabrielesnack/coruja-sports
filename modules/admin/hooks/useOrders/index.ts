@@ -2,14 +2,15 @@ import { useState } from 'react'
 import useSWR from 'swr'
 import { fetcher } from './fetcher'
 
-export const useOrders = (init = 1) => {
+export const useOrders = (init?: number | undefined) => {
   const [currentStatus, findOrderBy] = useState<string | undefined>(
-    String(init)
+    init ? String(init) : ''
   )
 
-  const { data, error } = useSWR(
-    `/orders/admin?status_id=${currentStatus}`,
-    (url: string) => fetcher(url)
+  const param = currentStatus ? `?status_id=${currentStatus}` : ''
+
+  const { data, error } = useSWR(`/orders/admin${param}`, (url: string) =>
+    fetcher(url)
   )
 
   return {

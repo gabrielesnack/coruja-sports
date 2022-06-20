@@ -86,7 +86,7 @@ const ManageOrders: NextPage = () => {
                   size="sm"
                   placeholder="Filtrar"
                   onChange={(e) => findOrderBy(e?.value)}
-                  options={listStatus}
+                  options={[{ label: 'Todos', value: '' }, ...listStatus]}
                 />
               </Box>
             </Flex>

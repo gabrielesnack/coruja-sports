@@ -7,6 +7,7 @@ import {
   Link,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useRouter } from 'next/router'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Field } from '../../../commons/components/Field'
 import { InputPassword } from '../../../commons/components/InputPassword'
@@ -15,6 +16,8 @@ import { LoginInputsType } from './inteface'
 import { schemaValidation } from './props'
 
 export const LoginForm = () => {
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -81,6 +84,7 @@ export const LoginForm = () => {
             variant="outline"
             isDisabled={isLoading}
             isLoading={isLoading}
+            onClick={() => router.push('/sign-up')}
           >
             Criar uma conta
           </Button>

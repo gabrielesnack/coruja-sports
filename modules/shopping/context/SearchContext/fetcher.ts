@@ -4,6 +4,7 @@ import { ProductResponseType } from '../../../commons/types'
 export const parseProductResponseType = (data: ProductResponseType[]) => {
   return data.map(({ variations, ...rest }) => ({
     ...rest,
+    variations,
     sizes: variations[0].Tamanho,
   }))
 }

@@ -54,7 +54,7 @@ export const EditOrderModal = ({
   const { submit } = useUpdateOrder()
 
   const { control, handleSubmit } = useForm<EditOrderInputs>({
-    resolver: yupResolver(schemaValidation(items.length - 1)),
+    resolver: yupResolver(schemaValidation(items.length - 2)),
     defaultValues: {
       status: listStatus.find(
         (e) => e.value === String(statusId)

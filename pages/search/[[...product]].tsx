@@ -1,9 +1,5 @@
 import { Container, Flex, Heading, Show, Text } from '@chakra-ui/react'
-import {
-  GetServerSidePropsContext,
-  GetStaticPropsContext,
-  NextPage,
-} from 'next'
+import { GetServerSidePropsContext, NextPage } from 'next'
 import Footer from '../../modules/commons/components/Footer'
 import Header from '../../modules/commons/components/Header'
 import { Layout } from '../../modules/commons/components/Layout'
@@ -23,7 +19,6 @@ import {
   SearchProvider,
   useSearchContext,
 } from '../../modules/shopping/context/SearchContext'
-import { useSearchProducts } from '../../modules/shopping/hooks/useSearchProducts'
 
 type SearchProps = {
   categories?: CategoriesType[]
