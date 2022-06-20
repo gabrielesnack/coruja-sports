@@ -32,9 +32,13 @@ import Header from '../../../modules/commons/components/Header'
 import { Layout } from '../../../modules/commons/components/Layout'
 import { CONTAINER_PROPS } from '../../../modules/commons/config/constants'
 import { toCurrencyBRL } from '../../../modules/commons/helpers/currency'
-import { useStatus } from '../../../modules/commons/hooks/useStatus'
+import {
+  isRequestingCancel,
+  useStatus,
+} from '../../../modules/commons/hooks/useStatus'
 import { TrashIcon } from '../../../modules/commons/icons'
 import { ProtectRoute } from '../../../modules/commons/components/ProtectRoute'
+import { CancelOrderModal } from '../../../modules/admin/components/CancelOrderModal'
 
 const ManageOrders: NextPage = () => {
   const confirmDialog = useRef<ConfirmModalRef>(null)
@@ -124,21 +128,25 @@ const ManageOrders: NextPage = () => {
                       <Td>
                         <Flex gap="4">
                           <EditOrderModal {...order} />
-                          <IconButton
-                            variant="ghost"
-                            color="danger"
-                            size="sm"
-                            aria-label="cancelar"
-                            icon={<TrashIcon />}
-                            onClick={() => {
-                              confirmDialog.current?.openDialog({
-                                describe: `O pedido de ${order.user.name} será cancelado.`,
-                                onConfirm: () => {
-                                  onCancel(order.id)
-                                },
-                              })
-                            }}
-                          />
+                          {isRequestingCancel(order.statusId) ? (
+                            <IconButton
+                              variant="ghost"
+                              color="danger"
+                              size="sm"
+                              aria-label="cancelar"
+                              icon={<TrashIcon />}
+                              onClick={() => {
+                                confirmDialog.current?.openDialog({
+                                  describe: `O pedido de ${order.user.name} será cancelado.`,
+                                  onConfirm: () => {
+                                    onCancel(order.id)
+                                  },
+                                })
+                              }}
+                            />
+                          ) : (
+                            <CancelOrderModal id={order.id} />
+                          )}
                         </Flex>
                       </Td>
                     </Tr>

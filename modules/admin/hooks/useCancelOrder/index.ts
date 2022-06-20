@@ -6,11 +6,13 @@ export const useCancelOrder = () => {
   const [isLoading, setLoading] = useState(false)
   const toast = useToast()
 
-  const submit = async (id: number) => {
+  const submit = async (id: number, reason?: string) => {
     setLoading(true)
 
     try {
-      await fetchAPI.post(`orders/${id}/cancel`)
+      await fetchAPI.post(`orders/${id}/cancel`, {
+        body: reason ? { reason } : undefined,
+      })
 
       toast({
         title: 'Pedido cancelado com sucesso.',

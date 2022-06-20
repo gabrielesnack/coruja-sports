@@ -18,3 +18,4 @@ export const useStatus = () => {
 }
 
 export const isDeliveringOrder = (value: string | number) => '5' == value
+export const isRequestingCancel = (value: string | number) => '7' == value

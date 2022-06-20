@@ -16,6 +16,5 @@ export const schemaValidation = yup
     state: option
       .typeError('O campo Estado é obrigatório')
       .required('O campo Estado é obrigatório.'),
-    complement: yup.string().required('O campo Complemento é obrigatório.'),
   })
   .required()
