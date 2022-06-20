@@ -23,7 +23,7 @@ export const Logo = () => {
       />
 
       <Heading pos="relative" left="-1.75rem" as="h1" fontSize="xl">
-        Corujas Sports
+        Coruja Sports
       </Heading>
     </GridItem>
   )
