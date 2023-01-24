@@ -1,29 +1,31 @@
 # Coruja Sports
 
-Projeto de conclusão de curso Ecommerce baseado em camisetas e acessórios de esporte.
+It is my project of conclusion of university, it is a ecommerce of team shirts.
 
-## Instalando dependências
+# Techs
 
-Caso você ja tenha o node instalado primeiramente rode o comando:
+- Next.js
+- Chakra ui
+
+You need to install backend wich was made by colleague of university
+[TCC-Backend](https://github.com/Uchihinha/tcc-backend)
+
+it's important to say that we didn't hosted the backend app and so if you try to use front app that is hosted it will not work as the last version locally. obviously you need to run backend as well. 
+
+## How to install the front APP
+
+If you have already node installed just use the follow command:
 
 ```bash
 yarn install
 ```
 
-## Começando
+## Starting
 
-Para inicializar o servidor de desenvolvimento:
+To initialize the serve:
 
 ```bash
 yarn dev
 ```
 
-Abra o link [http://localhost:3000](http://localhost:3000) em seu navegador.
-
-## Instalando extensões para desenvolvimento
-
-É necessário instalar o prettier para manter o código identado.
-
-<div align="center">
-<img src="./public/how-to-install-prettier.png" width="700px">
-</div>
+Open the link [http://localhost:3000](http://localhost:3000) in your browser.
